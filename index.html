@@ -229,7 +229,7 @@
             
 
   
-    <article id="post-exception" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-tcp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -237,7 +237,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/02/19/exception/" target="_blank">【C++系列】C++中的异常处理机制</a>
+	  <a class="article-title" href="/02/16/tcp/" target="_blank">【网络系列】TCP到底是怎么保证可靠性的？快来get一下！</a>
   
     </h1>
   
@@ -245,8 +245,8 @@
 
   
   
-<a href="/02/19/exception/" class="archive-article-date">
-        <time datetime="2021-02-19T12:34:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-19</time>
+<a href="/02/16/tcp/" class="archive-article-date">
+        <time datetime="2021-02-16T15:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-16</time>
 </a>
 
   
@@ -258,9 +258,193 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="传统C中处理错误的方式"><a href="#传统C中处理错误的方式" class="headerlink" title="传统C中处理错误的方式"></a>传统C中处理错误的方式</h2><p>以往我们在写C语言程序时，当用户的错误输入或者非期望结果发生时我们的程序有可能就会开始不正确的走向，此时我们为了程序的可靠性和健壮性往往需要对结果进行判断，并且防止一些非预期行为的发生。
+    <h4 id="协议字段"><a href="#协议字段" class="headerlink" title="协议字段"></a>协议字段</h4><p>&emsp; 1、16位源端口：标识数据从哪个进程来。<br>  2、16位目的端口：标识数据到哪个进程去。<br>  3、32位序号：用于进行包序管理。
     
-    <a class="article-more-a" href="/02/19/exception/#more">more >></a>
+    <a class="article-more-a" href="/02/16/tcp/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">network</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">TCP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/02/16/tcp/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-udp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/02/13/udp/" target="_blank">【网络系列】传输层协议UDP头部解析、网络通信编程实现</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/02/13/udp/" class="archive-article-date">
+        <time datetime="2021-02-13T15:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-13</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="传输层协议"><a href="#传输层协议" class="headerlink" title="传输层协议"></a>传输层协议</h3><p>  传输层负责端与端之间的数据传输，其中典型协议为TCP协议和UDP协议。<br>  <strong>TCP协议</strong>是TCP/IP协议栈中的传输层的典型协议，叫传输控制协议，面向连接，可靠传输，提供字节流服务。<br>  <strong>UDP协议</strong>是TCP/IP协议栈中的传输层的典型协议，叫用户数据报协议，无连接，不可靠，提供数据报传输服务。</p>
+    
+    <a class="article-more-a" href="/02/13/udp/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">network</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">udp</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/02/13/udp/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-singleton" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/02/06/singleton/" target="_blank">【设计模式】单例模式的两种实现以及特殊类的设计</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/02/06/singleton/" class="archive-article-date">
+        <time datetime="2021-02-06T06:57:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-06</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="实现单例模式"><a href="#实现单例模式" class="headerlink" title="实现单例模式"></a>实现单例模式</h3><p>  单例模式是一种设计模式，在实战中经常会用到。其意思是创建一个类这个类只能唯一的创建一个对象，如果之后还想用这个类创建新对象的时候都会返回最开始创建的呢个对象。
+    
+    <a class="article-more-a" href="/02/06/singleton/#more">more >></a>
     
     
 
@@ -281,7 +465,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">exception</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">singletion</a>
         		</li>
       		
 		</ul>
@@ -291,7 +475,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/02/19/exception/">展开全文 >></a>
+      <a class="article-more-a" href="/02/06/singleton/">展开全文 >></a>
     </p>
     
 
@@ -418,6 +602,480 @@
 
 
   
+    <article id="post-sort" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/01/22/sort/" target="_blank">【排序算法系列】常见排序算法总结，复杂度分析</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/01/22/sort/" class="archive-article-date">
+        <time datetime="2021-01-22T14:18:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-22</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><p>  如果一个排序算法排序结束后，表中相同大小的元素依然可用保持和排序前一样的相对顺序则称该排序是稳定的，反之是不稳定的。<br>  举个例子，以下这个序列中，出现了相同的元素3，为了便于区分，我将其中一个用红色标记出来。
+    
+    <a class="article-more-a" href="/01/22/sort/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">sort</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/01/22/sort/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-ptnread" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/01/16/ptnread/" target="_blank">【Linux系列】线程控制管理、线程安全-同步与互斥</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/01/16/ptnread/" class="archive-article-date">
+        <time datetime="2021-01-16T15:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-16</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="Linux下的多线程"><a href="#Linux下的多线程" class="headerlink" title="Linux下的多线程"></a>Linux下的多线程</h2><h3 id="一、线程的概念"><a href="#一、线程的概念" class="headerlink" title="一、线程的概念"></a>一、线程的概念</h3><h4 id="1-什么是线程？"><a href="#1-什么是线程？" class="headerlink" title="1.什么是线程？"></a>1.什么是线程？</h4><p>线程就是进程中的一条执行流，是cpu调度的基本单位（而进程是cpu资源分配的基本单位），在linux下是一个轻量级进程。<br>linux下的线程是通过pcb实现，是程序运行的动态描述，通过这个描述 操作系统实现程序运行的调度，一个进程中可以有多个线程，这些线程共享进程中大部分资源，相较于传统pcb更加轻量化，因此也成为轻量级进程。
+    
+    <a class="article-more-a" href="/01/16/ptnread/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pthread</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/01/16/ptnread/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-ip_arp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/01/16/ip_arp/" target="_blank">【网络系列】网络层-IP、ARP、ICMP、DNS协议</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/01/16/ip_arp/" class="archive-article-date">
+        <time datetime="2021-01-16T15:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-16</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>@<a href="%E7%BD%91%E7%BB%9C%E5%B1%82%E5%85%B3%E9%94%AE%E5%8D%8F%E8%AE%AE%E8%A7%A3%E6%9E%90">TOC</a></p>
+<h2 id="网络层功能"><a href="#网络层功能" class="headerlink" title="网络层功能"></a>网络层功能</h2><p>  网络层主要负责地址管理以及路由选择。在网络中我们从一个ip到另一个ip有很多条路可以走，而网络层则是帮我们规划我们传输数据的最佳路线。 </p>
+<p>因为网络层是整个互联网的核心，因此应当让网络层尽可能简单。网络层向上只提供简单灵活的、无连接的、尽最大努力交互的数据报服务。</p>
+    
+    <a class="article-more-a" href="/01/16/ip_arp/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">network</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ARP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ICMP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DNS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/01/16/ip_arp/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-c++11" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/01/12/c++11/" target="_blank">【C++系列】C++11语法新特性，快来get一下</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/01/12/c++11/" class="archive-article-date">
+        <time datetime="2021-01-11T16:31:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-12</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="初始化列表"><a href="#初始化列表" class="headerlink" title="初始化列表"></a>初始化列表</h3><p><strong>如何使用</strong><br>  在Cpp11中允许使用初始化列表初始化任何类型，不论是内置类型还是自定义类型都可以使用初始化列表进行初始化，而在Cpp98的版本中是不能初始化自定义类型的。
+    
+    <a class="article-more-a" href="/01/12/c++11/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C++11</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/01/12/c++11/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-http" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/01/10/http/" target="_blank">【网络系列】应用层HTTP协议格式解析、实现、HTTPS的加密流程</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/01/10/http/" class="archive-article-date">
+        <time datetime="2021-01-10T15:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-10</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="什么是HTTP协议"><a href="#什么是HTTP协议" class="headerlink" title="什么是HTTP协议"></a>什么是HTTP协议</h3><p> 应用层负责程序之间的数据沟通，其中协议大概分为两类，<strong>自定制协议和知名协议</strong>。自定制协议就是程序员自己定义的协议，用来对应用程序发送的数据进行整理或者加密，对端只有了解这种协议才能对数据进行解析。
+    
+    <a class="article-more-a" href="/01/10/http/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">network</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">https</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/01/10/http/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-set" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -515,487 +1173,10 @@
 
 
   
-    <article id="post-priority_queue" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
   
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/11/29/priority_queue/" target="_blank">【C++系列】STL中的priority_queue用法详解及模拟实现</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/11/29/priority_queue/" class="archive-article-date">
-        <time datetime="2020-11-29T10:01:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-29</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="1-priority-queue的介绍和使用"><a href="#1-priority-queue的介绍和使用" class="headerlink" title="1.priority_queue的介绍和使用"></a>1.priority_queue的介绍和使用</h3><p><a target="_blank" rel="noopener" href="http://www.cplusplus.com/reference/queue/priority_queue/">文档介绍（cplusplus官方）</a></p>
-<p>stl源码中，包含三个模板参数：类型、容器适配器、比较规则。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>, <span class="keyword">class</span> <span class="title">Container</span> =</span> <span class="built_in">vector</span>&lt;T&gt;,</span><br><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Compare</span> =</span> less&lt;<span class="keyword">typename</span> Container::value_type&gt; &gt; </span><br><span class="line">		  <span class="class"><span class="keyword">class</span> <span class="title">priority_queue</span>;</span></span><br></pre></td></tr></table></figure>
-<p>其底层容器需要包含以下接口：
-    
-    <a class="article-more-a" href="/11/29/priority_queue/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">priority_queue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/11/29/priority_queue/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-stack" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/11/28/stack/" target="_blank">【C++系列】STL中的stack与queue用法详解及模拟实现</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/11/28/stack/" class="archive-article-date">
-        <time datetime="2020-11-28T15:34:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-28</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="stack的介绍和使用"><a href="#stack的介绍和使用" class="headerlink" title="stack的介绍和使用"></a>stack的介绍和使用</h3><p><a target="_blank" rel="noopener" href="http://www.cplusplus.com/reference/stack/stack/?kw=stack">stack的文档（官方）</a></p>
-<p>在stl源码中可以看到，stack定义了两个模板参数，一个为类型T，另一个为容器适配器，默认使用deque双端队列来实现。
-    
-    <a class="article-more-a" href="/11/28/stack/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">stack</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">queue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/11/28/stack/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-vector" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/11/27/vector/" target="_blank">【C++系列】 STL中的vector用法详解及模拟实现</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/11/27/vector/" class="archive-article-date">
-        <time datetime="2020-11-27T09:31:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-27</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="一-vector的介绍及使用"><a href="#一-vector的介绍及使用" class="headerlink" title="一.vector的介绍及使用"></a>一.vector的介绍及使用</h3><p>   <a target="_blank" rel="noopener" href="http://www.cplusplus.com/reference/vector/vector/">vector的文档介绍
-    </a></p>
-<blockquote>
-<p>1.vector是表示可变大小数组的序列容器。<br>2.就像数组一样，vector也采用的连续存储空间来存储元素。也就是意味着可以采用下标对vector的元素 进行访问，和数组一样高效。但是又不像数组，它的大小是可以动态改变的，而且它的大小会被容器自动处理。
-    
-    <a class="article-more-a" href="/11/27/vector/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">vector</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/11/27/vector/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-string" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/11/21/string/" target="_blank">【C++系列】STL中的string用法详解及模拟实现</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/11/21/string/" class="archive-article-date">
-        <time datetime="2020-11-21T06:05:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-21</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="一，string的介绍与使用"><a href="#一，string的介绍与使用" class="headerlink" title="一，string的介绍与使用"></a>一，string的介绍与使用</h3><blockquote>
-<p>C语言中，字符串是以’\0’结尾的一些字符的集合，为了操作方便，C标准库中提供了一些str系列的库函数，但是这些库函数与字符串是分离开的，不太符合OOP的思想，而且底层空间需要用户自己管理，稍不留神可 能还会越界访问。</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="http://www.cplusplus.com/reference/string/string/?kw=string">string类的文档介绍（cpp官网）</a></p>
-<ol>
-<li>string是表示字符串的字符串类</li>
-<li>该类的接口与常规容器的接口基本相同，再添加了一些专门用来操作string的常规操作。
-    
-    <a class="article-more-a" href="/11/21/string/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">string</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/11/21/string/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-list" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/11/16/list/" target="_blank">【C++系列】STL中的list用法详解及模拟实现</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/11/16/list/" class="archive-article-date">
-        <time datetime="2020-11-16T15:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-16</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="一，list的介绍与使用"><a href="#一，list的介绍与使用" class="headerlink" title="一，list的介绍与使用"></a>一，list的介绍与使用</h2><p><a target="_blank" rel="noopener" href="http://www.cplusplus.com/reference/list/list/?kw=list">list的文档介绍（官网）</a></p>
-<blockquote>
-<ol>
-<li>list是可以在常数范围内在任意位置进行插入和删除的序列式容器，并且该容器可以前后双向迭代。</li>
-<li>list的底层是双向链表结构，双向链表中每个元素存储在互不相关的独立节点中，
-    
-    <a class="article-more-a" href="/11/16/list/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">list</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/11/16/list/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 
@@ -1170,6 +1351,90 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">exception</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">继承</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">singletion</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">C++11</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">pipe</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">shm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">msg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">PV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pcb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pthread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">network</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ARP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ICMP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">DNS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">udp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">https</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">signal</a>
               </li>
             
             <div class="clearfix"></div>
