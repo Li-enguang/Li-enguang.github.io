@@ -6,19 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.lienguang.com">
-  <title>分类 | Li-eng</title>
+  <title>【C++系列】 STL中的vector用法详解及模拟实现 | Li-eng</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Be the best you can be">
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://www.lienguang.com/categories/index.html">
+  <meta name="description" content="一.vector的介绍及使用   vector的文档介绍       1.vector是表示可变大小数组的序列容器。2.就像数组一样，vector也采用的连续存储空间来存储元素。也就是意味着可以采用下标对vector的元素 进行访问，和数组一样高效。但是又不像数组，它的大小是可以动态改变的，而且它的大小会被容器自动处理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【C++系列】 STL中的vector用法详解及模拟实现">
+<meta property="og:url" content="http://www.lienguang.com/11/27/vector/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="Be the best you can be">
+<meta property="og:description" content="一.vector的介绍及使用   vector的文档介绍       1.vector是表示可变大小数组的序列容器。2.就像数组一样，vector也采用的连续存储空间来存储元素。也就是意味着可以采用下标对vector的元素 进行访问，和数组一样高效。但是又不像数组，它的大小是可以动态改变的，而且它的大小会被容器自动处理。">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-03-05T05:17:39.000Z">
-<meta property="article:modified_time" content="2021-03-05T05:18:06.687Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201127171114690.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-11-27T09:31:20.000Z">
+<meta property="article:modified_time" content="2021-03-06T06:47:58.449Z">
 <meta property="article:author" content="Li-eng">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="vector">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201127171114690.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="Li-eng" type="application/atom+xml">
   
@@ -157,27 +161,27 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-vector" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      分类
+      【C++系列】 STL中的vector用法详解及模拟实现
     </h1>
   
 
         
-        <a href="/categories/index.html" class="archive-article-date">
-  	<time datetime="2021-03-05T05:17:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-05</time>
+        <a href="/11/27/vector/" class="archive-article-date">
+  	<time datetime="2020-11-27T09:31:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-27</time>
 
 	  <span id="busuanzi_container_page_pv">  本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
 	</a>
 
         
         <div align="center" class="post-count">
-          字数：0字 | 预计阅读时长：1分钟
+          字数：1.5k字 | 预计阅读时长：6分钟
       </div>
       
       </header>
@@ -186,7 +190,39 @@
       
       
       
-        
+        <h3 id="一-vector的介绍及使用"><a href="#一-vector的介绍及使用" class="headerlink" title="一.vector的介绍及使用"></a>一.vector的介绍及使用</h3><p>   <a target="_blank" rel="noopener" href="http://www.cplusplus.com/reference/vector/vector/">vector的文档介绍
+    </a></p>
+<blockquote>
+<p>1.vector是表示可变大小数组的序列容器。<br>2.就像数组一样，vector也采用的连续存储空间来存储元素。也就是意味着可以采用下标对vector的元素 进行访问，和数组一样高效。但是又不像数组，它的大小是可以动态改变的，而且它的大小会被容器自动处理。<span id="more"></span><br>3.本质讲，vector使用动态分配数组来存储它的元素。当新元素插入时候，这个数组需要被重新分配大小 为了增加存储空间。其做法是，分配一个新的数组，然后将全部元素移到这个数组。就时间而言，这是一个相对代价高的任务，因为每当一个新的元素加入到容器的时候，vector并不会每次都重新分配大小。<br>4.vector分配空间策略：vector会分配一些额外的空间以适应可能的增长，因为存储空间比实际需要的存 储空间更大。不同的库采用不同的策略权衡空间的使用和重新分配。但是无论如何，重新分配都应该是对数增长的间隔大小，以至于在末尾插入一个元素的时候是在常数时间的复杂度完成的。<br>5.因此，vector占用了更多的存储空间，为了获得管理存储空间的能力，并且以一种有效的方式动态增长。<br>6.与其它动态序列容器相比（deques, lists and forward_lists）， vector在访问元素的时候更加高效，在末尾添加和删除元素相对高效。对于其它不在末尾的删除和插入操作，效率更低。比起lists和 forward_lists统一的迭代器和引用更好</p>
+</blockquote>
+<h3 id="二、模拟实现"><a href="#二、模拟实现" class="headerlink" title="二、模拟实现"></a>二、模拟实现</h3><p><strong>1.成员</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	T* _start;</span><br><span class="line">	T* _finish;</span><br><span class="line">	T* _eos;</span><br></pre></td></tr></table></figure>
+<p>在这里采用三个指针的方式来实现，如图<br><img src="https://img-blog.csdnimg.cn/20201127171114690.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70"><br>_start 指向空间的起始位置<br>_finish 指向最后一个元素的末位置<br>_eos 指向空间的末位置</p>
+<p><strong>2.构造函数部分</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">Vector() </span><br><span class="line">	:_start(<span class="literal">nullptr</span>)</span><br><span class="line">	, _finish(<span class="literal">nullptr</span>)</span><br><span class="line">	, _eos(<span class="literal">nullptr</span>)</span><br><span class="line">&#123;&#125;</span><br><span class="line">Vector(<span class="keyword">size_t</span> n,<span class="keyword">const</span> T&amp; val) <span class="comment">//带参构造</span></span><br><span class="line">	:_start(<span class="literal">nullptr</span>)</span><br><span class="line">	, _finish(<span class="literal">nullptr</span>)</span><br><span class="line">	, _eos(<span class="literal">nullptr</span>)</span><br><span class="line">&#123;</span><br><span class="line">	resize(n, val);</span><br><span class="line">&#125;</span><br><span class="line">Vector(<span class="keyword">const</span> Vector&lt;T&gt;&amp; v) <span class="comment">//拷贝构造 ，先增容</span></span><br><span class="line">	:_start(<span class="literal">nullptr</span>)</span><br><span class="line">	, _finish(<span class="literal">nullptr</span>)</span><br><span class="line">	, _eos(<span class="literal">nullptr</span>)</span><br><span class="line">&#123;</span><br><span class="line">	reserve(v.capacity());</span><br><span class="line">	iterator it = begin();</span><br><span class="line">	const_iterator vit = v.begin();</span><br><span class="line">	<span class="keyword">while</span> (vit != v.end())</span><br><span class="line">	&#123;</span><br><span class="line">		*it++ = *vit++;</span><br><span class="line">		++_finish;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">Vector&lt;T&gt;&amp; <span class="keyword">operator</span>=(Vector&lt;T&gt; v) <span class="comment">//复用拷贝构造</span></span><br><span class="line">&#123;</span><br><span class="line">	Swap(v);</span><br><span class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Swap</span><span class="params">(Vector&lt;T&gt;&amp; v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	swap(_start, v._start);</span><br><span class="line">	swap(_finish,v._finish);</span><br><span class="line">	swap(_eos,v._eos);</span><br><span class="line">&#125;</span><br><span class="line">~Vector()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">delete</span>[] _start;</span><br><span class="line">	_start = _finish = _eos = <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>3.大小</strong></p>
+<p>size（） 有效元素个数 ：_finish - _start 正好为元素个数<br> capacity()  空间大小 ：_eos - _start </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">size</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> _finish - _start;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">capacity</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> _eos - _start;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>4.增容相关</strong></p>
+<blockquote>
+<p>capacity的代码在vs和g++下分别运行会发现，vs下capacity是按1.5倍增长的，g++是按2倍增长的。<br>这个问题经常会考察，不要固化的认为，顺序表增容都是2倍，具体增长多少是根据具体的需求定义 的。<br>vs是PJ版本STL，g++是SGI版本STL。<br>reserve只负责开辟空间，如果确定知道需要用多少空间，reserve可以缓解vector增容的代价缺陷问 题。<br>resize在开空间的同时还会进行初始化，影响size。</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">resize</span><span class="params">(<span class="keyword">size_t</span> n,<span class="keyword">const</span> T&amp;val=T())</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (n &gt; capacity())</span><br><span class="line">		&#123;</span><br><span class="line">			reserve(n);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (n &gt; size())</span><br><span class="line">		&#123;</span><br><span class="line">			iterator it = end();</span><br><span class="line">			<span class="keyword">while</span> (it != _start + n)</span><br><span class="line">			&#123;</span><br><span class="line">				*it = val;</span><br><span class="line">				++it;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		_finish = _start + n;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">reserve</span><span class="params">(<span class="keyword">size_t</span> n)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">size_t</span> oldsize = size();</span><br><span class="line">		<span class="keyword">if</span> (n &gt; capacity())<span class="comment">//开辟空间</span></span><br><span class="line">		&#123;</span><br><span class="line">			T* tmp = <span class="keyword">new</span> T[n];</span><br><span class="line"></span><br><span class="line">			<span class="comment">//拷贝内容 </span></span><br><span class="line">			<span class="comment">//注意这里用深拷贝</span></span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; size(); i++)</span><br><span class="line">			&#123;</span><br><span class="line">				tmp[i] = _start[i];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//释放原来空间</span></span><br><span class="line">			<span class="keyword">delete</span>[] _start;</span><br><span class="line"></span><br><span class="line">			_start = tmp;</span><br><span class="line">			_finish = _start + oldsize;</span><br><span class="line">			_eos = _start + n; </span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br></pre></td></tr></table></figure>
+<p><strong>5.迭代器问题</strong></p>
+<blockquote>
+<p>迭代器的主要作用就是让算法能够不用关心底层数据结构，其底层实际就是一个指针，或者是对指针进行了封装，<br>比如：vector的迭代器就是原生态指针T*。因此迭代器失效，实际就是迭代器底层对应指针所指向的空间被销毁了，而使用一块已经被释放的空间，造成的后果是程序崩溃(即如果继续使用已经失效的迭代器，程序可能会崩溃)。</p>
+</blockquote>
+<blockquote>
+<p><strong>对于vector可能会导致其迭代器失效的操作有：</strong><br><strong>1.会引起其底层空间改变的操作，都有可能是迭代器失效</strong>，比如：resize、reserve、insert、assign、 push_back等<br>2. <strong>指定位置元素的删除操作–erase</strong><br>erase删除pos位置元素后，pos位置之后的元素会往前搬移，没有导致底层空间的改变，理论上讲迭代器不应该会失效，但是：如果pos刚好是最后一个元素，删完之后pos刚好是end的位置，而end位置是没有元素的，那么pos就失效了。因此删除vector中任意位置上元素时，vs就认为该位置迭代器失效了。<br><strong>迭代器失效解决办法：在使用前，对迭代器重新赋值即可</strong></p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">   <span class="keyword">typedef</span> T* iterator;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">const</span> T* const_iterator;</span><br><span class="line"><span class="function">iterator <span class="title">begin</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> _start;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">iterator <span class="title">end</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> _finish;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">const_iterator <span class="title">begin</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> _start;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">const_iterator <span class="title">end</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> _finish;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>6.插入删除</strong></p>
+<p>这里插入删除返回的都是当前位置迭代器</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">push_back</span><span class="params">(<span class="keyword">const</span> T&amp; val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//if (_finish==_eos)</span></span><br><span class="line">	<span class="comment">//&#123;</span></span><br><span class="line">	<span class="comment">//		size_t newc = (_start == nullptr) ? 1 : 2 * capacity();</span></span><br><span class="line">	<span class="comment">//	reserve(newc);//增容</span></span><br><span class="line">	<span class="comment">//&#125;</span></span><br><span class="line">	<span class="comment">//*_finish = val;</span></span><br><span class="line">	<span class="comment">//++_finish;</span></span><br><span class="line">	insert(end(), val);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pop_back</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	erase(end() - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">iterator <span class="title">erase</span><span class="params">(iterator pos)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	assert(pos &gt;= begin() &amp;&amp; pos &lt; end());</span><br><span class="line">	iterator it = pos+<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (it!=end())</span><br><span class="line">	&#123;</span><br><span class="line">		*(it<span class="number">-1</span>) = *(it);</span><br><span class="line">		it++;</span><br><span class="line">	&#125;</span><br><span class="line">	--_finish;</span><br><span class="line">	<span class="keyword">return</span> pos;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function">iterator <span class="title">insert</span><span class="params">(iterator pos, <span class="keyword">const</span> T&amp; val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">size_t</span> offset = pos - _start;</span><br><span class="line">	assert(pos &gt;= begin() &amp;&amp; pos &lt;= end());</span><br><span class="line">	<span class="keyword">if</span> (_finish == _eos)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">size_t</span> newc = (_start == <span class="literal">nullptr</span>) ? <span class="number">1</span> : <span class="number">2</span> * capacity();</span><br><span class="line">		reserve(newc);</span><br><span class="line">	&#125;</span><br><span class="line">	pos = _start + offset;</span><br><span class="line">	iterator it = end();</span><br><span class="line">	<span class="keyword">while</span>(pos != it)</span><br><span class="line">	&#123;</span><br><span class="line">		*it = *(it - <span class="number">1</span>);</span><br><span class="line">		it--;</span><br><span class="line">	&#125;</span><br><span class="line">	*pos = val;</span><br><span class="line">	_finish++;</span><br><span class="line">	<span class="keyword">return</span> pos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>7.随机访问</strong></p>
+<p>确保在有效范围内，调用 [ ]即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">T&amp; <span class="keyword">operator</span>[](<span class="keyword">size_t</span> pos)</span><br><span class="line">	&#123;</span><br><span class="line">		assert(pos &gt;= <span class="number">0</span> &amp;&amp; pos &lt; size());</span><br><span class="line">		<span class="keyword">return</span> _start[pos];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">const</span> T&amp; <span class="keyword">operator</span>[](<span class="keyword">size_t</span> pos) <span class="keyword">const</span></span><br><span class="line">	&#123;</span><br><span class="line">		assert(pos &gt;= <span class="number">0</span> &amp;&amp; pos &lt; size());</span><br><span class="line">		<span class="keyword">return</span> _start[pos];</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -220,6 +256,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">vector</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -270,7 +321,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/categories/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/11/27/vector/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -282,6 +333,25 @@
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/11/28/stack/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          【C++系列】STL中的stack与queue用法详解及模拟实现
+        
+      </div>
+    </a>
+  
+  
+    <a href="/11/21/string/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【C++系列】STL中的string用法详解及模拟实现</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">

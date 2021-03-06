@@ -6,19 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.lienguang.com">
-  <title>分类 | Li-eng</title>
+  <title>【C++系列】STL中的priority_queue用法详解及模拟实现 | Li-eng</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Be the best you can be">
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://www.lienguang.com/categories/index.html">
+  <meta name="description" content="1.priority_queue的介绍和使用文档介绍（cplusplus官方） stl源码中，包含三个模板参数：类型、容器适配器、比较规则。 123template &lt;class T, class Container &#x3D; vector&lt;T&gt;, class Compare &#x3D; less&lt;typename Container::value_type&gt; &gt; 		  c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【C++系列】STL中的priority_queue用法详解及模拟实现">
+<meta property="og:url" content="http://www.lienguang.com/11/29/priority_queue/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="Be the best you can be">
+<meta property="og:description" content="1.priority_queue的介绍和使用文档介绍（cplusplus官方） stl源码中，包含三个模板参数：类型、容器适配器、比较规则。 123template &lt;class T, class Container &#x3D; vector&lt;T&gt;, class Compare &#x3D; less&lt;typename Container::value_type&gt; &gt; 		  c">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-03-05T05:17:39.000Z">
-<meta property="article:modified_time" content="2021-03-05T05:18:06.687Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201129171339686.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201129175353627.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201129175518327.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020112917574696.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020112918005179.png">
+<meta property="article:published_time" content="2020-11-29T10:01:34.000Z">
+<meta property="article:modified_time" content="2021-03-06T06:53:25.780Z">
 <meta property="article:author" content="Li-eng">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="priority_queue">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201129171339686.png">
   
     <link rel="alternative" href="/atom.xml" title="Li-eng" type="application/atom+xml">
   
@@ -157,27 +165,27 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-priority_queue" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      分类
+      【C++系列】STL中的priority_queue用法详解及模拟实现
     </h1>
   
 
         
-        <a href="/categories/index.html" class="archive-article-date">
-  	<time datetime="2021-03-05T05:17:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-05</time>
+        <a href="/11/29/priority_queue/" class="archive-article-date">
+  	<time datetime="2020-11-29T10:01:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-29</time>
 
 	  <span id="busuanzi_container_page_pv">  本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
 	</a>
 
         
         <div align="center" class="post-count">
-          字数：0字 | 预计阅读时长：1分钟
+          字数：1.6k字 | 预计阅读时长：7分钟
       </div>
       
       </header>
@@ -186,7 +194,41 @@
       
       
       
-        
+        <h3 id="1-priority-queue的介绍和使用"><a href="#1-priority-queue的介绍和使用" class="headerlink" title="1.priority_queue的介绍和使用"></a>1.priority_queue的介绍和使用</h3><p><a target="_blank" rel="noopener" href="http://www.cplusplus.com/reference/queue/priority_queue/">文档介绍（cplusplus官方）</a></p>
+<p>stl源码中，包含三个模板参数：类型、容器适配器、比较规则。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>, <span class="keyword">class</span> <span class="title">Container</span> =</span> <span class="built_in">vector</span>&lt;T&gt;,</span><br><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Compare</span> =</span> less&lt;<span class="keyword">typename</span> Container::value_type&gt; &gt; </span><br><span class="line">		  <span class="class"><span class="keyword">class</span> <span class="title">priority_queue</span>;</span></span><br></pre></td></tr></table></figure>
+<p>其底层容器需要包含以下接口：<span id="more"></span><br><img src="https://img-blog.csdnimg.cn/20201129171339686.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>1.. 优先队列是一种容器适配器，根据严格的弱排序标准，它的第一个元素总是它所包含的元素中最大的<br>2. 此上下文类似于堆，在堆中可以随时插入元素，并且只能检索最大堆元素(优先队列中位于顶部的元素)。<br>3. 优先队列被实现为容器适配器，容器适配器即将特定容器类封装作为其底层容器类，queue提供一组特 定的成员函数来访问其元素。元素从特定容器的“尾部”弹出，其称为优先队列的顶部。<br>4底层容器可以是任何标准容器类模板，也可以是其他特定设计的容器类。容器应该可以通过随机访问迭代器访问，并支持以下操作： empty()：检测容器是否为空 size()：返回容器中有效元素个数 front()：返回容器中第一个元素的引用<br>push_back()：在容器尾部插入元素<br>pop_back()：删除容器尾部元素</p>
+<p>5.标准容器类vector和deque满足这些需求。默认情况下，如果没有为特定的priority_queue类实例化指<br>定容器类，则使用vector。<br>6. 需要支持随机访问迭代器，以便始终在内部保持堆结构。容器适配器通过在需要时自动调用算法函数 make_heap、push_heap和pop_heap来自动完成此操作</p>
+</blockquote>
+<p>优先级队列默认使用vector作为其底层存储数据的容器，在vector上又使用了堆算法将vector中元素构造成堆的结构，因此priority_queue就是堆，所有需要用到堆的位置，都可以考虑使用priority_queue。<br><strong>注意：默认情况下priority_queue是大堆。</strong></p>
+<p><strong>如果在priority_queue中放自定义类型的数据，用户需要在自定义类型中提供&gt; 或者&lt; 的重载。</strong></p>
+<h3 id="2-priority-queue的模拟实现"><a href="#2-priority-queue的模拟实现" class="headerlink" title="2.priority_queue的模拟实现"></a>2.priority_queue的模拟实现</h3><p>首先我写了一个日期类，用作自定义的类型，方便后续测试。<br>在date类中，重载了 &gt; &lt; 和输出的运算符。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Date</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Date(<span class="keyword">int</span> year = <span class="number">1900</span>, <span class="keyword">int</span> month = <span class="number">1</span>, <span class="keyword">int</span> day = <span class="number">1</span>)</span><br><span class="line">		: _year(year)</span><br><span class="line">		, _month(month)</span><br><span class="line">		, _day(day)</span><br><span class="line">	&#123;&#125;</span><br><span class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> Date&amp; d)<span class="keyword">const</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> (_year &lt; d._year) ||</span><br><span class="line">			(_year == d._year &amp;&amp; _month &lt; d._month) ||</span><br><span class="line">			(_year == d._year &amp;&amp; _month == d._month &amp;&amp; _day &lt; d._day);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span>&gt;(<span class="keyword">const</span> Date&amp; d)<span class="keyword">const</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> (_year &gt; d._year) ||</span><br><span class="line">			(_year == d._year &amp;&amp; _month &gt; d._month) ||</span><br><span class="line">			(_year == d._year &amp;&amp; _month == d._month &amp;&amp; _day &gt; d._day);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">friend</span> ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream&amp; _cout, <span class="keyword">const</span> Date&amp; d)</span><br><span class="line">	&#123;</span><br><span class="line">		_cout &lt;&lt; d._year &lt;&lt; <span class="string">&quot;-&quot;</span> &lt;&lt; d._month &lt;&lt; <span class="string">&quot;-&quot;</span> &lt;&lt; d._day;</span><br><span class="line">		<span class="keyword">return</span> _cout;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> _year;</span><br><span class="line">	<span class="keyword">int</span> _month;</span><br><span class="line">	<span class="keyword">int</span> _day;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>对于优先级队列，上面已经说过，有三个模板参数，如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>,<span class="keyword">class</span> <span class="title">Container</span>=</span><span class="built_in">vector</span>&lt;T&gt;, <span class="class"><span class="keyword">class</span> <span class="title">Compare</span> =</span> Less&lt;T&gt;&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">priority_queue</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">priority_queue</span>() <span class="comment">//无参构造</span></span><br><span class="line">	:_c()</span><br><span class="line">	&#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">shiftdown</span><span class="params">(<span class="keyword">int</span> parent)</span> <span class="comment">//向下调整父节点 删除时</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">int</span> child = parent * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span> (child &lt; size())</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(child + <span class="number">1</span> &lt; size()&amp;&amp;_com(_c[child],_c[child + <span class="number">1</span>]))</span><br><span class="line">			<span class="comment">//if (child+1&lt;size()&amp;&amp;_c[child] &lt; _c[child + 1])</span></span><br><span class="line">				child++;</span><br><span class="line">			<span class="keyword">if</span> (_com(_c[parent],_c[child]))</span><br><span class="line">			<span class="comment">//if (_c[parent] &lt; _c[child])</span></span><br><span class="line">			&#123;</span><br><span class="line">				swap(_c[parent], _c[child]);</span><br><span class="line">				parent = child;</span><br><span class="line">				child= parent * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">shiftup</span><span class="params">(<span class="keyword">int</span> child)</span> <span class="comment">//向上调整 插入时</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">int</span> parent = (child - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">while</span> (parent &gt;= <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (_com(_c[parent] , _c[child]))</span><br><span class="line">			<span class="comment">//if (_c[parent] &lt; _c[child])</span></span><br><span class="line">			&#123;</span><br><span class="line">				swap(_c[parent], _c[child]);</span><br><span class="line">				child = parent;</span><br><span class="line">				parent = (child - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">const</span> T&amp; val)</span> <span class="comment">//队尾入队 尾插</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		_c.push_back(val);</span><br><span class="line">		shiftup(size() - <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span> <span class="comment">//队头出队 头删</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		swap(_c[<span class="number">0</span>], _c[size() - <span class="number">1</span>]);</span><br><span class="line">		_c.pop_back();</span><br><span class="line">		shiftdown(<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">size_t</span> <span class="title">size</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> _c.size();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">empty</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> _c.empty();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function">T&amp; <span class="title">top</span><span class="params">()</span> <span class="comment">//堆顶元素</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> _c.front();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	Container _c;</span><br><span class="line">	Compare _com;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<p>这里实现了自己写的Less 和Greater类；</p>
+<p>less 建大堆，重载（）运算符，需要实现小于的比较<br>greater 建小堆，重载 （）运算符，需要实现大于的比较</p>
+<p>称其为<strong>仿函数类</strong>，原因：使用方式类似于函数调用<br>1.完整形式：_com.operator(参数列表) ；这里的_com是我们自己创建的类对象。<br>2.简写形式：_com(参数列表)<br><strong>注意：对于这里的大于小于，只能比较内置类型</strong>，而对于自定义类型，比如上面的date日期类，就需要在date类的内部重载大于小于。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//less 建大堆，重载 &lt;</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Less</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">const</span> T&amp; left,<span class="keyword">const</span> T&amp; right)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> left &lt; right;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//greater 建小堆，重载 &gt;</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Greater</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">const</span> T&amp; left, <span class="keyword">const</span> T&amp; right)</span> </span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> left &gt; right;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-测试用例"><a href="#3-测试用例" class="headerlink" title="3.测试用例"></a>3.测试用例</h3><p>给出四组测试用例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">priority_queue</span>&lt;<span class="keyword">int</span>&gt; pq;</span><br><span class="line">	pq.push(<span class="number">10</span>);</span><br><span class="line">	pq.push(<span class="number">2</span>);</span><br><span class="line">	pq.push(<span class="number">5</span>);</span><br><span class="line">	pq.push(<span class="number">8</span>);</span><br><span class="line">	pq.push(<span class="number">6</span>);</span><br><span class="line">	pq.push(<span class="number">46</span>);</span><br><span class="line">	pq.push(<span class="number">56</span>);</span><br><span class="line">	<span class="keyword">while</span> (!pq.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; pq.top() &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">		pq.pop();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>1.只指定 第一个参数类型为 int ，默认使用vector为容器，使用less 建大堆。<br>生成结果如下：<br><img src="https://img-blog.csdnimg.cn/20201129175353627.png" alt="在这里插入图片描述"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">priority_queue</span>&lt;<span class="keyword">int</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;,Greater&lt;<span class="keyword">int</span>&gt;&gt; pq;</span><br><span class="line">	pq.push(<span class="number">10</span>);</span><br><span class="line">	pq.push(<span class="number">2</span>);</span><br><span class="line">	pq.push(<span class="number">5</span>);</span><br><span class="line">	pq.push(<span class="number">8</span>);</span><br><span class="line">	pq.push(<span class="number">6</span>);</span><br><span class="line">	pq.push(<span class="number">46</span>);</span><br><span class="line">	pq.push(<span class="number">56</span>);</span><br><span class="line">	<span class="keyword">while</span> (!pq.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; pq.top() &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">		pq.pop();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.参数这样指定 ：priority_queue&lt;int,vector<int>,Greater<int>&gt; pq;<br> greater 建小堆 ，生成结果如下<br> <img src="https://img-blog.csdnimg.cn/20201129175518327.png" alt="在这里插入图片描述"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">priority_queue</span>&lt;Date&gt; q1;</span><br><span class="line">	q1.push(Date(<span class="number">2018</span>, <span class="number">10</span>, <span class="number">29</span>));</span><br><span class="line">	q1.push(Date(<span class="number">2018</span>, <span class="number">10</span>, <span class="number">28</span>));</span><br><span class="line">	q1.push(Date(<span class="number">2019</span>, <span class="number">10</span>, <span class="number">30</span>));</span><br><span class="line">	q1.push(Date(<span class="number">2019</span>, <span class="number">8</span>, <span class="number">30</span>));</span><br><span class="line">	q1.push(Date(<span class="number">2018</span>, <span class="number">3</span>, <span class="number">30</span>));</span><br><span class="line">	<span class="keyword">while</span> (!q1.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; q1.top() &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		q1.pop();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.对于自定义类型：默认为less 建大堆，在比较时调用自身的 <strong>&lt;</strong> 重载，结果如下<br>日期从上到下依次减小。<br><img src="https://img-blog.csdnimg.cn/2020112917574696.png" alt="在这里插入图片描述"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test4</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">priority_queue</span>&lt;Date,<span class="built_in">vector</span>&lt;Date&gt;,Greater&lt;Date&gt;&gt; q1;</span><br><span class="line">	q1.push(Date(<span class="number">2018</span>, <span class="number">10</span>, <span class="number">29</span>));</span><br><span class="line">	q1.push(Date(<span class="number">2018</span>, <span class="number">10</span>, <span class="number">28</span>));</span><br><span class="line">	q1.push(Date(<span class="number">2019</span>, <span class="number">10</span>, <span class="number">30</span>));</span><br><span class="line">	q1.push(Date(<span class="number">2019</span>, <span class="number">8</span>, <span class="number">30</span>));</span><br><span class="line">	q1.push(Date(<span class="number">2018</span>, <span class="number">3</span>, <span class="number">30</span>));</span><br><span class="line">	<span class="keyword">while</span> (!q1.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; q1.top() &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		q1.pop();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>.对于自定义类型：<br>priority_queue&lt;Date,vector<Date>,Greater<Date>&gt; q1;参数传入greater ，建小堆<br>在比较时调用自身的 <strong>&gt;</strong> 重载，结果如下日期从上到下依次增大。<br><img src="https://img-blog.csdnimg.cn/2020112918005179.png" alt="在这里插入图片描述"></li>
+</ol>
+
       
 
       
@@ -220,6 +262,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">priority_queue</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -270,7 +327,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/categories/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/11/29/priority_queue/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -282,6 +339,25 @@
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/01/03/set/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          【C++系列】STL中的set与map用法详解及模拟实现
+        
+      </div>
+    </a>
+  
+  
+    <a href="/11/28/stack/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【C++系列】STL中的stack与queue用法详解及模拟实现</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">

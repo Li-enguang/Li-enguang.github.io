@@ -6,19 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.lienguang.com">
-  <title>分类 | Li-eng</title>
+  <title>【C++系列】STL中的list用法详解及模拟实现 | Li-eng</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Be the best you can be">
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://www.lienguang.com/categories/index.html">
+  <meta name="description" content="一，list的介绍与使用list的文档介绍（官网）   list是可以在常数范围内在任意位置进行插入和删除的序列式容器，并且该容器可以前后双向迭代。 list的底层是双向链表结构，双向链表中每个元素存储在互不相关的独立节点中，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【C++系列】STL中的list用法详解及模拟实现">
+<meta property="og:url" content="http://www.lienguang.com/11/16/list/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="Be the best you can be">
+<meta property="og:description" content="一，list的介绍与使用list的文档介绍（官网）   list是可以在常数范围内在任意位置进行插入和删除的序列式容器，并且该容器可以前后双向迭代。 list的底层是双向链表结构，双向链表中每个元素存储在互不相关的独立节点中，">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-03-05T05:17:39.000Z">
-<meta property="article:modified_time" content="2021-03-05T05:18:06.687Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201116230022670.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2020-11-16T15:09:04.000Z">
+<meta property="article:modified_time" content="2021-03-06T06:49:01.912Z">
 <meta property="article:author" content="Li-eng">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="list">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201116230022670.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70#pic_center">
   
     <link rel="alternative" href="/atom.xml" title="Li-eng" type="application/atom+xml">
   
@@ -157,27 +161,27 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-list" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      分类
+      【C++系列】STL中的list用法详解及模拟实现
     </h1>
   
 
         
-        <a href="/categories/index.html" class="archive-article-date">
-  	<time datetime="2021-03-05T05:17:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-05</time>
+        <a href="/11/16/list/" class="archive-article-date">
+  	<time datetime="2020-11-16T15:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-16</time>
 
 	  <span id="busuanzi_container_page_pv">  本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span>
 	</a>
 
         
         <div align="center" class="post-count">
-          字数：0字 | 预计阅读时长：1分钟
+          字数：2.5k字 | 预计阅读时长：11分钟
       </div>
       
       </header>
@@ -186,7 +190,87 @@
       
       
       
-        
+        <h2 id="一，list的介绍与使用"><a href="#一，list的介绍与使用" class="headerlink" title="一，list的介绍与使用"></a>一，list的介绍与使用</h2><p><a target="_blank" rel="noopener" href="http://www.cplusplus.com/reference/list/list/?kw=list">list的文档介绍（官网）</a></p>
+<blockquote>
+<ol>
+<li>list是可以在常数范围内在任意位置进行插入和删除的序列式容器，并且该容器可以前后双向迭代。</li>
+<li>list的底层是双向链表结构，双向链表中每个元素存储在互不相关的独立节点中，<span id="more"></span>在节点中通过指针指向 其前一个元素和后一个元素。</li>
+<li>list与forward_list非常相似：最主要的不同在于forward_list是单链表，只能朝前迭代，已让其更简单高效。</li>
+<li>与其他的序列式容器相比(array，vector，deque)，list通常在任意位置进行插入、移除元素的执行效率 更好</li>
+<li>与其他序列式容器相比，list和forward_list最大的缺陷是不支持任意位置的随机访问，比如：要访问list的第6个元素，必须从已知的位置(比如头部或者尾部)迭代到该位置，在这段位置上迭代需要线性的时间开销</li>
+</ol>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>构造函数</th>
+<th>接口说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>list()</td>
+<td>构造空的list</td>
+</tr>
+<tr>
+<td>list (size_type n, const value_type&amp; val = value_type())</td>
+<td>构造的list中包含n个值为val的元素</td>
+</tr>
+<tr>
+<td>list(const list&amp; x)</td>
+<td>拷贝构造函数</td>
+</tr>
+<tr>
+<td>list (InputIterator first, InputIterator last)</td>
+<td>用[first, last)区间中的元素构造list</td>
+</tr>
+</tbody></table>
+<p>**<strong>此处一定要注意，是左闭右开的区间！！！</strong> **</p>
+<p> <strong>list iterator的使用</strong><br>| 函数声明 |   接口说明|<br>|–|–|<br>|begin（） end（） |正向迭代器，对迭代器执行++操作，迭代器向后移动  |<br>| rbegin（） rend（） | 反向迭代器，对迭代器执行++操作，迭代器向前移动 |<br><strong>其他重要接口</strong><br>| 函数声明  | 接口说明 |<br>|–|–|<br>|empty  | 判空 |<br>| size | 返回list中有效节点个数 |<br>|  front| 返回list中第一个节点的值 |<br>| back |返回list中最后一个节点的值  |<br>| push_front | 头插 |<br>| pop_front | 头删 |<br>| pop_front | 尾删 |<br>|  push_back| 尾插 |<br>|  insert| 在pos位置插入元素 |<br>| erase | 删除pos位置的元素 |<br>|  swap| 交换两个list中的元素 |<br>|  clear| 清空list的元素 |</p>
+<p><strong>list的迭代器失效</strong></p>
+<blockquote>
+<p>迭代器失效即迭代器所指向的节点的无效，即该节点被删除了。因为list的底层结构为带头结点的双向循环链表，<strong>因此在list中进行插入时是不会导致list的迭代器失效的，只有在删除时才会失效</strong>，并且失效的只是指向被删除节点的迭代器，其他迭代器不会受到影响</p>
+</blockquote>
+<h2 id="二，list的模拟实现"><a href="#二，list的模拟实现" class="headerlink" title="二，list的模拟实现"></a>二，list的模拟实现</h2><blockquote>
+<p>我首先写了一个简单的日期类，方便后续测试</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">date</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	date(<span class="keyword">int</span> y=<span class="number">1900</span>,<span class="keyword">int</span> m=<span class="number">1</span>,<span class="keyword">int</span> d=<span class="number">1</span>)</span><br><span class="line">		:_y(y)</span><br><span class="line">		,_m(m)</span><br><span class="line">		,_d(d)</span><br><span class="line">	&#123;&#125;</span><br><span class="line">	<span class="keyword">int</span> _y;</span><br><span class="line">	<span class="keyword">int</span> _m;</span><br><span class="line">	<span class="keyword">int</span> _d;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在这里定义链表中的每一个节点，用模板可以支持更多类型包括自定义的类型。<br>首先一个节点是由一个数据，一个头指针，一个尾指针组成。<br>在构造函数中对三个变量进行初始化，注意val是const类型，是不可以修改的</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	ListNode(<span class="keyword">const</span> T&amp; val=T())</span><br><span class="line">	&#123;</span><br><span class="line">		_data = val;</span><br><span class="line">		_prev = <span class="literal">nullptr</span>;</span><br><span class="line">		_next = <span class="literal">nullptr</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	T _data;</span><br><span class="line">	ListNode&lt;T&gt;* _prev;</span><br><span class="line">	ListNode&lt;T&gt;* _next; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>对于迭代器的实现<br> 迭代器有两种实现方式，具体应根据容器底层数据结构实现：</p>
+<ol>
+<li>原生态指针，比如：vector</li>
+<li>将原生态指针进行封装，因迭代器使用形式与指针完全相同，因此在自定义的类中必须实现以下 方法：</li>
+<li>指针可以解引用，迭代器的类中必须重载operator*()</li>
+<li>指针可以通过-&gt;访问其所指空间成员，迭代器类中必须重载oprator-&gt;()</li>
+<li>指针可以++向后移动，迭代器类中必须重载operator++()与operator++(int)  至于operator–()/operator–(int)释放需要重载，根据具体的结构来抉择，双向链表可 以向前移动，所以需要重载，如果是forward_list就不需要重载</li>
+<li>迭代器需要进行是否相等的比较，因此还需要重载operator==()与operator!=()</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>我这里写了两个迭代器的构造函数，默认构造（用一个节点构造），还可以实现用一个迭代器构造另一个。<br>1.解引用（<em>） 的重载是返回节点的数据，返回类型为T&amp;<br>2.前置++，前置– 都是返回迭代器类型 Listiterator&lt; T&gt;&amp; ，当然也是返回引用<br>3.后置++，后置– 返回迭代器类型 Listiterator&lt; T&gt;<br>4.！=和==的重载 只需要判断这两个节点的地址是不是同一地址<br> 5.-&gt;的重载 返回值类型为T</em>，指针类型，返回节点中数据的地址，可以访问到其空间中的成员<br>     例：it.operator-&gt;() -&gt;_y ;先拿到数据的地址,在调用-&gt;, 访问其成员</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>,<span class="keyword">class</span> <span class="title">ref</span>,<span class="keyword">class</span> <span class="title">ptr</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Listiterator</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">typedef</span> ListNode&lt;T&gt; Node;</span><br><span class="line">	<span class="keyword">typedef</span> Listiterator&lt;T,ref,ptr&gt; Self;</span><br><span class="line">	<span class="comment">//封装一个节点</span></span><br><span class="line">	Node* _node;</span><br><span class="line">	Listiterator(Node* node)</span><br><span class="line">		:_node(node)</span><br><span class="line">	&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	Listiterator(<span class="keyword">const</span> Self&amp; lit) <span class="comment">//用一个迭代器构造另一个</span></span><br><span class="line">		:_node(lit._node)</span><br><span class="line">	&#123;&#125;</span><br><span class="line"></span><br><span class="line">	ref <span class="keyword">operator</span>*()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//cout &lt;&lt; this-&gt;_node-&gt;_data;</span></span><br><span class="line">		<span class="keyword">return</span> _node-&gt;_data;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	Self&amp; <span class="keyword">operator</span>++() <span class="comment">//返回迭代器 前置++</span></span><br><span class="line">	&#123;</span><br><span class="line">		_node = _node-&gt;_next;</span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	Self&amp; <span class="keyword">operator</span>--() <span class="comment">//返回迭代器 前置--</span></span><br><span class="line">	&#123;</span><br><span class="line">		_node = _node-&gt;_prev;</span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	Self <span class="keyword">operator</span>++(<span class="keyword">int</span>) <span class="comment">//后置++ 因为后置++返回原来的迭代器</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="function">Listiterator&lt;T&gt; <span class="title">tmp</span><span class="params">(*<span class="keyword">this</span>)</span></span>;<span class="comment">//拷贝构造一个迭代器</span></span><br><span class="line">		_node = _node-&gt;_next;</span><br><span class="line">		<span class="keyword">return</span> tmp;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span>!=(<span class="keyword">const</span> Self&amp; it) <span class="keyword">const</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> _node != it._node;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span> ==(<span class="keyword">const</span> Self&amp; it) <span class="keyword">const</span> </span><br><span class="line">	&#123; </span><br><span class="line">		<span class="keyword">return</span> _node == it._node;</span><br><span class="line">	&#125;</span><br><span class="line">	ptr <span class="keyword">operator</span> -&gt;() </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> &amp;<span class="keyword">this</span>-&gt;_node-&gt;_data;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>list类实现，包含一个成员：头节点 Node* _header;<br>无参构造：开辟一个头节点，前驱后驱都指向头节点本身<br>用n个val构造 ：此处复用尾插函数<br>用一个迭代器构造：此处也是复用尾插函数，插入解引用的值<br>拷贝构造：复用迭代器构造创建出一个临时变量，也是一种深拷贝，与this进行交换（交换头指针），此时临时变量的内容为this的内容，函数生命周期结束临时变量释放。<br>赋值运算符重载：List&lt; T&gt;&amp; operator=(List&lt; T&gt; ls)<br>传参时调用拷贝构造，构造出一个临时对象，再进行交换，同上</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">List</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">typedef</span> ListNode&lt;T&gt; Node;</span><br><span class="line">	<span class="keyword">typedef</span> Listiterator&lt;T, T&amp;, T*&gt; iterator;</span><br><span class="line">	<span class="keyword">typedef</span> Listiterator&lt;T,<span class="keyword">const</span> T&amp;,<span class="keyword">const</span> T*&gt; const_iterator;</span><br><span class="line">	List()</span><br><span class="line">	&#123;</span><br><span class="line">		_header = <span class="keyword">new</span> Node;</span><br><span class="line">		_header-&gt;_prev = _header-&gt;_next = _header;</span><br><span class="line">	&#125;</span><br><span class="line">	List(<span class="keyword">size_t</span> n, <span class="keyword">const</span> T&amp; val = T()) </span><br><span class="line">	&#123;</span><br><span class="line">		_header = <span class="keyword">new</span> Node;</span><br><span class="line">		_header-&gt;_prev = _header-&gt;_next = _header;</span><br><span class="line">		<span class="keyword">while</span> (n--)</span><br><span class="line">		&#123;</span><br><span class="line">			push_back(val);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	List(const_iterator first, const_iterator last)</span><br><span class="line">	&#123;</span><br><span class="line">		_header = <span class="keyword">new</span> Node;</span><br><span class="line">		_header-&gt;_prev = _header-&gt;_next = _header;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">while</span> (first != last)</span><br><span class="line">		&#123;</span><br><span class="line">			push_back(*first);</span><br><span class="line">			++first;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	List(<span class="keyword">const</span> List&lt;T&gt;&amp; ls) <span class="comment">//拷贝构造</span></span><br><span class="line">	&#123;</span><br><span class="line">		_header = <span class="keyword">new</span> Node;</span><br><span class="line">		_header-&gt;_prev = _header-&gt;_next = _header;</span><br><span class="line"></span><br><span class="line">		<span class="function">List&lt;T&gt; <span class="title">tmp</span><span class="params">(ls.begin(), ls.end())</span></span>; <span class="comment">//创建临时变量</span></span><br><span class="line">		<span class="keyword">this</span>-&gt;Swap(tmp);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	List&lt;T&gt;&amp; <span class="keyword">operator</span>=(List&lt;T&gt; ls)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//ls.push_back(T());</span></span><br><span class="line">		<span class="keyword">this</span>-&gt;Swap(ls);</span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Swap</span><span class="params">(List&lt;T&gt;&amp; ls)</span> <span class="comment">//交换两个对象的头</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		swap(<span class="keyword">this</span>-&gt;_header, ls._header);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>1.插入函数insert（）：位置pos与返回值都为迭代器类型，需要开辟新的节点，再对指针重新进行连接<br>2.删除函数erase（）：删除pos位置节点，并且会释放空间，返回的是下一个节点的位置<br>3.begin，end，const_begin,const_end : 调用迭代器类的构造函数，都是返回迭代器类型<br> 4.clear（）清空函数：通过迭代器，调用删除函数，清空链表<br> iterator it = begin();<br>        while (it != end())<br>        {<br>            it=erase(it);<br>        }<br>5.析构函数：调用clear（），然后释放头节点空间并置为nullptr</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	iterator it = begin();</span><br><span class="line">	<span class="keyword">while</span> (it != end())</span><br><span class="line">	&#123;</span><br><span class="line">		it=erase(it);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push_back</span><span class="params">(<span class="keyword">const</span> T&amp; val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	insert(--begin(), val);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">iterator <span class="title">insert</span><span class="params">(iterator pos,<span class="keyword">const</span> T&amp; val=T())</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Node* prev = pos._node-&gt;_prev;</span><br><span class="line">	Node* cur = <span class="keyword">new</span> Node(val);</span><br><span class="line"></span><br><span class="line">	cur-&gt;_next = pos._node;</span><br><span class="line">	pos._node-&gt;_prev = cur;</span><br><span class="line"></span><br><span class="line">	prev-&gt;_next = cur;</span><br><span class="line">	cur-&gt;_prev = prev;</span><br><span class="line">	<span class="keyword">return</span> iterator(cur);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">iterator <span class="title">erase</span><span class="params">(iterator pos)</span> <span class="comment">//返回下一个节点的位置</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Node* next = pos._node-&gt;_next;</span><br><span class="line"></span><br><span class="line">	pos._node-&gt;_prev-&gt;_next = next;</span><br><span class="line">	next-&gt;_prev = pos._node-&gt;_prev;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">delete</span> pos._node;</span><br><span class="line">	<span class="keyword">return</span> iterator(next);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">iterator <span class="title">begin</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> iterator(_header-&gt;_next);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">iterator <span class="title">end</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> iterator(_header);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">const_iterator <span class="title">begin</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> const_iterator(_header-&gt;_next);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">const_iterator <span class="title">end</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> const_iterator(_header);</span><br><span class="line">&#125;</span><br><span class="line">~List()</span><br><span class="line">&#123;</span><br><span class="line">	clear();</span><br><span class="line">	<span class="keyword">delete</span> _header;</span><br><span class="line">	_header = <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="三，测试"><a href="#三，测试" class="headerlink" title="三，测试"></a>三，测试</h2><blockquote>
+<p>给出了一些测试用例，供读者参考</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;创建一个date类型的对象：&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="function">List&lt;date&gt; <span class="title">ls</span><span class="params">(<span class="number">3</span>)</span></span>;</span><br><span class="line">	List&lt;date&gt;::iterator it = ls.begin();</span><br><span class="line">	<span class="keyword">while</span> (it != ls.end())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; it-&gt;_y &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; it-&gt;_m &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; it-&gt;_d;</span><br><span class="line">		++it;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;date类型: 拷贝构造： &quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="function">List&lt;date&gt; <span class="title">ls2</span><span class="params">(ls)</span></span>;</span><br><span class="line">	List&lt;date&gt;::iterator it2 = ls2.begin();</span><br><span class="line">	<span class="keyword">while</span> (it2 != ls2.end())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; it2-&gt;_y &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; it2-&gt;_m &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; it2-&gt;_d;</span><br><span class="line">		++it2;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;date类型 :带参构造：&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="function">date <span class="title">d1</span><span class="params">(<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>)</span></span>;</span><br><span class="line">	<span class="function">List&lt;date&gt; <span class="title">ls3</span><span class="params">(<span class="number">3</span>,d1)</span></span>;</span><br><span class="line">	it2 = ls3.begin();</span><br><span class="line">	<span class="keyword">while</span> (it2 != ls3.end())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; it2-&gt;_y &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; it2-&gt;_m &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; it2-&gt;_d;</span><br><span class="line">		++it2;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;date类型： 赋值运算符重载：&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	ls3 = ls2;</span><br><span class="line">	it2 = ls3.begin();</span><br><span class="line">	<span class="keyword">while</span> (it2 != ls3.end())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; it2-&gt;_y &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; it2-&gt;_m &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; it2-&gt;_d;</span><br><span class="line">		++it2;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;调用插入 ：&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="function">date <span class="title">d2</span><span class="params">(<span class="number">2020</span>, <span class="number">6</span>, <span class="number">18</span>)</span></span>;</span><br><span class="line">	ls3.insert(ls3.begin(),d2);</span><br><span class="line">	ls3.insert(ls3.begin(),d1);</span><br><span class="line">	ls3.insert(ls3.begin(),d1);</span><br><span class="line">	ls3.erase(ls3.begin());</span><br><span class="line">	it2 = ls3.begin();</span><br><span class="line">	<span class="keyword">while</span> (it2 != ls3.end())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; it2-&gt;_y &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; it2-&gt;_m &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; it2-&gt;_d;</span><br><span class="line">		++it2;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	ls3.clear();</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;调用清空：&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	it2 = ls3.begin();</span><br><span class="line">	<span class="keyword">while</span> (it2 != ls3.end())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; it2-&gt;_y &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; it2-&gt;_m &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; it2-&gt;_d;</span><br><span class="line">		++it2;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果如下<br><img src="https://img-blog.csdnimg.cn/20201116230022670.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+
       
 
       
@@ -220,6 +304,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">list</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -270,7 +369,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/categories/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/11/16/list/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -282,6 +381,20 @@
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/11/21/string/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          【C++系列】STL中的string用法详解及模拟实现
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
