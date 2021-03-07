@@ -50,6 +50,22 @@
   
   
 
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+
+</script>
+
+
 
   
     <script src="/lib/pace.min.js"></script>
@@ -123,11 +139,6 @@
 												title="微信" target="_blank"><i class="icon-weixin"></i></a>
 					
 				
-					
-						<a class="mail" href="/lieng618@163.com" 
-												title="邮件联系" target="_blank"><i class="icon-mail"></i></a>
-					
-				
 			</div>
 		
 			
@@ -197,11 +208,6 @@
 						
 						<a class="weixin" target="_blank" 
 							href="/img/wechat.png" title="微信"><i class="icon-weixin"></i></a>
-						
-					
-						
-						<a class="mail" target="_blank" 
-							href="/lieng618@163.com" title="邮件联系"><i class="icon-mail"></i></a>
 						
 					
 				</div>
@@ -385,7 +391,7 @@
         <li>
           <strong>版权声明： </strong>
           
-          转载请注明出处，谢谢您的阅读！
+          转载请注明出处，感谢您的阅读！
         </li>
         
       </ul>
@@ -510,6 +516,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8"><span class="toc-number">1.1.</span> <span class="toc-text">1.关联式容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%94%AE%E5%80%BC%E5%AF%B9-pair"><span class="toc-number">1.2.</span> <span class="toc-text">2.键值对 pair</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#map"><span class="toc-number">2.</span> <span class="toc-text">map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#multimap"><span class="toc-number">3.</span> <span class="toc-text">multimap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#set"><span class="toc-number">4.</span> <span class="toc-text">set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#multiset"><span class="toc-number">5.</span> <span class="toc-text">multiset</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="toc-number">6.</span> <span class="toc-text">底层实现</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
@@ -1025,7 +1044,7 @@
       
     },
     mobile: {
-      
+       show: false, 
        scale: 0.6 
     },
     react: {

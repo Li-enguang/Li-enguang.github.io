@@ -49,6 +49,22 @@
   
   
 
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+
+</script>
+
+
 
   
     <script src="/lib/pace.min.js"></script>
@@ -122,11 +138,6 @@
 												title="微信" target="_blank"><i class="icon-weixin"></i></a>
 					
 				
-					
-						<a class="mail" href="/lieng618@163.com" 
-												title="邮件联系" target="_blank"><i class="icon-mail"></i></a>
-					
-				
 			</div>
 		
 			
@@ -196,11 +207,6 @@
 						
 						<a class="weixin" target="_blank" 
 							href="/img/wechat.png" title="微信"><i class="icon-weixin"></i></a>
-						
-					
-						
-						<a class="mail" target="_blank" 
-							href="/lieng618@163.com" title="邮件联系"><i class="icon-mail"></i></a>
 						
 					
 				</div>
@@ -344,7 +350,7 @@
         <li>
           <strong>版权声明： </strong>
           
-          转载请注明出处，谢谢您的阅读！
+          转载请注明出处，感谢您的阅读！
         </li>
         
       </ul>
@@ -465,6 +471,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">实现单例模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A5%BF%E6%B1%89%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text">饿汉模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%87%92%E6%B1%89%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">懒汉模式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E4%B8%80%E4%B8%AA%E5%8F%AA%E8%83%BD%E5%9C%A8%E5%A0%86%E4%B8%8A%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%B1%BB"><span class="toc-number">2.</span> <span class="toc-text">写一个只能在堆上创建对象的类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E4%B8%80%E4%B8%AA%E5%8F%AA%E8%83%BD%E5%9C%A8%E6%A0%88%E4%B8%8A%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%B1%BB"><span class="toc-number">3.</span> <span class="toc-text">写一个只能在栈上创建对象的类</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
@@ -980,7 +999,7 @@
       
     },
     mobile: {
-      
+       show: false, 
        scale: 0.6 
     },
     react: {

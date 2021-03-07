@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201221144153760.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/202012211443459.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2020-12-20T16:16:37.000Z">
-<meta property="article:modified_time" content="2021-03-06T11:36:08.172Z">
+<meta property="article:modified_time" content="2021-03-07T08:48:50.612Z">
 <meta property="article:author" content="Li-eng">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="继承">
@@ -63,6 +63,22 @@
  	  <script src="/lib/clickLove.js"></script>
   
   
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+
+</script>
+
 
 
   
@@ -137,11 +153,6 @@
 												title="微信" target="_blank"><i class="icon-weixin"></i></a>
 					
 				
-					
-						<a class="mail" href="/lieng618@163.com" 
-												title="邮件联系" target="_blank"><i class="icon-mail"></i></a>
-					
-				
 			</div>
 		
 			
@@ -211,11 +222,6 @@
 						
 						<a class="weixin" target="_blank" 
 							href="/img/wechat.png" title="微信"><i class="icon-weixin"></i></a>
-						
-					
-						
-						<a class="mail" target="_blank" 
-							href="/lieng618@163.com" title="邮件联系"><i class="icon-mail"></i></a>
 						
 					
 				</div>
@@ -291,7 +297,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h4 id="继承的概念"><a href="#继承的概念" class="headerlink" title="继承的概念"></a>继承的概念</h4><blockquote>
+    <h3 id="继承的概念"><a href="#继承的概念" class="headerlink" title="继承的概念"></a>继承的概念</h3><blockquote>
 <p><strong>继承(inheritance)机制</strong>是面向对象程序设计使代码可以<strong>复用</strong>的最重要的手段，它允许程序员在保持原有类特性的基础上进行扩展，增加功能，这样产生新的类，称派生类。继承呈现了面向对象程序设计的层次结构，体现了由简单到复杂的认知过程。以前我们接触的复用都是函数复用，<strong>继承是类设计层次的复用</strong>。<span id="more"></span></p>
 </blockquote>
 <h4 id="继承基类成员访问方式的变化"><a href="#继承基类成员访问方式的变化" class="headerlink" title="继承基类成员访问方式的变化"></a>继承基类成员访问方式的变化</h4><p><img src="https://img-blog.csdnimg.cn/20201220171346167.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
@@ -310,10 +316,21 @@
 <p>　　对象组合对系统设计还有另一个作用，即<strong>优先使用对象组合有助于你保持每个类被封装，并被集中在单个任务上</strong>。这样类和类继承层次会保持较小规模，并且不太可能增长为不可控制的庞然大物。另一方面，基于对象组合的设计会有更多的对象 (而有较少的类)，且系统的行为将依赖于对象间的关系而不是被定义在某个类中。<br>　　<br>实际尽量多去用组合。<strong>组合的耦合度低，代码维护性好</strong> 不过继承也有用武之地的，有些关系就适合继承那就用继承，另外<strong>要实现多态，也必须要继承</strong>。类之间的关系可以用继承，可以用组合，就用组合。<br>　　<br>这导出了我们的面向对象设计的第二个原则：<strong>优先使用对象组合，而不是类继承。</strong></p>
 <h4 id="基类和派生类对象赋值转换"><a href="#基类和派生类对象赋值转换" class="headerlink" title="基类和派生类对象赋值转换"></a>基类和派生类对象赋值转换</h4><p>派生类对象 可以赋值给 基类的对象 / 基类的指针 / 基类的引用。这里有个形象的说法叫切片或者切割。寓意把派生类中父类那部分切来赋值过去。</p>
 <p>基类对象不能赋值给派生类对象。子类的成员是要比父类多，赋值不到可能就是随机值。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Person	p； <span class="comment">//一个父类对象</span></span><br><span class="line">Student s； <span class="comment">//子类对象</span></span><br><span class="line">p=s； <span class="comment">//切片</span></span><br><span class="line">s=p； <span class="comment">//不允许</span></span><br><span class="line"></span><br><span class="line">Person *ptr=&amp;s;<span class="comment">//允许</span></span><br><span class="line">Person&amp; ref=s; <span class="comment">//允许</span></span><br><span class="line"></span><br><span class="line">Student * str=&amp;p; <span class="comment">//不允许</span></span><br><span class="line">Student&amp; ref=p; <span class="comment">//不允许</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>这里虽然可以使用强制类型转换，但是这是非法的行为，不安全的，访问不到子类新增的成员。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Student * str=（student*）&amp;p; <span class="comment">//不安全</span></span><br><span class="line">Student&amp; ref=（student&amp;）p; <span class="comment">//不安全</span></span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">Person    p； //一个父类对象
+Student s； //子类对象
+p=s； //切片
+s=p； //不允许
 
+Person *ptr=&amp;s;//允许
+Person&amp; ref=s; //允许
+
+Student * str=&amp;p; //不允许
+Student&amp; ref=p; //不允许
+</code></pre>
+<p>这里虽然可以使用强制类型转换，但是这是非法的行为，不安全的，访问不到子类新增的成员。</p>
+<pre><code class="cpp">Student * str=（student*）&amp;p; //不安全
+Student&amp; ref=（student&amp;）p; //不安全
+</code></pre>
 <h4 id="继承中的作用域"><a href="#继承中的作用域" class="headerlink" title="继承中的作用域"></a>继承中的作用域</h4><ol>
 <li>在继承体系中基类和派生类都有独立的作用域。</li>
 <li>子类和父类中有同名成员，子类成员将屏蔽父类对同名成员的直接访问，这种情况叫隐藏，也叫重定义。（在子类成员函数中，可以使用 基类::基类成员 显示访问）</li>
@@ -333,18 +350,115 @@
 <p>基类定义了static静态成员，则整个继承体系里面只有一个这样的成员。无论派生出多少个子类，都<strong>只有一个static成员实例</strong> 。</p>
 <h4 id="菱形继承及菱形虚拟继承"><a href="#菱形继承及菱形虚拟继承" class="headerlink" title="菱形继承及菱形虚拟继承"></a>菱形继承及菱形虚拟继承</h4><p>单继承：一个子类只有一个直接父类时称这个继承关系为单继承<br><img src="https://img-blog.csdnimg.cn/20201221131315817.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70"><br>多继承：一个子类有两个或以上直接父类时称这个继承关系为多继承<br><img src="https://img-blog.csdnimg.cn/20201221131515730.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>菱形继承：菱形继承是多继承的一种特殊情况。</p>
 <p><img src="https://img-blog.csdnimg.cn/20201221131726914.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">string</span> _name; <span class="comment">// 姓名</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> :</span> <span class="keyword">public</span> Person</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	<span class="keyword">int</span> _num; <span class="comment">//学号</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> :</span> <span class="keyword">public</span> Person</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	<span class="keyword">int</span> _id; <span class="comment">// 职工编号</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Assistant</span> :</span> <span class="keyword">public</span> Student, <span class="keyword">public</span> Teacher</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	<span class="built_in">string</span> _majorCourse; <span class="comment">// 主修课程</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">class Person
+&#123;
+public:
+    string _name; // 姓名
+&#125;;
 
+class Student : public Person
+&#123;
+protected:
+    int _num; //学号
+&#125;;
+class Teacher : public Person
+&#123;
+protected:
+    int _id; // 职工编号
+&#125;;
+class Assistant : public Student, public Teacher
+&#123;
+protected:
+    string _majorCourse; // 主修课程
+&#125;;
+</code></pre>
 <p>对于上面的继承关系，这是一种菱形继承。从监视窗口可以看出在Assistant<br>的对象中Person成员会有两份。可以看出菱形继承有数据冗余和二义性的问题。<br><img src="https://img-blog.csdnimg.cn/20201221131939179.png" alt="在这里插入图片描述"></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Assistant as;</span><br><span class="line">as._name = <span class="string">&quot;wu&quot;</span>;<span class="comment">// 这样会有二义性无法明确知道访问的是哪一个</span></span><br><span class="line">as.Student::_name = <span class="string">&quot;stu&quot;</span>; <span class="comment">//正确</span></span><br><span class="line">as.Teacher::_name = <span class="string">&quot;ter&quot;</span>; <span class="comment">//正确</span></span><br><span class="line">as.Person::_name = <span class="string">&quot;per&quot;</span>; <span class="comment">//不正确</span></span><br></pre></td></tr></table></figure>
-
-
-
+<pre><code class="cpp">    Assistant as;
+    as._name = &quot;wu&quot;;// 这样会有二义性无法明确知道访问的是哪一个
+    as.Student::_name = &quot;stu&quot;; //正确
+    as.Teacher::_name = &quot;ter&quot;; //正确
+    as.Person::_name = &quot;per&quot;; //不正确
+</code></pre>
 <p><strong>虚拟继承可以解决菱形继承的二义性和数据冗余的问题。如上面的继承关系，在Student和Teacher的继承Person时使用虚拟继承，即可解决问题</strong></p>
 <p>给出一个简化的菱形虚拟继承，研究一下内存模型。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="keyword">int</span> _a;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> :</span> <span class="keyword">virtual</span> <span class="keyword">public</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="keyword">int</span> _b;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> :</span> <span class="keyword">virtual</span> <span class="keyword">public</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="keyword">int</span> _c;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span> :</span> <span class="keyword">public</span> B, <span class="keyword">public</span> C</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="keyword">int</span> _d;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> D d;</span><br><span class="line"> d.B::_a = <span class="number">1</span>;</span><br><span class="line"> d.C::_a = <span class="number">2</span>;</span><br><span class="line"> d._b = <span class="number">3</span>;</span><br><span class="line"> d._c = <span class="number">4</span>;</span><br><span class="line"> d._d = <span class="number">5</span>;</span><br><span class="line"> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">class A
+&#123;
+public:
+ int _a;
+&#125;;
+class B : virtual public A
+&#123;
+public:
+ int _b;
+&#125;;
+class C : virtual public A
+&#123;
+public:
+ int _c;
+&#125;;
+class D : public B, public C
+&#123;
+public:
+ int _d;
+&#125;;
+int main()
+&#123;
+ D d;
+ d.B::_a = 1;
+ d.C::_a = 2;
+ d._b = 3;
+ d._c = 4;
+ d._d = 5;
+ return 0;
+&#125;
+</code></pre>
 <p> 对于普通的虚拟继承，内存模型如下：<br> 可以看出对于B和C中都有的A对象，存了两份。<img src="https://img-blog.csdnimg.cn/20201221140727657.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>如果使用虚拟继承，内存如下：<br><img src="https://img-blog.csdnimg.cn/202012211409268.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在B和C中增加了两个指针，指向了一张表。这两个指针叫虚基表指针，这两个表叫虚基表。虚基表中存的偏移量。通过偏移量可以找到下面的A。<br><img src="https://img-blog.csdnimg.cn/2020122114200044.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h4 id="菱形虚拟继承中包含虚函数"><a href="#菱形虚拟继承中包含虚函数" class="headerlink" title="菱形虚拟继承中包含虚函数"></a>菱形虚拟继承中包含虚函数</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> _a;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;A::func1()&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> :</span><span class="keyword">virtual</span> <span class="keyword">public</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> _b;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func2</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;B::func2()&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;B::func1()&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> :</span><span class="keyword">virtual</span> <span class="keyword">public</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> _c;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;C::func1()&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span> :</span> <span class="keyword">public</span> C,<span class="keyword">public</span> B</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> _d;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;D::func1()&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func3</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;D::func3()&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="菱形虚拟继承中包含虚函数"><a href="#菱形虚拟继承中包含虚函数" class="headerlink" title="菱形虚拟继承中包含虚函数"></a>菱形虚拟继承中包含虚函数</h4><pre><code class="cpp">
+class A
+&#123;
+public:
+    int _a;
+    virtual void func1()
+    &#123;
+        cout &lt;&lt; &quot;A::func1()&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+class B :virtual public A
+&#123;
+public:
+    int _b;
+    virtual void func2()
+    &#123;
+        cout &lt;&lt; &quot;B::func2()&quot; &lt;&lt; endl;
+    &#125;
+    virtual void func1()
+    &#123;
+        cout &lt;&lt; &quot;B::func1()&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+class C :virtual public A
+&#123;
+public:
+    int _c;
+    virtual void func1()
+    &#123;
+        cout &lt;&lt; &quot;C::func1()&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+class D : public C,public B
+&#123;
+public:
+    int _d;
+    virtual void func1()
+    &#123;
+        cout &lt;&lt; &quot;D::func1()&quot; &lt;&lt; endl;
+    &#125;
+    virtual void func3()
+    &#123;
+        cout &lt;&lt; &quot;D::func3()&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+</code></pre>
 <p>A中：func1<br>B中：重写A的func1，还有自己的func2<br>C中：重写A的func1<br>D中：重写A的func1，还有自己的func3</p>
 <p><img src="https://img-blog.csdnimg.cn/20201221143827692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>从上图可以发现，当给bb对象里加了个fun2函数后发现dd的对象模型又多了四个字节，这四个字节是在dd对象中继承的bb的内存空间中多出来的，就是用来存放bb对象自己的虚表地址。</p>
 <p>因为aa对象被两个对象所继承，所以aa的虚表被被公用，因此bb和cc对象的虚函数就不能放在他们公共的虚表里，只能创建自己的虚表，把自己的虚函数放在自己的虚表。</p>
@@ -399,7 +513,7 @@
         <li>
           <strong>版权声明： </strong>
           
-          转载请注明出处，谢谢您的阅读！
+          转载请注明出处，感谢您的阅读！
         </li>
         
       </ul>
@@ -520,6 +634,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">继承的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E5%9F%BA%E7%B1%BB%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F%E7%9A%84%E5%8F%98%E5%8C%96"><span class="toc-number">1.1.</span> <span class="toc-text">继承基类成员访问方式的变化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E5%92%8C%E7%BB%84%E5%90%88%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-number">1.2.</span> <span class="toc-text">继承和组合的比较</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E7%B1%BB%E5%92%8C%E6%B4%BE%E7%94%9F%E7%B1%BB%E5%AF%B9%E8%B1%A1%E8%B5%8B%E5%80%BC%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.3.</span> <span class="toc-text">基类和派生类对象赋值转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">1.4.</span> <span class="toc-text">继承中的作用域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B4%BE%E7%94%9F%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-number">1.5.</span> <span class="toc-text">派生类的成员函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%8F%8B%E5%85%83%E3%80%81%E9%9D%99%E6%80%81%E6%88%90%E5%91%98"><span class="toc-number">1.6.</span> <span class="toc-text">继承与友元、静态成员</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8F%B1%E5%BD%A2%E7%BB%A7%E6%89%BF%E5%8F%8A%E8%8F%B1%E5%BD%A2%E8%99%9A%E6%8B%9F%E7%BB%A7%E6%89%BF"><span class="toc-number">1.7.</span> <span class="toc-text">菱形继承及菱形虚拟继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8F%B1%E5%BD%A2%E8%99%9A%E6%8B%9F%E7%BB%A7%E6%89%BF%E4%B8%AD%E5%8C%85%E5%90%AB%E8%99%9A%E5%87%BD%E6%95%B0"><span class="toc-number">1.8.</span> <span class="toc-text">菱形虚拟继承中包含虚函数</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
@@ -1035,7 +1162,7 @@
       
     },
     mobile: {
-      
+       show: false, 
        scale: 0.6 
     },
     react: {

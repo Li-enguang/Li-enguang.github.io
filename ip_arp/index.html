@@ -10,12 +10,12 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="@TOC 网络层功能  网络层主要负责地址管理以及路由选择。在网络中我们从一个ip到另一个ip有很多条路可以走，而网络层则是帮我们规划我们传输数据的最佳路线。  因为网络层是整个互联网的核心，因此应当让网络层尽可能简单。网络层向上只提供简单灵活的、无连接的、尽最大努力交互的数据报服务。">
+  <meta name="description" content="网络层功能  网络层主要负责地址管理以及路由选择。在网络中我们从一个ip到另一个ip有很多条路可以走，而网络层则是帮我们规划我们传输数据的最佳路线。  因为网络层是整个互联网的核心，因此应当让网络层尽可能简单。网络层向上只提供简单灵活的、无连接的、尽最大努力交互的数据报服务。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【网络系列】网络层-IP、ARP、ICMP、DNS协议">
 <meta property="og:url" content="http://www.lienguang.com/ip_arp/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="@TOC 网络层功能  网络层主要负责地址管理以及路由选择。在网络中我们从一个ip到另一个ip有很多条路可以走，而网络层则是帮我们规划我们传输数据的最佳路线。  因为网络层是整个互联网的核心，因此应当让网络层尽可能简单。网络层向上只提供简单灵活的、无连接的、尽最大努力交互的数据报服务。">
+<meta property="og:description" content="网络层功能  网络层主要负责地址管理以及路由选择。在网络中我们从一个ip到另一个ip有很多条路可以走，而网络层则是帮我们规划我们传输数据的最佳路线。  因为网络层是整个互联网的核心，因此应当让网络层尽可能简单。网络层向上只提供简单灵活的、无连接的、尽最大努力交互的数据报服务。">
 <meta property="og:locale">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210227131702236.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210227131737841.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/2021022713472071.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210227134815118.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2021-01-16T15:09:04.000Z">
-<meta property="article:modified_time" content="2021-03-06T11:53:45.892Z">
+<meta property="article:modified_time" content="2021-03-07T08:48:56.650Z">
 <meta property="article:author" content="Li-eng">
 <meta property="article:tag" content="network">
 <meta property="article:tag" content="IP">
@@ -60,6 +60,22 @@
  	  <script src="/lib/clickLove.js"></script>
   
   
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+
+</script>
+
 
 
   
@@ -134,11 +150,6 @@
 												title="微信" target="_blank"><i class="icon-weixin"></i></a>
 					
 				
-					
-						<a class="mail" href="/lieng618@163.com" 
-												title="邮件联系" target="_blank"><i class="icon-mail"></i></a>
-					
-				
 			</div>
 		
 			
@@ -208,11 +219,6 @@
 						
 						<a class="weixin" target="_blank" 
 							href="/img/wechat.png" title="微信"><i class="icon-weixin"></i></a>
-						
-					
-						
-						<a class="mail" target="_blank" 
-							href="/lieng618@163.com" title="邮件联系"><i class="icon-mail"></i></a>
 						
 					
 				</div>
@@ -288,8 +294,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>@<a href="%E7%BD%91%E7%BB%9C%E5%B1%82%E5%85%B3%E9%94%AE%E5%8D%8F%E8%AE%AE%E8%A7%A3%E6%9E%90">TOC</a></p>
-<h2 id="网络层功能"><a href="#网络层功能" class="headerlink" title="网络层功能"></a>网络层功能</h2><p>  网络层主要负责地址管理以及路由选择。在网络中我们从一个ip到另一个ip有很多条路可以走，而网络层则是帮我们规划我们传输数据的最佳路线。 </p>
+    <h3 id="网络层功能"><a href="#网络层功能" class="headerlink" title="网络层功能"></a>网络层功能</h3><p>  网络层主要负责地址管理以及路由选择。在网络中我们从一个ip到另一个ip有很多条路可以走，而网络层则是帮我们规划我们传输数据的最佳路线。 </p>
 <p>因为网络层是整个互联网的核心，因此应当让网络层尽可能简单。网络层向上只提供简单灵活的、无连接的、尽最大努力交互的数据报服务。</p>
 <span id="more"></span>
 <p>使用 IP 协议，可以把异构的物理网络连接起来，使得在网络层看起来好像是一个统一的网络。<br><img src="https://img-blog.csdnimg.cn/20210227131702236.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>与 IP 协议配套使用的还有三个协议：</p>
@@ -312,8 +317,12 @@
 <p><strong>ip地址的构成</strong></p>
 <p>  ip地址由网络号 + 主机号组成。<br>  1、网络号：每一个路由器向自己子网中的主机分配地址的时候，这些地址中都应该包含这个网络的标记，这个标记用于区分每一个网络。每一个网络的网络号只要不一样则分配的ip地址就不会冲突。<br>  2、主机号：每一个主机的ip地址不但要具备网络的标识，还需要能够再局域网中唯一标识，这个唯一标识称之为主机号。</p>
 <p><strong>网段的划分</strong><br>  ip地址就是一个拥有4个字节的无符号整形，不过我们经常用点分十进制进行标识，早期对网段根据网络号和主机号所占位数的不同划分为五类地址：<br>  <img src="https://img-blog.csdnimg.cn/20210227132043811.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">A类：高<span class="number">8</span>位中高一位：<span class="number">0</span>，低<span class="number">7</span>位是网络号；剩下的都是主机号。(<span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> ~ <span class="number">127.255</span><span class="number">.255</span><span class="number">.255</span>)</span><br><span class="line">B类：高<span class="number">16</span>位中高两位：<span class="number">10</span>，低<span class="number">14</span>位网络号；剩下主机号。(<span class="number">128.0</span><span class="number">.0</span><span class="number">.0</span> ~ <span class="number">191.255</span><span class="number">.255</span><span class="number">.255</span>)</span><br><span class="line">C类：高<span class="number">24</span>位中高三位：<span class="number">110</span>，低<span class="number">21</span>位网络号；剩下主机号。(<span class="number">192.0</span><span class="number">.0</span><span class="number">.0</span> ~ <span class="number">223.255</span><span class="number">.255</span><span class="number">.255</span>)</span><br><span class="line">D类：高<span class="number">4</span>位固定：<span class="number">1110</span>。(<span class="number">224.0</span><span class="number">.0</span><span class="number">.0</span> ~ <span class="number">239.255</span><span class="number">.255</span><span class="number">.255</span>)</span><br><span class="line">E类：高<span class="number">5</span>位固定：<span class="number">11110</span>。(<span class="number">240.0</span><span class="number">.0</span><span class="number">.0</span> ~ <span class="number">247.255</span><span class="number">.255</span><span class="number">.255</span>)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="c">A类：高8位中高一位：0，低7位是网络号；剩下的都是主机号。(0.0.0.0 ~ 127.255.255.255)
+B类：高16位中高两位：10，低14位网络号；剩下主机号。(128.0.0.0 ~ 191.255.255.255)
+C类：高24位中高三位：110，低21位网络号；剩下主机号。(192.0.0.0 ~ 223.255.255.255)
+D类：高4位固定：1110。(224.0.0.0 ~ 239.255.255.255)
+E类：高5位固定：11110。(240.0.0.0 ~ 247.255.255.255)
+</code></pre>
 <h3 id="特殊的ip地址"><a href="#特殊的ip地址" class="headerlink" title="特殊的ip地址"></a>特殊的ip地址</h3><pre><code>主机号全为0的地址–网络号。
 主机号全为1–udp的局域网广播地址。
 127.0.0.1–虚拟回环网卡，用于本机网络测试。
@@ -333,8 +342,10 @@
 <h3 id="路由选择"><a href="#路由选择" class="headerlink" title="路由选择"></a>路由选择</h3><p>  每个路由器上都有一张路由表，记录当前路由器所相连的网络，当路由器接收一个数据，则取出目的ip地址，通过路由表判断当前数据的目的主机属于哪一个相邻的网络（使用相邻网络的地址与子网掩码进行相与，然后与目的网络的网络号进行比较）。若属于某个相邻的网络则使用相对应的网卡将数据发送出去，若路由表匹配失败，则将数据发送到下一层网络设备</p>
 <p><img src="https://img-blog.csdnimg.cn/20210219220303291.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里0.0插入图片描述"><br>上图大概描述了一个运营商与各个独立用户之间搭建局域网进行通信的简易模型，但实际上原要比这复杂得多。<br>  路由选择并不困难，最为困难的是路由表生成算法。例如距离向量算法，LS算法等。关于路由选择有着很多的算法这里不再深入讨论。<br>  关于路由选择和网络搭建十分复杂，是一门独立的学科，还需要进一步研究讨论。</p>
 <h3 id="局域网组建规则"><a href="#局域网组建规则" class="headerlink" title="局域网组建规则"></a>局域网组建规则</h3><p>  并不是所有网络号都能用于组建局域网，因为如果所有网络都能组件局域网则仍然有可能造成重复，因此规定能够组件私网的网络号只有以下几种：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10.</span>*.*.* </span><br><span class="line"><span class="number">172.16</span>.*.* ~ <span class="number">172.31</span>.*.*</span><br><span class="line"><span class="number">192.168</span>.*.*</span><br></pre></td></tr></table></figure>
-
+<pre><code class="c">10.*.*.* 
+172.16.*.* ~ 172.31.*.*
+192.168.*.*
+</code></pre>
 <p>  局域网时相邻的网络不能使用相同的网络号，会造成地址分配冲突。这里的相邻网络指的是同一路由器不同网卡所属的网络，一台路由器可以身处多个网络中，记录在同一路由器的路由表上的网络都是相邻网络。</p>
 <h2 id="地址解析协议-ARP"><a href="#地址解析协议-ARP" class="headerlink" title="地址解析协议 ARP"></a>地址解析协议 ARP</h2><p>网络层实现主机之间的通信，而链路层实现具体每段链路之间的通信。因此在通信过程中，IP 数据报的源地址和目的地址始终不变，而 MAC 地址随着链路的改变而改变。<br>ARP协议是介于网络层与链路层之间的协议，通过IP地址获取MAC地址。</p>
 <p>每个主机都有一个 ARP 高速缓存，里面有本局域网上的各主机和路由器的 IP 地址到 MAC 地址的映射表。</p>
@@ -407,7 +418,7 @@
         <li>
           <strong>版权声明： </strong>
           
-          转载请注明出处，谢谢您的阅读！
+          转载请注明出处，感谢您的阅读！
         </li>
         
       </ul>
@@ -540,6 +551,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82%E5%8A%9F%E8%83%BD"><span class="toc-number">1.</span> <span class="toc-text">网络层功能</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ip%E5%8D%8F%E8%AE%AE"><span class="toc-number"></span> <span class="toc-text">ip协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MTU"><span class="toc-number">1.</span> <span class="toc-text">MTU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87"><span class="toc-number">2.</span> <span class="toc-text">数据分片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E7%AE%A1%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">地址管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E7%9A%84ip%E5%9C%B0%E5%9D%80"><span class="toc-number">4.</span> <span class="toc-text">特殊的ip地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81"><span class="toc-number">5.</span> <span class="toc-text">子网掩码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E5%88%86%E7%B1%BB"><span class="toc-number">6.</span> <span class="toc-text">无分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9"><span class="toc-number">7.</span> <span class="toc-text">路由选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%80%E5%9F%9F%E7%BD%91%E7%BB%84%E5%BB%BA%E8%A7%84%E5%88%99"><span class="toc-number">8.</span> <span class="toc-text">局域网组建规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E8%A7%A3%E6%9E%90%E5%8D%8F%E8%AE%AE-ARP"><span class="toc-number"></span> <span class="toc-text">地址解析协议 ARP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E9%99%85%E6%8E%A7%E5%88%B6%E6%8A%A5%E6%96%87%E5%8D%8F%E8%AE%AE-ICMP"><span class="toc-number"></span> <span class="toc-text">网际控制报文协议 ICMP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ping"><span class="toc-number">1.</span> <span class="toc-text">Ping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Traceroute"><span class="toc-number">2.</span> <span class="toc-text">Traceroute</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS"><span class="toc-number"></span> <span class="toc-text">DNS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS%E7%9A%84%E8%AF%9E%E7%94%9F"><span class="toc-number">1.</span> <span class="toc-text">DNS的诞生</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%B1%82%E7%BA%A7%E5%88%92%E5%88%86"><span class="toc-number">2.</span> <span class="toc-text">DNS服务器的层级划分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E7%9A%84%E8%A7%A3%E6%9E%90%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">域名的解析流程</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
@@ -1055,7 +1079,7 @@
       
     },
     mobile: {
-      
+       show: false, 
        scale: 0.6 
     },
     react: {

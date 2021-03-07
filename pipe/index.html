@@ -18,7 +18,7 @@
 <meta property="og:description" content="进程间通信（一）简而言之就是操作系统为上层提供的进程间通信的方式为什么要操作系统提供呢?每个进程具有独立性，每个进程访问的都是自己的虚拟地址空间的虚拟地址因此需要操作系统提供一个进程间都可访问的区域来实现通信">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-11-14T11:36:04.000Z">
-<meta property="article:modified_time" content="2021-03-06T11:45:08.021Z">
+<meta property="article:modified_time" content="2021-03-07T08:49:25.817Z">
 <meta property="article:author" content="Li-eng">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="pipe">
@@ -48,6 +48,22 @@
  	  <script src="/lib/clickLove.js"></script>
   
   
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+
+</script>
+
 
 
   
@@ -122,11 +138,6 @@
 												title="微信" target="_blank"><i class="icon-weixin"></i></a>
 					
 				
-					
-						<a class="mail" href="/lieng618@163.com" 
-												title="邮件联系" target="_blank"><i class="icon-mail"></i></a>
-					
-				
 			</div>
 		
 			
@@ -196,11 +207,6 @@
 						
 						<a class="weixin" target="_blank" 
 							href="/img/wechat.png" title="微信"><i class="icon-weixin"></i></a>
-						
-					
-						
-						<a class="mail" target="_blank" 
-							href="/lieng618@163.com" title="邮件联系"><i class="icon-mail"></i></a>
 						
 					
 				</div>
@@ -276,13 +282,15 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h1 id="进程间通信（一）"><a href="#进程间通信（一）" class="headerlink" title="进程间通信（一）"></a>进程间通信（一）</h1><p>简而言之就是操作系统为上层提供的进程间通信的方式<br>为什么要操作系统提供呢?<br>每个进程具有独立性，每个进程访问的都是自己的虚拟地址空间的虚拟地址<br>因此需要操作系统提供一个进程间都可访问的区域来实现通信<span id="more"></span><br>因为应用场景不同，因此提供的方式也多种多样</p>
-<h3 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h3><blockquote>
+    <h3 id="进程间通信（一）"><a href="#进程间通信（一）" class="headerlink" title="进程间通信（一）"></a>进程间通信（一）</h3><p>简而言之就是操作系统为上层提供的进程间通信的方式<br>为什么要操作系统提供呢?<br>每个进程具有独立性，每个进程访问的都是自己的虚拟地址空间的虚拟地址<br>因此需要操作系统提供一个进程间都可访问的区域来实现通信<span id="more"></span><br>因为应用场景不同，因此提供的方式也多种多样</p>
+<h4 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h4><blockquote>
 <p>管道 ：用于实现进程间的数据传输功能<br>           本质就是内核中的一块缓冲区</p>
 </blockquote>
 <p>管道的种类 ：匿名管道和命名管道</p>
 <h4 id="1-匿名管道"><a href="#1-匿名管道" class="headerlink" title="1. 匿名管道"></a>1. 匿名管道</h4><p>：<br>          概念：在内核中申请一块固定大小的缓冲区，程序拥有写入和读取的权利，一般使用fork函数实现父子进程的通信。<br>（1）在内核中创建管道</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">pipe</span><span class="params">(<span class="keyword">int</span> pipefd[<span class="number">2</span>])</span></span>;    <span class="comment">// 返回值：若成功返回0，失败返回-1</span></span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">#include &lt;unistd.h&gt;
+ int pipe(int pipefd[2]);    // 返回值：若成功返回0，失败返回-1
+</code></pre>
 <p>（2）创建成功则返回管道的操作句柄<br>（3）操作方式类似于文件操作</p>
 <blockquote>
 <p>父进程创建管道，得到两个⽂件描述符指向管道的两端<br>父进程fork出子进程，⼦进程也有两个⽂件描述符指向同⼀管道。</p>
@@ -310,19 +318,66 @@
 <p>创建管道和两个子进程，ps输出到标准输出（1），grep从标准输入（0）拿数据，只需要把1重定向到管道的写，把0重定向到管道的读，这时候写入的数据写道管道里，读数据就从管道读数据</p>
 </blockquote>
 <p>上代码</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">     <span class="keyword">int</span> pipefd[<span class="number">2</span>];</span><br><span class="line">     <span class="keyword">if</span> (pipe(pipefd) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;pipe error&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">pid_t</span> ps_pid = fork();</span><br><span class="line">    <span class="keyword">if</span> (ps_pid == <span class="number">0</span>) &#123;</span><br><span class="line">        close(pipefd[<span class="number">0</span>]);</span><br><span class="line">        dup2(pipefd[<span class="number">1</span>], <span class="number">1</span>);</span><br><span class="line">        execlp(<span class="string">&quot;ps&quot;</span>, <span class="string">&quot;ps&quot;</span>, <span class="string">&quot;-ef&quot;</span>, <span class="literal">NULL</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">pid_t</span> grep_pid = fork();</span><br><span class="line">    <span class="keyword">if</span> (grep_pid == <span class="number">0</span>) &#123;</span><br><span class="line">        close(pipefd[<span class="number">1</span>]);</span><br><span class="line">        dup2(pipefd[<span class="number">0</span>], <span class="number">0</span>);</span><br><span class="line">        execlp(<span class="string">&quot;grep&quot;</span>, <span class="string">&quot;grep&quot;</span>, <span class="string">&quot;ssh&quot;</span>, <span class="literal">NULL</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    close(pipefd[<span class="number">0</span>]);</span><br><span class="line">    close(pipefd[<span class="number">1</span>]);</span><br><span class="line">    waitpid(ps_pid, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line">    waitpid(grep_pid, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="c">   #include &lt;stdio.h&gt;
+   #include &lt;unistd.h&gt;
+   #include &lt;stdlib.h&gt;
+   #include &lt;string.h&gt;
+   #include &lt;sys/wait.h&gt;
+   
+   int main (int argc, char *argv[])
+   &#123;
+       int pipefd[2];
+       if (pipe(pipefd) &lt; 0) &#123;
+          perror(&quot;pipe error&quot;);
+          return -1;
+      &#125;
+      pid_t ps_pid = fork();
+      if (ps_pid == 0) &#123;
+          close(pipefd[0]);
+          dup2(pipefd[1], 1);
+          execlp(&quot;ps&quot;, &quot;ps&quot;, &quot;-ef&quot;, NULL);
+          exit(0);
+      &#125;
+      pid_t grep_pid = fork();
+      if (grep_pid == 0) &#123;
+          close(pipefd[1]);
+          dup2(pipefd[0], 0);
+          execlp(&quot;grep&quot;, &quot;grep&quot;, &quot;ssh&quot;, NULL);
+          exit(0);
+      &#125;
+      close(pipefd[0]);
+      close(pipefd[1]);
+      waitpid(ps_pid, NULL, 0);
+      waitpid(grep_pid, NULL, 0);
+      return 0;
+  &#125;
+</code></pre>
 <h4 id="3-命名管道"><a href="#3-命名管道" class="headerlink" title="3.命名管道"></a>3.命名管道</h4><blockquote>
 <p>内核中的缓存区具有标识符，可用于主机上的任意进程间通信<br>本质上还是缓存区，只是标识符是可见于文件系统的管道文件<br>缓冲区大小和磁盘空间无关</p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ret = mkfifo(<span class="string">&quot;./test.fifo&quot;</span>, <span class="number">0664</span>);</span><br><span class="line">  <span class="keyword">if</span> (ret &lt; <span class="number">0</span> &amp;&amp; errno != EEXIST) &#123;</span><br><span class="line">        perror(<span class="string">&quot;mkfifo error&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>; &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;create fifo success!\n&quot;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<pre><code class="c">     int ret = mkfifo(&quot;./test.fifo&quot;, 0664);
+    if (ret &lt; 0 &amp;&amp; errno != EEXIST) &#123;
+          perror(&quot;mkfifo error&quot;);
+          return -1; &#125;
+    printf(&quot;create fifo success!\n&quot;);
+</code></pre>
 <blockquote>
 <p>如果文件已经存在，我们不关注这个错误继续执行<br>注意此处需要给定权限<br>返回值：成功返回0，失败返回-1</p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> fd = open(<span class="string">&quot;./test.fifo&quot;</span>, O_RDONLY); <span class="comment">//以只读方式打开</span></span><br><span class="line"><span class="keyword">if</span> (fd &lt; <span class="number">0</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;open error&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;open success!!\n&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> fd = open(<span class="string">&quot;./test.fifo&quot;</span>, O_WRONLY); <span class="comment">//以只写方式打开</span></span><br><span class="line"><span class="keyword">if</span> (fd &lt; <span class="number">0</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;open error&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>; </span><br><span class="line">&#125;   </span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;open success!!\n&quot;</span>);</span><br></pre></td></tr></table></figure>
-
+<pre><code class="c">    int fd = open(&quot;./test.fifo&quot;, O_RDONLY); //以只读方式打开
+    if (fd &lt; 0) &#123;
+        perror(&quot;open error&quot;);
+        return -1; 
+    &#125; 
+    printf(&quot;open success!!\n&quot;);
+</code></pre>
+<pre><code class="c">    int fd = open(&quot;./test.fifo&quot;, O_WRONLY); //以只写方式打开
+    if (fd &lt; 0) &#123;
+        perror(&quot;open error&quot;);
+        return -1; 
+    &#125;   
+    printf(&quot;open success!!\n&quot;);
+</code></pre>
 <h4 id="4-命名管道的特性"><a href="#4-命名管道的特性" class="headerlink" title="4.命名管道的特性"></a>4.命名管道的特性</h4><p>如果命名管道没有被写的方式打开，则只读打开 就会阻塞<br>如果命名管道没有被读的方式打开，则只写打开 就会阻塞</p>
 <blockquote>
 <p><strong>谢谢大家观看，更多代码请点击下方地址，进入我的的github</strong></p>
@@ -375,7 +430,7 @@
         <li>
           <strong>版权声明： </strong>
           
-          转载请注明出处，谢谢您的阅读！
+          转载请注明出处，感谢您的阅读！
         </li>
         
       </ul>
@@ -491,6 +546,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%EF%BC%88%E4%B8%80%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">进程间通信（一）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%A1%E9%81%93"><span class="toc-number">1.1.</span> <span class="toc-text">管道</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%8C%BF%E5%90%8D%E7%AE%A1%E9%81%93"><span class="toc-number">1.2.</span> <span class="toc-text">1. 匿名管道</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%AE%A1%E9%81%93%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-number">1.3.</span> <span class="toc-text">2.管道的特性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%91%BD%E5%90%8D%E7%AE%A1%E9%81%93"><span class="toc-number">1.4.</span> <span class="toc-text">3.命名管道</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%91%BD%E5%90%8D%E7%AE%A1%E9%81%93%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-number">1.5.</span> <span class="toc-text">4.命名管道的特性</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
@@ -1006,7 +1074,7 @@
       
     },
     mobile: {
-      
+       show: false, 
        scale: 0.6 
     },
     react: {

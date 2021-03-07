@@ -49,6 +49,22 @@
   
   
 
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+
+</script>
+
+
 
   
     <script src="/lib/pace.min.js"></script>
@@ -122,11 +138,6 @@
 												title="微信" target="_blank"><i class="icon-weixin"></i></a>
 					
 				
-					
-						<a class="mail" href="/lieng618@163.com" 
-												title="邮件联系" target="_blank"><i class="icon-mail"></i></a>
-					
-				
 			</div>
 		
 			
@@ -196,11 +207,6 @@
 						
 						<a class="weixin" target="_blank" 
 							href="/img/wechat.png" title="微信"><i class="icon-weixin"></i></a>
-						
-					
-						
-						<a class="mail" target="_blank" 
-							href="/lieng618@163.com" title="邮件联系"><i class="icon-mail"></i></a>
 						
 					
 				</div>
@@ -449,7 +455,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h4 id="继承的概念"><a href="#继承的概念" class="headerlink" title="继承的概念"></a>继承的概念</h4><blockquote>
+    <h3 id="继承的概念"><a href="#继承的概念" class="headerlink" title="继承的概念"></a>继承的概念</h3><blockquote>
 <p><strong>继承(inheritance)机制</strong>是面向对象程序设计使代码可以<strong>复用</strong>的最重要的手段，它允许程序员在保持原有类特性的基础上进行扩展，增加功能，这样产生新的类，称派生类。继承呈现了面向对象程序设计的层次结构，体现了由简单到复杂的认知过程。以前我们接触的复用都是函数复用，<strong>继承是类设计层次的复用</strong>。
     
     <a class="article-more-a" href="/jicheng/#more">more >></a>
@@ -542,7 +548,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="传统C中处理错误的方式"><a href="#传统C中处理错误的方式" class="headerlink" title="传统C中处理错误的方式"></a>传统C中处理错误的方式</h2><p>以往我们在写C语言程序时，当用户的错误输入或者非期望结果发生时我们的程序有可能就会开始不正确的走向，此时我们为了程序的可靠性和健壮性往往需要对结果进行判断，并且防止一些非预期行为的发生。
+    <h3 id="传统C中处理错误的方式"><a href="#传统C中处理错误的方式" class="headerlink" title="传统C中处理错误的方式"></a>传统C中处理错误的方式</h3><p>以往我们在写C语言程序时，当用户的错误输入或者非期望结果发生时我们的程序有可能就会开始不正确的走向，此时我们为了程序的可靠性和健壮性往往需要对结果进行判断，并且防止一些非预期行为的发生。
     
     <a class="article-more-a" href="/exception/#more">more >></a>
     
@@ -729,8 +735,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>@<a href="%E4%BF%A1%E5%8F%B7">toc</a></p>
-<h3 id="1-信号是什么"><a href="#1-信号是什么" class="headerlink" title="1.信号是什么"></a>1.信号是什么</h3><blockquote>
+    <h3 id="1-信号是什么"><a href="#1-信号是什么" class="headerlink" title="1.信号是什么"></a>1.信号是什么</h3><blockquote>
 <p>通知进程发生了某个事件，打断进程当前操作，去处理这个事件。是一个软件中断，功能是事件通知。</p>
 </blockquote>
     
@@ -1114,7 +1119,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="进程间通信（二）——共享内存，消息队列，信号量"><a href="#进程间通信（二）——共享内存，消息队列，信号量" class="headerlink" title="进程间通信（二）——共享内存，消息队列，信号量"></a>进程间通信（二）——共享内存，消息队列，信号量</h2><h3 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h3><blockquote>
+    <h3 id="进程间通信（二）——共享内存，消息队列，信号量"><a href="#进程间通信（二）——共享内存，消息队列，信号量" class="headerlink" title="进程间通信（二）——共享内存，消息队列，信号量"></a>进程间通信（二）——共享内存，消息队列，信号量</h3><h3 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h3><blockquote>
 <p>本质上是一块物理内存，多个进程通过把同一块物理内存映射到自己的虚拟地址空间，通过自己的虚拟地址进行访问，实现数据共享。<br>这是一种最快的进程间通信的方式，相比于其他方式少了两步用户态与内存态之间的数据拷贝。
     
     <a class="article-more-a" href="/shm/#more">more >></a>
@@ -1691,7 +1696,7 @@
       
     },
     mobile: {
-      
+       show: false, 
        scale: 0.6 
     },
     react: {

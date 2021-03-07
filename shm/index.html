@@ -18,7 +18,7 @@
 <meta property="og:description" content="进程间通信（二）——共享内存，消息队列，信号量共享内存 本质上是一块物理内存，多个进程通过把同一块物理内存映射到自己的虚拟地址空间，通过自己的虚拟地址进行访问，实现数据共享。这是一种最快的进程间通信的方式，相比于其他方式少了两步用户态与内存态之间的数据拷贝。">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-11-17T10:23:49.000Z">
-<meta property="article:modified_time" content="2021-03-06T11:49:16.730Z">
+<meta property="article:modified_time" content="2021-03-07T08:49:54.386Z">
 <meta property="article:author" content="Li-eng">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="shm">
@@ -50,6 +50,22 @@
  	  <script src="/lib/clickLove.js"></script>
   
   
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+
+</script>
+
 
 
   
@@ -124,11 +140,6 @@
 												title="微信" target="_blank"><i class="icon-weixin"></i></a>
 					
 				
-					
-						<a class="mail" href="/lieng618@163.com" 
-												title="邮件联系" target="_blank"><i class="icon-mail"></i></a>
-					
-				
 			</div>
 		
 			
@@ -198,11 +209,6 @@
 						
 						<a class="weixin" target="_blank" 
 							href="/img/wechat.png" title="微信"><i class="icon-weixin"></i></a>
-						
-					
-						
-						<a class="mail" target="_blank" 
-							href="/lieng618@163.com" title="邮件联系"><i class="icon-mail"></i></a>
 						
 					
 				</div>
@@ -278,7 +284,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="进程间通信（二）——共享内存，消息队列，信号量"><a href="#进程间通信（二）——共享内存，消息队列，信号量" class="headerlink" title="进程间通信（二）——共享内存，消息队列，信号量"></a>进程间通信（二）——共享内存，消息队列，信号量</h2><h3 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h3><blockquote>
+    <h3 id="进程间通信（二）——共享内存，消息队列，信号量"><a href="#进程间通信（二）——共享内存，消息队列，信号量" class="headerlink" title="进程间通信（二）——共享内存，消息队列，信号量"></a>进程间通信（二）——共享内存，消息队列，信号量</h3><h3 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h3><blockquote>
 <p>本质上是一块物理内存，多个进程通过把同一块物理内存映射到自己的虚拟地址空间，通过自己的虚拟地址进行访问，实现数据共享。<br>这是一种最快的进程间通信的方式，相比于其他方式少了两步用户态与内存态之间的数据拷贝。<span id="more"></span></p>
 </blockquote>
 <p><strong>操作流程</strong></p>
@@ -300,7 +306,20 @@
 <p><strong>功能</strong>：用于控制共享内存<br><strong>原型</strong>  int shmctl(int shmid, int cmd, struct shmid_ds *buf);<br> <strong>shmid</strong>:由shmget返回的共享内存标识码<br> <strong>cmd</strong>:将要采取的动作（有三个可取值）<br><strong>buf</strong>:指向一个保存着共享内存的模式状态和访问权限的数据结构<br><strong>返回值</strong>：成功返回0；失败返回-1</p>
 </blockquote>
 <p><strong>内核中共享内存的数据结构</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">shmid_ds</span> &#123;</span></span><br><span class="line"> <span class="class"><span class="keyword">struct</span> <span class="title">ipc_perm</span> <span class="title">shm_perm</span>;</span> <span class="comment">/* operation perms */</span> <span class="comment">//权限</span></span><br><span class="line"> <span class="keyword">int</span> shm_segsz; <span class="comment">/* size of segment (bytes) */</span> <span class="comment">//大小</span></span><br><span class="line"> <span class="keyword">__kernel_time_t</span> shm_atime; <span class="comment">/* last attach time */</span> <span class="comment">//最后一次映射时间</span></span><br><span class="line"> <span class="keyword">__kernel_time_t</span> shm_dtime; <span class="comment">/* last detach time */</span> <span class="comment">//最后一次解除映射时间</span></span><br><span class="line"> <span class="keyword">__kernel_time_t</span> shm_ctime; <span class="comment">/* last change time */</span> <span class="comment">//最后一次状态改变时间</span></span><br><span class="line"> <span class="keyword">__kernel_ipc_pid_t</span> shm_cpid; <span class="comment">/* pid of creator */</span> <span class="comment">//最后一次创建的进程id</span></span><br><span class="line"> <span class="keyword">__kernel_ipc_pid_t</span> shm_lpid; <span class="comment">/* pid of last operator */</span> <span class="comment">//最后一次用的进程id</span></span><br><span class="line"> <span class="keyword">unsigned</span> <span class="keyword">short</span> shm_nattch; <span class="comment">/* no. of current attaches */</span> <span class="comment">//当前映射连接连接数</span></span><br><span class="line"> <span class="keyword">unsigned</span> <span class="keyword">short</span> shm_unused; <span class="comment">/* compatibility */</span></span><br><span class="line"> <span class="keyword">void</span> *shm_unused2; <span class="comment">/* ditto - used by DIPC */</span></span><br><span class="line"> <span class="keyword">void</span> *shm_unused3; <span class="comment">/* unused */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre><code class="c">struct shmid_ds &#123;
+ struct ipc_perm shm_perm; /* operation perms */ //权限
+ int shm_segsz; /* size of segment (bytes) */ //大小
+ __kernel_time_t shm_atime; /* last attach time */ //最后一次映射时间
+ __kernel_time_t shm_dtime; /* last detach time */ //最后一次解除映射时间
+ __kernel_time_t shm_ctime; /* last change time */ //最后一次状态改变时间
+ __kernel_ipc_pid_t shm_cpid; /* pid of creator */ //最后一次创建的进程id
+ __kernel_ipc_pid_t shm_lpid; /* pid of last operator */ //最后一次用的进程id
+ unsigned short shm_nattch; /* no. of current attaches */ //当前映射连接连接数
+ unsigned short shm_unused; /* compatibility */
+ void *shm_unused2; /* ditto - used by DIPC */
+ void *shm_unused3; /* unused */
+&#125;;
+</code></pre>
 <p>其中比较<strong>关键</strong>的一个信息：</p>
 <blockquote>
 <p> unsigned short shm_nattch; //当前映射连接连接数<br>表示当前有多少个进程与这块内存建立了连接，所以删除共享内存的时候，只有在连接数为0时才会删除<br>如果当前不为0，则会给自己改名，拒绝其他进程的连接请求，知道映射连接数为0，便会删除</p>
@@ -313,8 +332,16 @@
 <p>消息队列独立于发送与接收进程。进程终止时，消息队列及其内容并不会被删除。</p>
 <p>消息队列可以实现消息的随机查询,消息不一定要以先进先出的次序读取,也可以按消息的类型读取。<br>自带同步与互斥，生命周期随内核</p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/msg.h&gt;</span></span></span><br><span class="line"><span class="number">2</span> <span class="comment">// 创建或打开消息队列：成功返回队列ID，失败返回-1</span></span><br><span class="line"><span class="number">3</span> <span class="function"><span class="keyword">int</span> <span class="title">msgget</span><span class="params">(<span class="keyword">key_t</span> key, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="number">4</span> <span class="comment">// 添加消息：成功返回0，失败返回-1</span></span><br><span class="line"><span class="number">5</span> <span class="function"><span class="keyword">int</span> <span class="title">msgsnd</span><span class="params">(<span class="keyword">int</span> msqid, <span class="keyword">const</span> <span class="keyword">void</span> *ptr, <span class="keyword">size_t</span> size, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="number">6</span> <span class="comment">// 读取消息：成功返回消息数据的长度，失败返回-1</span></span><br><span class="line"><span class="number">7</span> <span class="function"><span class="keyword">int</span> <span class="title">msgrcv</span><span class="params">(<span class="keyword">int</span> msqid, <span class="keyword">void</span> *ptr, <span class="keyword">size_t</span> size, <span class="keyword">long</span> type,<span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="number">8</span> <span class="comment">// 控制消息队列：成功返回0，失败返回-1</span></span><br><span class="line"><span class="number">9</span> <span class="function"><span class="keyword">int</span> <span class="title">msgctl</span><span class="params">(<span class="keyword">int</span> msqid, <span class="keyword">int</span> cmd, struct msqid_ds *buf)</span></span>;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="c">1 #include &lt;sys/msg.h&gt;
+2 // 创建或打开消息队列：成功返回队列ID，失败返回-1
+3 int msgget(key_t key, int flag);
+4 // 添加消息：成功返回0，失败返回-1
+5 int msgsnd(int msqid, const void *ptr, size_t size, int flag);
+6 // 读取消息：成功返回消息数据的长度，失败返回-1
+7 int msgrcv(int msqid, void *ptr, size_t size, long type,int flag);
+8 // 控制消息队列：成功返回0，失败返回-1
+9 int msgctl(int msqid, int cmd, struct msqid_ds *buf);
+</code></pre>
 <h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><blockquote>
 <p>信号量（semaphore）与已经介绍过的 IPC结构不同，它是一个计数器。信号量用于实现进程间的互斥与同步，而不是用于存储进程间通信数据。</p>
 </blockquote>
@@ -371,7 +398,7 @@
         <li>
           <strong>版权声明： </strong>
           
-          转载请注明出处，谢谢您的阅读！
+          转载请注明出处，感谢您的阅读！
         </li>
         
       </ul>
@@ -500,6 +527,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%EF%BC%8C%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%8C%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="toc-number">1.</span> <span class="toc-text">进程间通信（二）——共享内存，消息队列，信号量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98"><span class="toc-number">2.</span> <span class="toc-text">共享内存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="toc-number">3.</span> <span class="toc-text">消息队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="toc-number">4.</span> <span class="toc-text">信号量</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
@@ -1015,7 +1055,7 @@
       
     },
     mobile: {
-      
+       show: false, 
        scale: 0.6 
     },
     react: {
