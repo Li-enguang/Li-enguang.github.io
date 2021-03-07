@@ -231,6 +231,105 @@
             
 
   
+    <article id="post-bintree-leetcode" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/bintree-leetcode/" target="_blank">二叉树经典算法题总结</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/bintree-leetcode/" class="archive-article-date">
+        <time datetime="2021-03-07T05:49:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-07</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="⼆叉树的定义"><a href="#⼆叉树的定义" class="headerlink" title="⼆叉树的定义"></a>⼆叉树的定义</h2><p>⼆叉树有两种存储⽅式顺序存储，和链式存储，顺序存储就是⽤数组来存，我们来看看链式存储的⼆叉树节点的定义⽅式。<br>C++代码如下：</p>
+<pre><code class="cpp">struct TreeNode &#123;
+ int val;
+ TreeNode *left;
+ TreeNode *right;
+ TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;
+&#125;;
+</code></pre>
+    
+    <a class="article-more-a" href="/bintree-leetcode/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">binarytree</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/bintree-leetcode/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-tcp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -239,7 +338,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/02/16/tcp/" target="_blank">【网络系列】TCP到底是怎么保证可靠性的？快来get一下！</a>
+	  <a class="article-title" href="/tcp/" target="_blank">【网络系列】TCP到底是怎么保证可靠性的？快来get一下！</a>
   
     </h1>
   
@@ -247,7 +346,7 @@
 
   
   
-<a href="/02/16/tcp/" class="archive-article-date">
+<a href="/tcp/" class="archive-article-date">
         <time datetime="2021-02-16T15:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-16</time>
 </a>
 
@@ -262,7 +361,7 @@
     
     <h4 id="协议字段"><a href="#协议字段" class="headerlink" title="协议字段"></a>协议字段</h4><p>&emsp; 1、16位源端口：标识数据从哪个进程来。<br>  2、16位目的端口：标识数据到哪个进程去。<br>  3、32位序号：用于进行包序管理。
     
-    <a class="article-more-a" href="/02/16/tcp/#more">more >></a>
+    <a class="article-more-a" href="/tcp/#more">more >></a>
     
     
 
@@ -293,7 +392,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/02/16/tcp/">展开全文 >></a>
+      <a class="article-more-a" href="/tcp/">展开全文 >></a>
     </p>
     
 
@@ -331,7 +430,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/02/13/udp/" target="_blank">【网络系列】传输层协议UDP头部解析、网络通信编程实现</a>
+	  <a class="article-title" href="/udp/" target="_blank">【网络系列】传输层协议UDP头部解析、网络通信编程实现</a>
   
     </h1>
   
@@ -339,7 +438,7 @@
 
   
   
-<a href="/02/13/udp/" class="archive-article-date">
+<a href="/udp/" class="archive-article-date">
         <time datetime="2021-02-13T15:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-13</time>
 </a>
 
@@ -354,7 +453,7 @@
     
     <h3 id="传输层协议"><a href="#传输层协议" class="headerlink" title="传输层协议"></a>传输层协议</h3><p>  传输层负责端与端之间的数据传输，其中典型协议为TCP协议和UDP协议。<br>  <strong>TCP协议</strong>是TCP/IP协议栈中的传输层的典型协议，叫传输控制协议，面向连接，可靠传输，提供字节流服务。<br>  <strong>UDP协议</strong>是TCP/IP协议栈中的传输层的典型协议，叫用户数据报协议，无连接，不可靠，提供数据报传输服务。</p>
     
-    <a class="article-more-a" href="/02/13/udp/#more">more >></a>
+    <a class="article-more-a" href="/udp/#more">more >></a>
     
     
 
@@ -385,7 +484,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/02/13/udp/">展开全文 >></a>
+      <a class="article-more-a" href="/udp/">展开全文 >></a>
     </p>
     
 
@@ -423,7 +522,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/02/06/singleton/" target="_blank">【设计模式】单例模式的两种实现以及特殊类的设计</a>
+	  <a class="article-title" href="/singleton/" target="_blank">【设计模式】单例模式的两种实现以及特殊类的设计</a>
   
     </h1>
   
@@ -431,7 +530,7 @@
 
   
   
-<a href="/02/06/singleton/" class="archive-article-date">
+<a href="/singleton/" class="archive-article-date">
         <time datetime="2021-02-06T06:57:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-06</time>
 </a>
 
@@ -446,7 +545,7 @@
     
     <h3 id="实现单例模式"><a href="#实现单例模式" class="headerlink" title="实现单例模式"></a>实现单例模式</h3><p>  单例模式是一种设计模式，在实战中经常会用到。其意思是创建一个类这个类只能唯一的创建一个对象，如果之后还想用这个类创建新对象的时候都会返回最开始创建的呢个对象。
     
-    <a class="article-more-a" href="/02/06/singleton/#more">more >></a>
+    <a class="article-more-a" href="/singleton/#more">more >></a>
     
     
 
@@ -477,7 +576,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/02/06/singleton/">展开全文 >></a>
+      <a class="article-more-a" href="/singleton/">展开全文 >></a>
     </p>
     
 
@@ -515,7 +614,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/02/06/new/" target="_blank">【C++系列】内存管理-new与delete的使用以及实现原理</a>
+	  <a class="article-title" href="/new/" target="_blank">【C++系列】内存管理-new与delete的使用以及实现原理</a>
   
     </h1>
   
@@ -523,7 +622,7 @@
 
   
   
-<a href="/02/06/new/" class="archive-article-date">
+<a href="/new/" class="archive-article-date">
         <time datetime="2021-02-06T06:39:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-06</time>
 </a>
 
@@ -539,7 +638,7 @@
     <p>在C语言中，我们想要动态分配内存空间需要使用到malloc,calloc,realloc函数，malloc函数申请空间失败返回指针空值，成功返回空间首地址。在C++中我们同样有动态进行内存管理的方式，并且与C语言中的内存管理有着一些区别。</p>
 <p><strong>new/delete</strong><br>在C++中我们使用new进行内存的申请，用delete进行内存的释放。他们的使用比malloc和free更加简单方便。
     
-    <a class="article-more-a" href="/02/06/new/#more">more >></a>
+    <a class="article-more-a" href="/new/#more">more >></a>
     
     
 
@@ -574,7 +673,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/02/06/new/">展开全文 >></a>
+      <a class="article-more-a" href="/new/">展开全文 >></a>
     </p>
     
 
@@ -612,7 +711,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/01/22/sort/" target="_blank">【排序算法系列】常见排序算法总结，复杂度分析</a>
+	  <a class="article-title" href="/sort/" target="_blank">【排序算法系列】常见排序算法总结，复杂度分析</a>
   
     </h1>
   
@@ -620,7 +719,7 @@
 
   
   
-<a href="/01/22/sort/" class="archive-article-date">
+<a href="/sort/" class="archive-article-date">
         <time datetime="2021-01-22T14:18:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-22</time>
 </a>
 
@@ -635,7 +734,7 @@
     
     <h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><p>  如果一个排序算法排序结束后，表中相同大小的元素依然可用保持和排序前一样的相对顺序则称该排序是稳定的，反之是不稳定的。<br>  举个例子，以下这个序列中，出现了相同的元素3，为了便于区分，我将其中一个用红色标记出来。
     
-    <a class="article-more-a" href="/01/22/sort/#more">more >></a>
+    <a class="article-more-a" href="/sort/#more">more >></a>
     
     
 
@@ -662,7 +761,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/01/22/sort/">展开全文 >></a>
+      <a class="article-more-a" href="/sort/">展开全文 >></a>
     </p>
     
 
@@ -700,7 +799,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/01/16/ptnread/" target="_blank">【Linux系列】线程控制管理、线程安全-同步与互斥</a>
+	  <a class="article-title" href="/ptnread/" target="_blank">【Linux系列】线程控制管理、线程安全-同步与互斥</a>
   
     </h1>
   
@@ -708,7 +807,7 @@
 
   
   
-<a href="/01/16/ptnread/" class="archive-article-date">
+<a href="/ptnread/" class="archive-article-date">
         <time datetime="2021-01-16T15:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-16</time>
 </a>
 
@@ -723,7 +822,7 @@
     
     <h2 id="Linux下的多线程"><a href="#Linux下的多线程" class="headerlink" title="Linux下的多线程"></a>Linux下的多线程</h2><h3 id="一、线程的概念"><a href="#一、线程的概念" class="headerlink" title="一、线程的概念"></a>一、线程的概念</h3><h4 id="1-什么是线程？"><a href="#1-什么是线程？" class="headerlink" title="1.什么是线程？"></a>1.什么是线程？</h4><p>线程就是进程中的一条执行流，是cpu调度的基本单位（而进程是cpu资源分配的基本单位），在linux下是一个轻量级进程。<br>linux下的线程是通过pcb实现，是程序运行的动态描述，通过这个描述 操作系统实现程序运行的调度，一个进程中可以有多个线程，这些线程共享进程中大部分资源，相较于传统pcb更加轻量化，因此也成为轻量级进程。
     
-    <a class="article-more-a" href="/01/16/ptnread/#more">more >></a>
+    <a class="article-more-a" href="/ptnread/#more">more >></a>
     
     
 
@@ -754,7 +853,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/01/16/ptnread/">展开全文 >></a>
+      <a class="article-more-a" href="/ptnread/">展开全文 >></a>
     </p>
     
 
@@ -792,7 +891,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/01/16/ip_arp/" target="_blank">【网络系列】网络层-IP、ARP、ICMP、DNS协议</a>
+	  <a class="article-title" href="/ip_arp/" target="_blank">【网络系列】网络层-IP、ARP、ICMP、DNS协议</a>
   
     </h1>
   
@@ -800,7 +899,7 @@
 
   
   
-<a href="/01/16/ip_arp/" class="archive-article-date">
+<a href="/ip_arp/" class="archive-article-date">
         <time datetime="2021-01-16T15:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-16</time>
 </a>
 
@@ -817,7 +916,7 @@
 <h2 id="网络层功能"><a href="#网络层功能" class="headerlink" title="网络层功能"></a>网络层功能</h2><p>  网络层主要负责地址管理以及路由选择。在网络中我们从一个ip到另一个ip有很多条路可以走，而网络层则是帮我们规划我们传输数据的最佳路线。 </p>
 <p>因为网络层是整个互联网的核心，因此应当让网络层尽可能简单。网络层向上只提供简单灵活的、无连接的、尽最大努力交互的数据报服务。</p>
     
-    <a class="article-more-a" href="/01/16/ip_arp/#more">more >></a>
+    <a class="article-more-a" href="/ip_arp/#more">more >></a>
     
     
 
@@ -860,7 +959,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/01/16/ip_arp/">展开全文 >></a>
+      <a class="article-more-a" href="/ip_arp/">展开全文 >></a>
     </p>
     
 
@@ -898,7 +997,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/01/12/c++11/" target="_blank">【C++系列】C++11语法新特性，快来get一下</a>
+	  <a class="article-title" href="/c++11/" target="_blank">【C++系列】C++11语法新特性，快来get一下</a>
   
     </h1>
   
@@ -906,7 +1005,7 @@
 
   
   
-<a href="/01/12/c++11/" class="archive-article-date">
+<a href="/c++11/" class="archive-article-date">
         <time datetime="2021-01-11T16:31:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-12</time>
 </a>
 
@@ -921,7 +1020,7 @@
     
     <h3 id="初始化列表"><a href="#初始化列表" class="headerlink" title="初始化列表"></a>初始化列表</h3><p><strong>如何使用</strong><br>  在Cpp11中允许使用初始化列表初始化任何类型，不论是内置类型还是自定义类型都可以使用初始化列表进行初始化，而在Cpp98的版本中是不能初始化自定义类型的。
     
-    <a class="article-more-a" href="/01/12/c++11/#more">more >></a>
+    <a class="article-more-a" href="/c++11/#more">more >></a>
     
     
 
@@ -952,7 +1051,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/01/12/c++11/">展开全文 >></a>
+      <a class="article-more-a" href="/c++11/">展开全文 >></a>
     </p>
     
 
@@ -990,7 +1089,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/01/10/http/" target="_blank">【网络系列】应用层HTTP协议格式解析、实现、HTTPS的加密流程</a>
+	  <a class="article-title" href="/http/" target="_blank">【网络系列】应用层HTTP协议格式解析、实现、HTTPS的加密流程</a>
   
     </h1>
   
@@ -998,7 +1097,7 @@
 
   
   
-<a href="/01/10/http/" class="archive-article-date">
+<a href="/http/" class="archive-article-date">
         <time datetime="2021-01-10T15:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-10</time>
 </a>
 
@@ -1013,7 +1112,7 @@
     
     <h3 id="什么是HTTP协议"><a href="#什么是HTTP协议" class="headerlink" title="什么是HTTP协议"></a>什么是HTTP协议</h3><p> 应用层负责程序之间的数据沟通，其中协议大概分为两类，<strong>自定制协议和知名协议</strong>。自定制协议就是程序员自己定义的协议，用来对应用程序发送的数据进行整理或者加密，对端只有了解这种协议才能对数据进行解析。
     
-    <a class="article-more-a" href="/01/10/http/#more">more >></a>
+    <a class="article-more-a" href="/http/#more">more >></a>
     
     
 
@@ -1048,104 +1147,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/01/10/http/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-set" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/01/03/set/" target="_blank">【C++系列】STL中的set与map用法详解及模拟实现</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/01/03/set/" class="archive-article-date">
-        <time datetime="2021-01-03T08:44:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-03</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><h4 id="1-关联式容器"><a href="#1-关联式容器" class="headerlink" title="1.关联式容器"></a>1.关联式容器</h4><p>我们已经接触过STL中的部分容器，比如：vector、list、deque、forward_list(C++11)等，这些容器统称为序列式容器，因为其底层为线性序列的数据结构，里面存储的是元素本身。</p>
-<p>那什么是关联式容器？它与序列式容器有什么区别？
-    
-    <a class="article-more-a" href="/01/03/set/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">set</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">map</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/01/03/set/">展开全文 >></a>
+      <a class="article-more-a" href="/http/">展开全文 >></a>
     </p>
     
 
@@ -1438,6 +1440,14 @@
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">signal</a>
               </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">binarytree</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
@@ -1672,7 +1682,7 @@
       
     },
     mobile: {
-       show: false, 
+      
        scale: 0.6 
     },
     react: {
