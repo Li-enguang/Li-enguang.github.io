@@ -6,29 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.lienguang.com">
-  <title>【Linux系列】再谈僵尸进程的产生与避免 | Li-eng</title>
+  <title>C++多态总结 | Li-eng</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Linux 进程管理命令介绍 ps、pstree、top、htop、nice、renice、kill、ulimit、w 和 who 和 whoami、pgrep、fg 和 bg、ipcs  ps：查看 Linux 中当前运行的进程的命令。能列出系统中运行的进程，包括进程号、命令、CPU使用量、内存使用量等">
+  <meta name="description" content="多态 静态绑定又称为前期绑定(早绑定)，在程序编译期间确定了程序的行为，也称为静态多态，比如：函数重载, 模板  动态绑定又称后期绑定(晚绑定)，是在程序运行期间，根据具体拿到的类型确定程序的具体行为，调用具体的函数，也称为动态多态。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Linux系列】再谈僵尸进程的产生与避免">
-<meta property="og:url" content="http://www.lienguang.com/%E3%80%90Linux%E7%B3%BB%E5%88%97%E3%80%91%E5%86%8D%E8%B0%88%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E7%9A%84%E4%BA%A7%E7%94%9F%E4%B8%8E%E9%81%BF%E5%85%8D/index.html">
+<meta property="og:title" content="C++多态总结">
+<meta property="og:url" content="http://www.lienguang.com/%E5%A4%9A%E6%80%81/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="Linux 进程管理命令介绍 ps、pstree、top、htop、nice、renice、kill、ulimit、w 和 who 和 whoami、pgrep、fg 和 bg、ipcs  ps：查看 Linux 中当前运行的进程的命令。能列出系统中运行的进程，包括进程号、命令、CPU使用量、内存使用量等">
+<meta property="og:description" content="多态 静态绑定又称为前期绑定(早绑定)，在程序编译期间确定了程序的行为，也称为静态多态，比如：函数重载, 模板  动态绑定又称后期绑定(晚绑定)，是在程序运行期间，根据具体拿到的类型确定程序的具体行为，调用具体的函数，也称为动态多态。">
 <meta property="og:locale">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210309171334459.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210309170929235.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210309171233421.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210309194008985.png">
-<meta property="article:published_time" content="2021-03-09T12:10:20.000Z">
-<meta property="article:modified_time" content="2021-03-09T12:40:56.922Z">
+<meta property="article:published_time" content="2021-03-11T05:49:42.000Z">
+<meta property="article:modified_time" content="2021-03-11T07:30:18.627Z">
 <meta property="article:author" content="Li-eng">
-<meta property="article:tag" content="Linux">
-<meta property="article:tag" content="zombie">
-<meta property="article:tag" content="ps -aux">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="多态">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210309171334459.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="Li-eng" type="application/atom+xml">
   
@@ -103,6 +97,8 @@
 				<li><a href="/" target="_blank">主页</a></li>
 			
 				<li><a href="/archives" target="_blank">归档</a></li>
+			
+				<li><a href="/categories" target="_blank">随笔</a></li>
 			
 			</ul>
 		</nav>
@@ -190,6 +186,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -219,12 +217,14 @@
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 50%">
+				<ul style="width: 70%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
+					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="/archives">归档</a></li>
+					<li style="width: 33.333333333333336%"><a href="/archives">归档</a></li>
+		        
+					<li style="width: 33.333333333333336%"><a href="/categories">随笔</a></li>
 		        
 				</ul>
 			</nav>
@@ -240,22 +240,22 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-【Linux系列】再谈僵尸进程的产生与避免" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-多态" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      【Linux系列】再谈僵尸进程的产生与避免
+      C++多态总结
     </h1>
   
 
 
   
   
-<a href="/%E3%80%90Linux%E7%B3%BB%E5%88%97%E3%80%91%E5%86%8D%E8%B0%88%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E7%9A%84%E4%BA%A7%E7%94%9F%E4%B8%8E%E9%81%BF%E5%85%8D/" class="archive-article-date">
-        <time datetime="2021-03-09T12:10:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-09</time>
+<a href="/%E5%A4%9A%E6%80%81/" class="archive-article-date">
+        <time datetime="2021-03-11T05:49:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
 </a>
 
   
@@ -268,7 +268,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">2.3k字</span>
+      <span class="post-count">904字</span>
     </span>
   </span>
 
@@ -277,7 +277,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">8分</span>
+      <span class="post-count">3分</span>
     </span>
   </span>
 </div>
@@ -288,76 +288,43 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="Linux-进程管理命令介绍"><a href="#Linux-进程管理命令介绍" class="headerlink" title="Linux 进程管理命令介绍"></a>Linux 进程管理命令介绍</h3><p> <strong>ps、pstree、top、htop、nice、renice、kill、ulimit、w 和 who 和 whoami、pgrep、fg 和 bg、ipcs</strong></p>
-<ol>
-<li><p><strong>ps</strong>：查看 Linux 中当前运行的进程的命令。能列出系统中运行的进程，包括进程号、命令、CPU使用量、内存使用量等</p>
+    <h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><ul>
+<li><p>静态绑定又称为前期绑定(早绑定)，在程序编译期间确定了程序的行为，也称为静态多态，比如：函数重载, 模板</p>
+</li>
+<li><p>动态绑定又称后期绑定(晚绑定)，是在程序运行期间，根据具体拿到的类型确定程序的具体行为，调用具体的函数，也称为动态多态。</p>
 <span id="more"></span>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">示例：</span><br><span class="line">    ps -a         - 列出所有运行中/激活进程</span><br><span class="line">    ps -ef |grep   - 列出需要进程</span><br><span class="line">    ps -aux     - 显示进程信息，包括无终端的（x）和针对用户（u）的进程：如USER, PID, %CPU, %MEM等</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>pstree</strong> ：linux中每一个进程都是由其父进程创建的。pstree以可视化方式显示进程，通过显示进程的树状图来展示进程间关系。如果指定了pid了，那么树的根是该pid，不然将会是init（pid： 1）。</p>
+<p>多态是在继承的基础上，父类的成员函数为虚函数（加了virtual关键字），子类完成对虚函数的重写，调用虚函数时, 必须用父类指针或者引用调用。包含虚函数的类，类中包含一个隐含的成员变量，即虚表指针，虚表指针 ： 指向虚表的首地址。</p>
 </li>
-<li><p><strong>top</strong>：实时的监控系统状态信息和进程所使用的资源。显示进程的数据包括 PID、进程属主、优先级、%CPU、%memory等。可以使用这些显示指示出资源使用量。</p>
-</li>
-<li><p><strong>nice</strong>：通过 nice 命令的帮助，用户可以设置和改变进程的优先级。提高一个进程的优先级，内核会分配更多CPU时间片给这个进程。默认情况下，进程以 0 的优先级启动。进程优先级可以通过 top 命令显示的 NI（nice value）列查看。<br>进程优先级值的范围从-20到19。值越低，优先级越高。nice &lt;优先值&gt; &lt;进程名&gt;  -  通过给定的优先值启动一个程序</p>
-</li>
-<li><p><strong>renice</strong>：renice 命令类似 nice 命令。使用这个命令可以改变正在运行的进程优先值。</p>
-</li>
-</ol>
-<p>注意，用户只能改变属于他们自己的进程的优先值。<br>renice -n -p - 改变指定进程的优先值<br> renice -u -g - 通过指定用户和组来改变进程优先值</p>
-<ol start="6">
-<li><strong>kill</strong> ：用来发送信号给进程，并结束进程。如果一个进程没有响应杀死命令，这也许就需要强制杀死，使用 -9 参数来执行。     </li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> &lt;pid&gt;                  --- 使用 <span class="built_in">kill</span> 时候，需要知道进程ID号，可以通过 ps 命令得到 进程号</span><br><span class="line"><span class="built_in">kill</span> -9 &lt;pid&gt;              --- 杀死进程</span><br><span class="line">killall -9 &lt;进程名&gt;    --- 杀死所有拥有同样名字的进程</span><br><span class="line">pkill &lt;进程名&gt;          --- pkill 是类似的命令，但使用模式匹配，如进程名，进程拥有者等。</span><br></pre></td></tr></table></figure>
-<ol start="7">
-<li><strong>ulimit</strong> ：控制系统资源在shell和进程上的分配量。对于系统管理员是最有用的，可以管理重度使用和存在性能问题的系统。限制资源大小可以确保重要进程持续运行，其他进程不会占用过多资源。</li>
-</ol>
-<p>-f - 最大文件尺寸大小<br>-v - 最大虚拟内存大小（KB）<br>-n - 增加最大文件描述符数量<br>-H : 改变和报告硬限制<br>-S : 改变和报告软限制</p>
-<p><strong>ulimit -a - 显示当前用户关联的资源限制</strong></p>
-<ol start="8">
-<li><p><strong>w</strong> ：显示当前登录的用户及其正在执行的进程的信息。<br>显示信息头包含信息，如当前时间、系统运行时长、登录用户总数、过去的1，5，15分钟内的负载均衡数。基于这些用户信息，用户在终止不属于他们的进程时要小心。</p>
-</li>
-<li><p><strong>who</strong>： 和 w 类似的命令，提供当前登录用户列表、系统启动时间、运行级别等。</p>
-</li>
-<li><p><strong>whoami</strong> ： 输出当前用户ID。</p>
-</li>
-</ol>
-<ol start="11">
-<li><p><strong>fg 、bg</strong>：fg 即 frontgroud，表示 前台。 bg 即 background，表示 后台。<br>使用 “bg” 命令可以将任务放在后台执行。使用 “fg” 命令可以将任务调到前台执行。<br>可以通过 &amp; 在后台启动一个程序: find . -name *iso &gt; /tmp/res.txt &amp;<br>一个正在运行的程序也可以通过 “CTRL+Z” 和 “bg” 命令组合放到后台运行。<br>find . -name *iso &gt; /tmp/res.txt &amp;     // 启动一个程序<br>ctrl+z                                 // 挂起当前执行程序<br>bg                                     // 将程序放到后台运行</p>
-</li>
-<li><p><strong>jobs</strong> :列出所有后台进程。</p>
-</li>
-<li><p><strong>ipcs</strong> ：ipcs 命令报告进程间通信设施状态。（共享内存，信号量和消息队列）<br>用 -p 参数联合 -m、-s 或 -q 使用，可以获得相关的进程间通信的进程ID。<br>示例：ipcs -p -m</p>
-</li>
-</ol>
-<h3 id="5-种进程状态"><a href="#5-种进程状态" class="headerlink" title="5 种进程状态"></a>5 种进程状态</h3><p><strong>ps 工具标识进程的 5 种状态码:</strong> </p>
-<p>R运行状态(runing): 表明进程要么在运行中要么在运行队列里，并不意味着进程一定在运行中。</p>
-<p>S睡眠状态（sleeping）：意味着进程在等待事件的完成（这里的睡眠有时候也叫做可中断睡眠）</p>
-<p>D磁盘睡眠状态(Disk sleep): 有时候也叫做不可中断睡眠，在这个状态的进程通常会等待IO的结束</p>
-<p>T停止状态（stopped）：可以通过发送SIGSTOP信号给进程来停止(T)进程。这个被暂停的进程可以通过发送SIGCNT信号让进程继续运行。</p>
-<p>X死亡状态（dead）：这个状态只是一个返回状态，你不会在任务列表里看到这个状态。</p>
-<p>Z(zombie)-僵尸进程 :下面会详细介绍</p>
-<ul>
-<li>1.僵尸状态是一个比较特殊的状态。当进程退出并且父进程没有读取到子进程退出的返回代码时就会产生僵尸进程</li>
-<li>2.僵尸进程会以终止状态保持在进程表中，并且会一直等待父进程读取退出状态代码</li>
-<li>3.所以，只要子进程退出，父进程还在运行，但父进程没有读取子进程的状态，子进程就进去僵尸状态</li>
 </ul>
-<p><strong>ps aux    列出目前所有的正在内存当中的程序</strong>    </p>
-<p>输出格式 : </p>
+<p>虚表指针存放在对象中，虚表存放在代码段，虚函数存放在代码段</p>
+<p>虚表 ：存放虚函数指针的数组 （指针数组） </p>
+<ol>
+<li><p> 只存放虚函数的指针</p>
+</li>
+<li><p>普通函数指针不会存放 </p>
+</li>
+<li><p>如果子类没有重写父类的虚函数，则子类虚表完全继承父类虚表，不做改变</p>
+</li>
+<li><p>如果子类重写父类的虚函数，则子类虚表对应位置使用子类虚函数指针覆盖</p>
+</li>
+<li><p> 虚函数指针在虚表中的存放顺序和其定义/声明的顺序一样</p>
+</li>
+<li><p>子类新增的虚函数 按照其声明/定义的顺序增加到子类虚表的后面</p>
+</li>
+</ol>
+<p><strong>多态过程 :</strong><br>首先通过指针/引用定位到实际的对象，从对象中获取实际虚表的首地址 (虚表指针)，从虚表中找到函数的实际地址，最后执行虚函数。</p>
 <ul>
-<li><input disabled="" type="checkbox"> USER PID %CPU %MEM VSZ RSS TTY STAT START TIME COMMAND</li>
+<li><p>inline函数可以是虚函数吗?</p>
+<p>不能, 因为inline函数没有地址，无法把地址放到虚函数表中。内联函数会被编译器展开成汇编代码, 无法将地址存在虚表中。</p>
+</li>
+<li><p>静态成员可以是虚函数吗？<br>不能, 因为静态成员函数没有this指针，直接使用类名访问成员函数的调用方式无法访问虚函数表，所以静态成员函数无法放进虚函数表。我们知道虚表指针是存在对象中的, 直接通过类名访问成员函数时, 对象不一定存在, 所以不可以。</p>
+</li>
+<li><p>构造函数可以是虚函数吗？<br>不能，因为对象中的虚函数表指针是在构造函数初始化列表阶段才初始化的。虚表指针是存在对象中的, 调用构造函数是为了构造对象, 此时对象还不存在, 所以不可以。</p>
+</li>
+<li><p>只要父类的析构函数定义为虚函数, 无论如何子类的析构一定是重写了父类的析构, 虽然函数名不尽相同, 编译器在底层会把他们的函数名处理成一样的.这么做的目的就是为了实现多态.</p>
+<p>在切片的时候, 我们想用父类指针/引用指向子类，如果不把父类的析构函数定义为虚函数, 这时候只能调用父类的析构函数, 但凡子类中有资源, 就会造成内存泄漏.<br>反之, 如果定义成虚函数, 那么构成多态, 我们知道多态看对象, 此时是父类指针指向子类对象, 实际还是子类对象, 这时就会调用子类的析构. (调用子类析构之后会自动调用父类析构, 保证不会出现内存泄漏)</p>
+</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">USER:     进程所有者</span><br><span class="line">PID:      进程ID</span><br><span class="line">%CPU:     占用的 CPU 使用率</span><br><span class="line">%MEM:     占用的内存使用率</span><br><span class="line">VSZ:      占用的虚拟内存大小</span><br><span class="line">RSS:      占用的内存大小</span><br><span class="line">TTY:      终端的次要装置号码 (minor device number of tty)</span><br><span class="line">STAT:     进程状态:</span><br><span class="line">START:    启动进程的时间； </span><br><span class="line">TIME:     进程消耗CPU的时间；</span><br><span class="line">COMMAND:  命令的名称和参数；</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ps -ef               	显示所有进程信息，连同命令行</span><br><span class="line">ps -ef | grep ssh    ps 与grep 常用组合用法，查找特定进程</span><br></pre></td></tr></table></figure>
-
-<h3 id="僵尸进程是怎么产生的"><a href="#僵尸进程是怎么产生的" class="headerlink" title="僵尸进程是怎么产生的"></a>僵尸进程是怎么产生的</h3><p>首先内核会释放终止进程(调用了exit系统调用)所使用的所有存储区,关闭所有打开的文件等，但内核为每个终止子进程保存了一定量的信息。这些信息至少包括进程ID,进程的终止状态，以及该进程使用的CPU时间。</p>
-<p>所以当终止子进程的父进程调用wait或waitpid时就可以得到这些信息。一个进程执行了exit系统调用退出,其父进程并没有为它收尸(调用wait或waitpid来获得它的结束状态)，另外子进程退出的时候会向其父进程发送SIGCHLD信号，父进程默认忽略SIGCHLD信号不进行处理，那么子进程将一直保持在僵尸状态,如果这时父进程结束了，init进程自动接收这个子进程,但如果父进程是一个循环，不会结束，那么子进程就会一直保持僵死状态。</p>
-<p>在每个进程退出的时候，内核释放该进程所有的资源，包括打开的文件，占用的内存。但是仍然保留了一些信息（如进程号pid 退出状态 运行时间等）。如果没有调用wait/waitpid的话，那么保留的信息就不会释放。比如进程号就会被一直占用了。但系统所能使用的进程号的有限的，如果产生大量的僵尸进程，将导致系统没有可用的进程号而导致系统不能创建进程。</p>
-<p><strong>SIGCHLD信号产生的条件</strong><br>1.子进程终止时会向父进程发送SIGCHLD信号，告知父进程回收自己，但该信号的默认处理动作为忽略，因此父进程仍然不会去回收子进程，需要捕捉处理实现子进程的回收；<br>2.子进程接收到SIGSTOP（19）信号停止时；<br>3.子进程处在停止态，接受到SIGCONT后唤醒时。</p>
-<h3 id="僵尸进程的危害："><a href="#僵尸进程的危害：" class="headerlink" title="僵尸进程的危害："></a>僵尸进程的危害：</h3><p>1.进程的退出状态必须被维持下去，因为他要关心他的进程（父进程），父进程如果一直不读取，那子进程一直处于Z状态</p>
-<p>2.维护退出状态本身就是要用数据维护，也属于进程的基本信息，所以保存在task_struct中，换句话说，Z状态一直不退出，PCB就要一直维护</p>
-<p>3.父进程创建了很多子进程，就是不回收，就会造成内存资源的浪费，因为数据结构对象本身就要占用内存。</p>
-<p>4.内存泄露</p>
-<h3 id="僵尸进程的避免"><a href="#僵尸进程的避免" class="headerlink" title="僵尸进程的避免"></a>僵尸进程的避免</h3><p><img src="https://img-blog.csdnimg.cn/20210309171334459.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210309170929235.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210309171233421.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210309194008985.png" alt="在这里插入图片描述"></p>
 
     
 
@@ -399,7 +366,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://www.lienguang.com/【Linux系列】再谈僵尸进程的产生与避免/" title="【Linux系列】再谈僵尸进程的产生与避免" target="_blank">http://www.lienguang.com/【Linux系列】再谈僵尸进程的产生与避免/</a>
+          <a href="http://www.lienguang.com/多态/" title="C++多态总结" target="_blank">http://www.lienguang.com/多态/</a>
         </li>
         
         <li>
@@ -421,15 +388,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">zombie</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ps -aux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">多态</a>
         		</li>
       		
 		</ul>
@@ -485,7 +448,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/%E3%80%90Linux%E7%B3%BB%E5%88%97%E3%80%91%E5%86%8D%E8%B0%88%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E7%9A%84%E4%BA%A7%E7%94%9F%E4%B8%8E%E9%81%BF%E5%85%8D/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/%E5%A4%9A%E6%80%81/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -501,8 +464,8 @@
 <nav id="article-nav">
   
   
-    <a href="/Linux%E6%9F%A5%E7%9C%8B%E7%A1%AC%E4%BB%B6%E4%BF%A1%E6%81%AF%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">【Linux系列】查看硬件信息常用命令</div>
+    <a href="/class-struct/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">经典面试题：你能讲讲class与struct的区别吗?</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -529,7 +492,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">Linux 进程管理命令介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%A7%8D%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="toc-number">2.</span> <span class="toc-text">5 种进程状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E6%98%AF%E6%80%8E%E4%B9%88%E4%BA%A7%E7%94%9F%E7%9A%84"><span class="toc-number">3.</span> <span class="toc-text">僵尸进程是怎么产生的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8D%B1%E5%AE%B3%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">僵尸进程的危害：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E7%9A%84%E9%81%BF%E5%85%8D"><span class="toc-number">5.</span> <span class="toc-text">僵尸进程的避免</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-number">1.</span> <span class="toc-text">多态</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -830,6 +793,18 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ps -aux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">struct</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">class</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">多态</a>
               </li>
             
             <div class="clearfix"></div>
