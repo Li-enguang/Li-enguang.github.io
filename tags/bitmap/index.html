@@ -6,23 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.lienguang.com">
-  <title>【C++系列】STL中的set与map用法详解及模拟实现 | Li-eng</title>
+  <title>Tag: bitmap | Li-eng</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="基本概念1.关联式容器我们已经接触过STL中的部分容器，比如：vector、list、deque、forward_list(C++11)等，这些容器统称为序列式容器，因为其底层为线性序列的数据结构，里面存储的是元素本身。 那什么是关联式容器？它与序列式容器有什么区别？">
-<meta property="og:type" content="article">
-<meta property="og:title" content="【C++系列】STL中的set与map用法详解及模拟实现">
-<meta property="og:url" content="http://www.lienguang.com/set/index.html">
+  <meta name="description" content="Be the best you can be">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Li-eng">
+<meta property="og:url" content="http://www.lienguang.com/tags/bitmap/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="基本概念1.关联式容器我们已经接触过STL中的部分容器，比如：vector、list、deque、forward_list(C++11)等，这些容器统称为序列式容器，因为其底层为线性序列的数据结构，里面存储的是元素本身。 那什么是关联式容器？它与序列式容器有什么区别？">
+<meta property="og:description" content="Be the best you can be">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-01-03T08:44:14.000Z">
-<meta property="article:modified_time" content="2021-03-06T06:54:52.377Z">
 <meta property="article:author" content="Li-eng">
-<meta property="article:tag" content="C++">
-<meta property="article:tag" content="set">
-<meta property="article:tag" content="map">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Li-eng" type="application/atom+xml">
@@ -245,315 +240,69 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-set" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
+            
+  
+  
     
-      <header class="article-header">
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2021" class="archive-year">2021</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	
+<a href="/bitmap%E2%80%94-bloomfilter/" class="archive-article-date">
+        <time datetime="2021-03-13T14:09:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-13</time>
+</a>
+
+        </div>
+    	 
   
+    <h1 itemprop="name">
+	
+	  <a class="archive-article-title" href="/bitmap%E2%80%94-bloomfilter/" target="_blank">位图与布隆过滤器的原理及实现</a>
   
-    <h1 class="article-title" itemprop="name">
-      【C++系列】STL中的set与map用法详解及模拟实现
     </h1>
   
 
 
-  
-  
-<a href="/set/" class="archive-article-date">
-        <time datetime="2021-01-03T08:44:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-03</time>
-</a>
-
-  
-  
-    
-<div style="margin-top:10px;">
-  <span class="post-time">
-    <span class="post-meta-item-icon">
-      <!-- fonts.scss -->
-      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
-      <i class="icon-statistics"></i>
-      <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">3.2k字</span>
-    </span>
-  </span>
-
-  <span class="post-time">
-    &nbsp; | &nbsp;
-    <span class="post-meta-item-icon">
-      <i class="icon-book icon"></i>
-      <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">12分</span>
-    </span>
-  </span>
-</div>
-
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><h4 id="1-关联式容器"><a href="#1-关联式容器" class="headerlink" title="1.关联式容器"></a>1.关联式容器</h4><p>我们已经接触过STL中的部分容器，比如：vector、list、deque、forward_list(C++11)等，这些容器统称为序列式容器，因为其底层为线性序列的数据结构，里面存储的是元素本身。</p>
-<p>那什么是关联式容器？它与序列式容器有什么区别？<span id="more"></span></p>
-<p>关联式容器也是用来存储数据的，与序列式容器不同的是，其里面存储的是&lt;key, value&gt;结构的键值对，在数据检索时比序列式容器效率更高。<br>STL中关联式容器有以下几种<strong>map /set /multimap /multiset /unordered_map /unordered_set /unordered_multimap /unordered_multiset</strong></p>
-<h4 id="2-键值对-pair"><a href="#2-键值对-pair" class="headerlink" title="2.键值对 pair"></a>2.键值对 pair</h4><p>用来表示具有一一对应关系的一种结构，该结构中一般只包含两个成员变量key和value，key代表键值，value表示与key对应的信息。<br>比如：现在要建立一个英汉互译的字典，那该字典中必然有英文单词与其对应<br>的中文含义，而且，英文单词与其中文含义是一一对应的关系，即通过该应该单词，在词典中就可以找到与其对应的中文含义。</p>
-<p>SGI-STL中关于键值对的定义：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T1</span>, <span class="keyword">class</span> <span class="title">T2</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">pair</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"> <span class="keyword">typedef</span> T1 first_type;</span><br><span class="line"> <span class="keyword">typedef</span> T2 second_type;</span><br><span class="line"> T1 first;</span><br><span class="line"> T2 second;</span><br><span class="line"> <span class="built_in">pair</span>(): first(T1()), second(T2())</span><br><span class="line"> &#123;&#125;</span><br><span class="line"></span><br><span class="line"> <span class="built_in">pair</span>(<span class="keyword">const</span> T1&amp; a, <span class="keyword">const</span> T2&amp; b): first(a), second(b)</span><br><span class="line"> &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>pair的结构非常简单，简单来说其中就是存储了一个键值对，first对应key值，second对应value，同时提供了两个构造函数，在关联式容器的使用中，pair的使用也是必不可少。通常我们可以使用<strong>make_pair()函数</strong>快速帮助我们构造一个pair。</p>
-<p>比如说：插入可以使用下面方法</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; mp;</span><br><span class="line">mp.insert(<span class="built_in">make_pair</span>(<span class="string">&quot;a&quot;</span>, <span class="number">2</span>));</span><br><span class="line">mp.insert(<span class="built_in">pair</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt;(<span class="string">&quot;b&quot;</span>,<span class="number">3</span>));</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp;m : mp)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; m.first&lt;&lt;<span class="string">&quot;:&quot;</span>&lt;&lt;m.second&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a:<span class="number">2</span></span><br><span class="line">b:<span class="number">3</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="map"><a href="#map" class="headerlink" title="map"></a>map</h3><ol>
-<li>map是关联容器，它按照特定的次序(按照key来比较)存储由键值key和值value组合而成的元素。</li>
-<li>在map中，键值key通常用于排序和惟一地标识元素，而值value中存储与此键值key关联的内容。键值key和值value的类型可能不同，并且在map的内部，key与value通过成员类型value_type绑定在一起，</li>
-<li>为其取别名称为pair: typedef pair value_type;</li>
-<li>在内部，map中的元素总是按照键值key进行比较排序的。map中key值是唯一的，并且不能修改key</li>
-<li>map中通过键值访问单个元素的速度通常比unordered_map容器慢，但map允许根据顺序对元素进行直接迭代(即对map中的元素进行迭代时，可以得到一个有序的序列)，也就是中序遍历。</li>
-<li>map支持下标访问符，即在[]中放入key，就可以找到与key对应的value。</li>
-<li>map通常被实现为二叉搜索树(更准确的说：平衡二叉搜索树(红黑树))，查找效率较高O（logN）。</li>
-</ol>
-<p><strong>模板参数</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">Key</span>,                                  // <span class="title">key</span>的类型</span></span><br><span class="line"><span class="class">          <span class="keyword">class</span> <span class="title">T</span>,                                    // <span class="title">value</span>的类型</span></span><br><span class="line"><span class="class">          <span class="keyword">class</span> <span class="title">Compare</span> =</span> less&lt;Key&gt;,                  <span class="comment">// 比较器</span></span><br><span class="line">          <span class="class"><span class="keyword">class</span> <span class="title">Alloc</span> =</span> allocator&lt;<span class="built_in">pair</span>&lt;<span class="keyword">const</span> Key, T&gt;&gt; <span class="comment">// 空间配置器</span></span><br><span class="line">          &gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">map</span>;</span></span><br></pre></td></tr></table></figure>
-<p>Key和T很好理解，那么这里的比较器和空间配置器是什么呢？Compare比较器是用来使用在容器内部辅助完成数据排序的，默认按照小于来比较，一般情况下不需要特殊比较方式的话不需要传入，我们也可以利用仿函数自定义比较方式。对于比较器我们之前在priority_queue中也有使用过。关于空间配置器我们会发现很多容器模板中都存在这个参数，容器通过使用空间配置器申请底层空间，一般情况下也不需要我们手动传入。</p>
-<p><strong>构造函数</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">explicit</span> <span class="title">map</span><span class="params">(<span class="keyword">const</span> key_compare &amp;comp = key_compare(),</span></span></span><br><span class="line"><span class="function"><span class="params">          <span class="keyword">const</span> allocator_type &amp;alloc = allocator_type())</span></span>;<span class="comment">//创建一个空map</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">InputIterator</span>&gt;</span></span><br><span class="line"><span class="built_in">map</span>(InputIterator first, InputIterator last,</span><br><span class="line">    <span class="keyword">const</span> key_compare &amp;comp = key_compare(),</span><br><span class="line">    <span class="keyword">const</span> allocator_type &amp;alloc = allocator_type());<span class="comment">//用一个迭代器区间中的数据构造map</span></span><br><span class="line">    </span><br><span class="line"><span class="built_in">map</span> (<span class="keyword">const</span> <span class="built_in">map</span>&amp; x);<span class="comment">//拷贝构造</span></span><br></pre></td></tr></table></figure>
-<p><strong>迭代器相关</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">iterator <span class="title">begin</span><span class="params">()</span></span>;                      <span class="comment">//返回第一个元素的位置</span></span><br><span class="line"><span class="function">iterator <span class="title">end</span><span class="params">()</span></span>;                        <span class="comment">//返回最后一个元素的下一个位置</span></span><br><span class="line"><span class="function">const_iterator <span class="title">begin</span><span class="params">()</span> <span class="keyword">const</span></span>;          <span class="comment">//返回第一个元素的const迭代器</span></span><br><span class="line"><span class="function">const_iterator <span class="title">end</span><span class="params">()</span> <span class="keyword">const</span></span>;            <span class="comment">//返回最后一个元素下一个位置的const迭代器</span></span><br><span class="line"><span class="function">reverse_iterator <span class="title">rbegin</span><span class="params">()</span></span>;             <span class="comment">//返回第一个元素位置的反向迭代器即rend</span></span><br><span class="line"><span class="function">reverse_iterator <span class="title">rend</span><span class="params">()</span></span>;               <span class="comment">//返回最后一个元素下一个位置的反向迭代器即 rbegin</span></span><br><span class="line"><span class="function">const_reverse_iterator <span class="title">rbegin</span><span class="params">()</span> <span class="keyword">const</span></span>; <span class="comment">//返回第一个元素位置的const反向迭代器即rend</span></span><br><span class="line"><span class="function">const_reverse_iterator <span class="title">rend</span><span class="params">()</span> <span class="keyword">const</span></span>;   <span class="comment">//返回最后一元素下一个位置的反向迭代器即rbegin</span></span><br></pre></td></tr></table></figure>
-<p><strong>元素修改</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;iterator, bool&gt; insert(const value_type &amp;x);        //在map中插入键值对x，注意x是一个键值对，返回 值也是键值对：iterator代表新插入元素的位置， bool代表释放插入成功</span><br><span class="line"><span class="function">iterator <span class="title">insert</span><span class="params">(iterator position, <span class="keyword">const</span> value_type &amp;x)</span></span>; <span class="comment">//在position位置插入值为x的键值对，返回该键值对 在map中的位置，注意：元素不一定必须插在 position位置，该位置只是一个参考</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">InputIterator</span>&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(InputIterator first, InputIterator last)</span></span>; <span class="comment">//在map中插入[ﬁrst, last)区间中的元素</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">erase</span><span class="params">(iterator position)</span></span>;                        <span class="comment">//删除position位置上的元素</span></span><br><span class="line"><span class="function">size_type <span class="title">erase</span><span class="params">(<span class="keyword">const</span> key_type &amp;x)</span></span>;                   <span class="comment">//删除键值为x的元素</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">erase</span><span class="params">(iterator ﬁrst, iterator last)</span></span>;             <span class="comment">//删除[ﬁrst, last)区间中的元素</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="built_in">map</span>&lt;Key, T, Compare, Allocator&gt; &amp;mp)</span></span>;       <span class="comment">//交换两个map中的元素</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;                                         <span class="comment">//将map中的元素清空</span></span><br><span class="line">iterator ﬁnd(<span class="keyword">const</span> key_type &amp;x);                      <span class="comment">//在map中插入key为x的元素，找到返回该元素的位 置的迭代器，否则返回end</span></span><br><span class="line">const_iterator ﬁnd(<span class="keyword">const</span> key_type &amp;x) <span class="keyword">const</span>;          <span class="comment">//在map中插入key为x的元素，找到返回该元素的位 置的const迭代器，否则返回cend</span></span><br><span class="line"><span class="function">size_type <span class="title">count</span><span class="params">(<span class="keyword">const</span> key_type &amp;x)</span> <span class="keyword">const</span></span>;             <span class="comment">//返回key为x的键值在map中的个数，注意map中 key是唯一的，因此该函数的返回值要么为0，要么 为1，因此也可以用该函数来检测一个key是否在 map中</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p> 要注意map中一个key值仅存在一份，如果我们重复插入key相同的键值对，则会插入失败，并且insert的第一个重载要求插入的元素是一个pair并且返回的也是一个pair，返回的pair的类型为std::pair&lt;std::map::iterator, bool&gt;，第一个迭代器参数标识了结点插入的位置，如果已经存在该节点，则返回map中该节点的迭代器，如果不存在则插入新结点后返回新插入的结点的迭代器，bool标识了插入是否成功，也就是说无论如何当我们插入一个节点时返回的pair中都会给我们返回一个key对应的节点的迭代器。</p>
-<p><strong>容量及元素访问</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">empty</span><span class="params">()</span> <span class="keyword">const</span></span>;                         <span class="comment">//检测map中的元素是否为空，是返回true，否则 返回false</span></span><br><span class="line"><span class="function">size_type <span class="title">size</span><span class="params">()</span> <span class="keyword">const</span></span>;                     <span class="comment">//返回map中有效元素的个数</span></span><br><span class="line">mapped_type &amp;<span class="keyword">operator</span>[](<span class="keyword">const</span> key_type &amp;k); <span class="comment">//返回去key对应的value</span></span><br></pre></td></tr></table></figure>
-<p>这里要注意map也重载了operator[]，那么如果我们去访问一个不存在的值会怎样呢？</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>, <span class="keyword">int</span>&gt; <span class="built_in">map</span>;<span class="comment">//空map</span></span><br><span class="line">    <span class="comment">//访问不存在的key值</span></span><br><span class="line">    <span class="built_in">map</span>[<span class="string">&quot;1&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">map</span>[<span class="string">&quot;2&quot;</span>] = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> e : <span class="built_in">map</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; e.first &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; e.second &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="number">1</span> <span class="number">1</span></span><br><span class="line"><span class="number">2</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
-<p>  我们会发现map自动在找不到这个节点的时候会自动插入新的节点，并且返回其value的应用，这里贴出其底层实现。</p>
-<blockquote>
-<p><code>(*((this-&gt;insert(make_pair(k,mapped_type()))).first)).second</code></p>
-</blockquote>
-<p>对于insert的返回值，上面已经说过：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;iterator, bool&gt; insert(const value_type &amp;x);   </span><br></pre></td></tr></table></figure>
-
-<p> 在map中插入键值对x，注意x是一个键值对，返回值也是键值对：iterator代表新插入元素的位置， bool代表释放插入成功</p>
-<p>所以对insert返回值的first，就是pair第一个元素iterator迭代器，进行解引用，得到一个pair数据也就是kv键值对，拿到second成员，就是value。</p>
-<p>还有一个需要注意的地方，mapped_type()。<br>这是value的默认构造，插入成功会返回当前K对应的pair数据迭代器以及bool。<br>插入失败会返回已经存在的K对应的pair数据迭代器以及bool。 </p>
-<h3 id="multimap"><a href="#multimap" class="headerlink" title="multimap"></a>multimap</h3><p>  map中的元素key值不允许相同，由此便延伸出了multimap，multimap中允许元素key值相同，其他与map并没有太大区别。因此接口不再介绍，不过唯一要注意的是insert相关的接口永远都会插入新的元素，并不会存在因为key值存在而插入失败的情况。</p>
-<h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>  set在上层使用时我们很容易将其看成是一个会自动排序和去重的vector但是实际上在底层实现大有不同，这也是它被称为关联式容器的原因。其底层依然存储着一个pair，不过其中key值和value值都是相同的即&lt;value, value&gt;，并且和map一样它的<strong>key一样是不允许修改的</strong>，这也就导致了set中的元素是不可修改的，只允许插入和删除。<strong>set插入元素时也是只需提供value即可</strong>。<br>  <br><strong>模板参数</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>,                   // <span class="title">value</span>类型</span></span><br><span class="line"><span class="class">          <span class="keyword">class</span> <span class="title">Compare</span> =</span> less&lt;T&gt;,   <span class="comment">// 比较器</span></span><br><span class="line">          <span class="class"><span class="keyword">class</span> <span class="title">Alloc</span> =</span> allocator&lt;T&gt; <span class="comment">// 空间配置器</span></span><br><span class="line">          &gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">set</span>;</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>构造函数</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span>(<span class="keyword">const</span> Compare &amp;comp = Compare(), <span class="keyword">const</span> Allocator &amp; = Allocator());                                         <span class="comment">//构造空的set</span></span><br><span class="line"><span class="built_in">set</span>(InputIterator ﬁrst, InputIterator last, <span class="keyword">const</span> Compare &amp;comp = Compare(), <span class="keyword">const</span> Allocator &amp; = Allocator()); <span class="comment">//用[ﬁrst, last)区间 中的元素构造set</span></span><br><span class="line"><span class="built_in">set</span>(<span class="keyword">const</span> <span class="built_in">set</span>&lt;Key, Compare, Allocator&gt; &amp;x);</span><br></pre></td></tr></table></figure>
-
-<p><strong>迭代器相关</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">iterator <span class="title">begin</span><span class="params">()</span></span>;                       <span class="comment">//返回set中起始位置元素的迭代器</span></span><br><span class="line"><span class="function">iterator <span class="title">end</span><span class="params">()</span></span>;                         <span class="comment">//返回set中最后一个元素后面的迭代器</span></span><br><span class="line"><span class="function">const_iterator <span class="title">cbegin</span><span class="params">()</span> <span class="keyword">const</span></span>;          <span class="comment">//返回set中起始位置元素的const迭代器</span></span><br><span class="line"><span class="function">const_iterator <span class="title">cend</span><span class="params">()</span> <span class="keyword">const</span></span>;            <span class="comment">//返回set中最后一个元素后面的const迭代器</span></span><br><span class="line"><span class="function">reverse_iterator <span class="title">rbegin</span><span class="params">()</span></span>;              <span class="comment">//返回set第一个元素的反向迭代器，即end</span></span><br><span class="line"><span class="function">reverse_iterator <span class="title">rend</span><span class="params">()</span></span>;                <span class="comment">//返回set最后一个元素下一个位置的反向迭代器，即 rbegin</span></span><br><span class="line"><span class="function">const_reverse_iterator <span class="title">crbegin</span><span class="params">()</span> <span class="keyword">const</span></span>; <span class="comment">//返回set第一个元素的反向const迭代器，即cend</span></span><br><span class="line"><span class="function">const_reverse_iterator <span class="title">crend</span><span class="params">()</span> <span class="keyword">const</span></span>;   <span class="comment">//返回set最后一个元素下一个位置的反向const迭代器， 即crbegin</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>容量和修改</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">empty</span><span class="params">()</span> <span class="keyword">const</span></span>;                                      <span class="comment">//检测set是否为空，空返回true，否则返回true</span></span><br><span class="line"><span class="function">size_type <span class="title">size</span><span class="params">()</span> <span class="keyword">const</span></span>;                                  <span class="comment">//返回set中有效元素的个数</span></span><br><span class="line">pair&lt;iterator, bool&gt; insert(const value_type &amp;x);        //在set中插入元素x，实际插入的是&lt;x, x&gt;构成的键值对， 如果插入成功，返回&lt;该元素在set中的位置，true&gt;,如果 插入失败，说明x在set中已经存在，返回&lt;x在set中的位 置，false&gt;</span><br><span class="line"><span class="function">iterator <span class="title">insert</span><span class="params">(iterator position, <span class="keyword">const</span> value_type &amp;x)</span></span>; <span class="comment">//在set的position位置插入x，实际插入的是&lt;x, x&gt;构成的 键值对，注意：position位置只是参考，x最终不一定在该 位置</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">InputIterator</span>&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(InputIterator ﬁrst, InputIterator last)</span></span>; <span class="comment">//在set中插入[ﬁrst, last)区间中的元素</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">erase</span><span class="params">(iterator position)</span></span>;                       <span class="comment">//删除set中position位置上的元素</span></span><br><span class="line"><span class="function">size_type <span class="title">erase</span><span class="params">(<span class="keyword">const</span> key_type &amp;x)</span></span>;                  <span class="comment">//删除set中值为x的元素，返回删除的元素的个数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">erase</span><span class="params">(iterator ﬁrst, iterator last)</span></span>;            <span class="comment">//删除set中[ﬁrst, last)区间中的元素</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="built_in">set</span>&lt;Key, Compare, Allocator&gt; &amp;st)</span></span>;         <span class="comment">//交换set中的元素</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;                                        <span class="comment">//将set中的元素清空</span></span><br><span class="line">iterator ﬁnd(<span class="keyword">const</span> key_type &amp;x) <span class="keyword">const</span>;               <span class="comment">//返回set中值为x的元素的位置</span></span><br><span class="line"><span class="function">size_type <span class="title">count</span><span class="params">(<span class="keyword">const</span> key_type &amp;x)</span> <span class="keyword">const</span></span>;            <span class="comment">//返回set中值为x的元素的个数</span></span><br></pre></td></tr></table></figure>
-
-
-<p>  set的接口与map的接口几乎没有差别，不同的是set的迭代器取值直接*it即可，并没有map中first和second的取值方式了。取消了[]操作，因为set的key和value一致并且不允许修改于是这个接口也不再有存在的必要。</p>
-<p><strong>总结</strong><br>  1、set和map几乎一致，不同是value和key值相同，因此不能修改。<br>  <br>  2、底层依然是一个红黑树进行实现，因此可以实现自动排序，查找速度也较快能够达到O（logN）<br>  <br>  3、set插入元素只需提供value即可。<br>  <br>  4、set中的元素不可重复，因此可以达到去重的效果。<br>  <br>  5、set中的元素默认按照小于的方式排序，结果升序。<br>  <br>  6、set中的依然存储键值对pair，只是key值与value值相同。</p>
-<h3 id="multiset"><a href="#multiset" class="headerlink" title="multiset"></a>multiset</h3><p>  multiset与set的区别与multimap与map的区别相同，set中不允许存储相同的元素而multiset中允许存储相同的元素。</p>
-<h3 id="底层实现"><a href="#底层实现" class="headerlink" title="底层实现"></a>底层实现</h3><p>  以上介绍的几种关联式容器底层都是一颗红黑树，什么是红黑树呢，这就得从BS树说起，从BS Tree（二叉搜索树）开始逐步升级AVL树直到最终实现红黑树，并用其封装成map/set，这会在接下来的文章中实现。</p>
-
-    
-
-    
-    <div class="page-reward">
-      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
-        <div class="tooltip tooltip-east">
-          <span class="tooltip-item">
-            赏
-          </span>
-          <span class="tooltip-content">
-            <span class="tooltip-text">
-              <span class="tooltip-inner">
-                <p class="reward-p"><i class="icon icon-quo-left"></i>My Wechat<i
-                    class="icon icon-quo-right"></i></p>
-                <div class="reward-box">
-                  
-                  
-                  <div class="reward-box-item">
-                    <img class="reward-img" src="/img/wechat.png">
-                    <span class="reward-type">微信</span>
-                  </div>
-                  
-                </div>
-              </span>
-            </span>
-          </span>
-        </div>
-      </a>
-    </div>
-    
-
-    
-    <div class="declare"> 
-      <ul class="post-copyright">
-        <li>
-          <strong>本文作者：</strong>
-          Li-eng
-        </li>
-        <li>
-          <strong>本文链接：</strong>
-          <a href="http://www.lienguang.com/set/" title="【C++系列】STL中的set与map用法详解及模拟实现" target="_blank">http://www.lienguang.com/set/</a>
-        </li>
-        
-        <li>
-          <strong>版权声明： </strong>
+        <div class="article-info info-on-right">
           
-          转载请注明出处，感谢您的阅读！
-        </li>
-        
-      </ul>
-    </div>
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">bitmap</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">set</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">map</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">bloomfilter</a>
         		</li>
       		
 		</ul>
 	</div>
 
-    
+          
 
-    
-
-    
-    
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a> -->
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/set/" alt="微信分享二维码"> -->
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-
-    
-    <div class="clearfix"></div>
-  </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-
-<nav id="article-nav">
-  
-    <a href="/http/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          【网络系列】应用层HTTP协议格式解析、实现、HTTPS的加密流程
-        
-      </div>
-    </a>
   
   
-    <a href="/pcb/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">【Linux系列】进程PCB控制管理详解</div>
-      <i class="icon-circle-right"></i>
-    </a>
+    </div></section>
   
-</nav>
 
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8"><span class="toc-number">1.1.</span> <span class="toc-text">1.关联式容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%94%AE%E5%80%BC%E5%AF%B9-pair"><span class="toc-number">1.2.</span> <span class="toc-text">2.键值对 pair</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#map"><span class="toc-number">2.</span> <span class="toc-text">map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#multimap"><span class="toc-number">3.</span> <span class="toc-text">multimap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#set"><span class="toc-number">4.</span> <span class="toc-text">set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#multiset"><span class="toc-number">5.</span> <span class="toc-text">multiset</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="toc-number">6.</span> <span class="toc-text">底层实现</span></a></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
 
           </div>
@@ -594,9 +343,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
