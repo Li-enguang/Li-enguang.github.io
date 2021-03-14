@@ -6,19 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.lienguang.com">
-  <title>Tag: Linux | Li-eng</title>
+  <title>TCP使用的四种计时器，你了解吗？ | Li-eng</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Be the best you can be">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Li-eng">
-<meta property="og:url" content="http://www.lienguang.com/tags/Linux/index.html">
+  <meta name="description" content="TCP中为什么要设置计时器TCP 是提供给可靠的传输层，它使用的方法之一就是确认从另一端收到的数据，但是数据和确认都可能会丢失。TCP 通过在发送时设置一个定时器来解决这个问题。如果当定时器溢出时还没收到确认，它就会重传该数据(关键在于超时和重传策略，即怎样决定超时的时间间隔和如何确定重传的频率) , 对于每个连接，TCP 管理着四个不同的定时器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP使用的四种计时器，你了解吗？">
+<meta property="og:url" content="http://www.lienguang.com/tcp-clock/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="Be the best you can be">
+<meta property="og:description" content="TCP中为什么要设置计时器TCP 是提供给可靠的传输层，它使用的方法之一就是确认从另一端收到的数据，但是数据和确认都可能会丢失。TCP 通过在发送时设置一个定时器来解决这个问题。如果当定时器溢出时还没收到确认，它就会重传该数据(关键在于超时和重传策略，即怎样决定超时的时间间隔和如何确定重传的频率) , 对于每个连接，TCP 管理着四个不同的定时器。">
 <meta property="og:locale">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210208215437926.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2021-03-14T14:59:27.504Z">
+<meta property="article:modified_time" content="2021-03-14T15:38:21.323Z">
 <meta property="article:author" content="Li-eng">
+<meta property="article:tag" content="network">
+<meta property="article:tag" content="TCP">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210208215437926.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="Li-eng" type="application/atom+xml">
   
@@ -240,431 +246,265 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-tcp-clock" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/kuangtu/" class="archive-article-date">
-        <time datetime="2021-03-14T14:47:43.608Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/kuangtu/" target="_blank">C++/Linux 知识学习框图总结</a>
   
+    <h1 class="article-title" itemprop="name">
+      TCP使用的四种计时器，你了解吗？
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+<a href="/tcp-clock/" class="archive-article-date">
+        <time datetime="2021-03-14T14:59:27.504Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1.8k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">6分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="TCP中为什么要设置计时器"><a href="#TCP中为什么要设置计时器" class="headerlink" title="TCP中为什么要设置计时器"></a>TCP中为什么要设置计时器</h3><p>TCP 是提供给可靠的传输层，它使用的方法之一就是确认从另一端收到的数据，但是数据和确认都可能会丢失。TCP 通过在发送时设置一个定时器来解决这个问题。如果当定时器溢出时还没收到确认，它就会重传该数据(关键在于超时和重传策略，即怎样决定超时的时间间隔和如何确定重传的频率) , 对于每个连接，TCP 管理着四个不同的定时器。</p>
+<span id="more"></span>
+<h3 id="TCP使用的四种计时器"><a href="#TCP使用的四种计时器" class="headerlink" title="TCP使用的四种计时器"></a>TCP使用的四种计时器</h3><ul>
+<li>重传计时器</li>
+<li>坚持计时器</li>
+<li>保活计时器</li>
+<li>时间等待计时器  </li>
+</ul>
+<p><strong>1、重传计时器</strong></p>
+<p>目的：防止数据丢失，丢失了就重传</p>
+<p>TCP每发送一个报文段，就对此报文段设置一个超时重传计时器。可能发生两种情况：<br>若在计时器截止时间到（通常是60秒）之前收到了对此特定报文段的确认，则撤销此计时器；在收到对特定报文段的确认之前计时器超时，则重传该报文，并把计时器复位；</p>
+<p>TCP在发送一份数据后，启动重传定时器，在经过若干时间后如果没有收到ACK，则重传该数据，这个时间间隔通常如下:1s, 3s, 6s, 12s, 24, 48s, 和多个64s。这个指数关系被称为指数退避。TCP会一直尝试重传该数据，在9分钟以后放弃。</p>
+<p><strong>2.坚持计时器</strong> </p>
+<p>目的：为了防止接收方发送0窗口后，再次发送的非0窗口丢失，造成发送接收方“死等”现象。</p>
+<p>假定A是发送端，B是接收端。模拟一个场景：<br>① B向A发送一个0窗口告诉A，此时缓冲区满了不能够接收数据了，因此A将停止发送数据给B，直到A收到B发来地非0窗口才会继续向B发送数据。② B向A发送了非0窗口的数据包，但是该数据包丢失 ==&gt; 因为非0窗口的数据包丢失了，所以A将一直等待B发送非0窗口；同时B发送完了非0窗口给A，B将会一直等待A发送数据过来 ==&gt; ==&gt; 形成A、B相互等待，死锁。</p>
+<p>分析可知，产生该现象的原因是B发送给A的0窗口后，再次发送的非0窗口丢失导致的，顺理成章的解决方案就是：<br>①当A收到B发送来的非0窗口时，立即启动坚持计时器<br>②当坚持计时器到时，A就向B发送探测报文段，探测报文段的作用是提醒B，非0窗口的确认已经丢失，必须重传。<br>③假设A依然没收到B发来的非0窗口的确认，则发送端A仍需要继续向B再次发送一个探测报文段，并将坚持定时器的值加倍，直到这个值增大到门限值(通常是60s)为止。在这以后，发送端A每隔60s就发送一个探测报文段，直到窗口重新打开。</p>
+<p>需要注意的是：发送方收到一个窗口大小为零的确认时，就启动坚持器 。当坚持计时器期限到时，发送方就发送一个特殊的报文段，叫做探测报文段 。这个报文段只有一个字节的数据。它有一个序号，但它的序号永远不需要确认；甚至在计算对其他部分的数据的确认时该序号也被忽略。探测报文段提醒对端：确认已丢失，必须重传。</p>
+<p><strong>3、保活计时器</strong></p>
+<p>目的：在长连接中，检测无响应的连接并将其断开，防止占用过多的连接资源</p>
+<p>保活计时器使用在某些实现中，用来防止在两个TCP之间的连接出现长时期的空闲。假定客户打开了到服务器的连接，传送了一些数据，然后就保持静默了。也许这个客户出故障了。在这种情况下，这个连接将永远地处理打开状态。<br>要解决这种问题，在大多数的实现中都是使服务器设置保活计时器。每当服务器收到客户的信息，就将计时器复位。保活计时器通常设置为2小时。若服务器过了2小时还没有收到客户的信息，它就发送探测报文段。若发送了10个探测报文段（每一个相隔75秒）还没有响应，就假定客户出了故障，因而就终止该连接。</p>
+<p><strong>4.时间等待计时器</strong> </p>
+<p>该计时器就是TIME_WAIT计时器，即当客户端发送FIN给服务端后，服务端回复ACK后，客户端将进入TIME_WAIT状态(等待服务端发送FIN+ACK)。如果在计时器时间内没有接收到FIN，客户端将会重启TIME_WAIT计时器继续等待服务端发来的FIN。保证全双工管道的安全断开。<br><img src="https://img-blog.csdnimg.cn/20210208215437926.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>TIME_WAIT 确保有足够的时间让对端收到了ACK，如果服务端没有收到ACK，就会使得客户端端重发FIN。因为最后一次确认应答 ACK 报文段很有可能丢失，因而使被动关闭方处于在LIST_ACK 状态，此时被动关闭方会重发这个 FIN 报文段，在这等待的 2MSL 时间内主动关闭方重新收到这个被动关闭方重发的 FIN 报文段，因此，主动关闭方会重新发送确认应答信息，从而重新启动 2MSL 计时器，直到通信双方都进入 CLOSED 状态。</p>
+<p>如果主动关闭方在 TIME_WAIT 状态不等待一段时间就直接释放连接并进入 CLOSED 状态，那么主动关闭方无法收到来自被动关闭方重发的 FIN 报文段，也就不会再发送一次确认 ACK 报文段，因此被动关闭方就无法正常进入CLOSED 状态。</p>
+<p><strong>TIME_WAIT有什么用，为什么客户端关闭连接后要等待？要等待多久？</strong><br>  如果没有TIME_WAIT，客户端在发送最后一次ACK后就直接关闭的情况下，如果此时最后一次ACK包文丢失，服务端很久并没有收到包文，它会再次重发最后一次FIN包，如果此时客户端又重启了一个同端口的客户端准备再次建立连接，此时却接收到服务端发来的FIN包就会陷入混乱，因此客户端在此时需要等待。至于等待多久此时需要2个MSL的时间，一个MSL时间表示数据包在网络中的生命周期，它最久只能在网络中存活这么久，如果还没有成功则会销毁这个包，也就是丢包，等待两个MSL时间是为了让客户端自己发送的包以及以及服务端如果重发FIN包都能够要么接收到，要么都消亡在网络中不对后续连接造成影响，等待2个MSL时间已经足够保守极大减少之前连接会影响到之后连接情况。</p>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>My Wechat<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/wechat.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          Li-eng
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://www.lienguang.com/tcp-clock/" title="TCP使用的四种计时器，你了解吗？" target="_blank">http://www.lienguang.com/tcp-clock/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          转载请注明出处，感谢您的阅读！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">network</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">TCP</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/tcp-clock/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/zombie/" class="archive-article-date">
-        <time datetime="2021-03-09T12:10:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-09</time>
-</a>
 
+
+<nav id="article-nav">
+  
+  
+    <a href="/kuangtu/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C++/Linux 知识学习框图总结</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/zombie/" target="_blank">【Linux系列】再谈僵尸进程的产生与避免</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">zombie</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ps -aux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E4%B8%AD%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%AE%BE%E7%BD%AE%E8%AE%A1%E6%97%B6%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">TCP中为什么要设置计时器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E4%BD%BF%E7%94%A8%E7%9A%84%E5%9B%9B%E7%A7%8D%E8%AE%A1%E6%97%B6%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">TCP使用的四种计时器</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/order/" class="archive-article-date">
-        <time datetime="2021-03-08T16:10:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-09</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/order/" target="_blank">【Linux系列】查看硬件信息常用命令</a>
-  
-    </h1>
-  
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">order</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/ptnread/" class="archive-article-date">
-        <time datetime="2021-01-16T15:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-16</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/ptnread/" target="_blank">【Linux系列】线程控制管理、线程安全-同步与互斥</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pthread</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/pcb/" class="archive-article-date">
-        <time datetime="2020-12-31T09:09:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-31</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/pcb/" target="_blank">【Linux系列】进程PCB控制管理详解</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pcb</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/signal/" class="archive-article-date">
-        <time datetime="2020-11-29T08:52:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-29</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/signal/" target="_blank">【Linux系列】Linux下信号详解-产生，注册，注销以及处理机制</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">signal</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/shm/" class="archive-article-date">
-        <time datetime="2020-11-17T10:23:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-17</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/shm/" target="_blank">【Linux系列】进程间通信方式-共享内存、消息队列、信号量</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">shm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">msg</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">PV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/pipe/" class="archive-article-date">
-        <time datetime="2020-11-14T11:36:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-14</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/pipe/" target="_blank">【Linux系列】进程间通信方式-管道详解</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">pipe</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -705,9 +545,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
