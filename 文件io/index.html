@@ -6,19 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.lienguang.com">
-  <title>Archives: 2021 | Li-eng</title>
+  <title>【UNIX环境高级编程】—文件IO-读书笔记 | Li-eng</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Be the best you can be">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Li-eng">
-<meta property="og:url" content="http://www.lienguang.com/archives/2021/page/3/index.html">
+  <meta name="description" content="【UNIX环境高级编程】——《文件IO》读书笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【UNIX环境高级编程】—文件IO-读书笔记">
+<meta property="og:url" content="http://www.lienguang.com/%E6%96%87%E4%BB%B6io/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="Be the best you can be">
+<meta property="og:description" content="【UNIX环境高级编程】——《文件IO》读书笔记">
 <meta property="og:locale">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316000438281.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316000455506.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316000505869.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316000516391.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316000526897.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316000620977.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2021-03-14T11:36:04.000Z">
+<meta property="article:modified_time" content="2021-03-15T16:08:51.718Z">
 <meta property="article:author" content="Li-eng">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="IO">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210316000438281.png">
   
     <link rel="alternative" href="/atom.xml" title="Li-eng" type="application/atom+xml">
   
@@ -240,175 +251,270 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-文件io" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/c++11/" class="archive-article-date">
-        <time datetime="2021-01-11T16:31:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-12</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/c++11/" target="_blank">【C++系列】C++11语法新特性，快来get一下</a>
   
+    <h1 class="article-title" itemprop="name">
+      【UNIX环境高级编程】—文件IO-读书笔记
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+<a href="/%E6%96%87%E4%BB%B6io/" class="archive-article-date">
+        <time datetime="2021-03-14T11:36:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">2.1k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">7分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>【UNIX环境高级编程】——《文件IO》读书笔记<span id="more"></span></p>
+<h3 id="UNIX环境下的文件共享"><a href="#UNIX环境下的文件共享" class="headerlink" title="UNIX环境下的文件共享"></a>UNIX环境下的文件共享</h3><p>  文件描述符用来表征一个文件，但是为什么操作系统要用这么一个整数来表征一个文件呢？这就操作系统底层实现有莫大的关系。<br>  在进程PCB中有着这么一个部分，IO状态信息，说的再具体点，在PCB中存在着一张表，我们可以叫它<strong>文件描述符表</strong>也可以叫做<strong>打开文件描述符表</strong>，这张表每个进程都会有且为进程独有，所以它是<strong>进程级</strong>的。这张表上的每一个表项都有两个部分组成，<strong>文件描述符标志</strong>以及一个<strong>文件指针</strong>。其中文件描述符标志也就是我们所使用的文件描述符<code>fd</code>，当然我们也可以将其看做是这张表的下标。这张表长这样。<br><img src="https://img-blog.csdnimg.cn/20210316000438281.png" alt="在这里插入图片描述"></p>
+<p>这张表中每一项都有一个文件指针，那么这个指针又指向哪里呢？这就要提到另一张表<strong>打开文件表</strong>，注意这张表由操作系统管理，且系统中只有唯一一张这样的表，因此这张表是<strong>系统级的</strong>。这张表中的每一项都存储着一个进程与这个文件相关的一些信息，其中主要分为三个部分：<strong>文件状态标志，文件当前偏移量，v-node结点指针</strong>。</p>
+<p>文件状态标志就是文件在打开时的状态标志，例如可读，可写，可读写，阻塞等都会记录在其中，这些状态标志也可以使用<code>fcntl</code>函数修改。<br>  文件当前偏移量就是文件指针当前在文件中指向的位置，我们可以用<code>lseek</code>函数修改。</p>
+<p>  这张表属于系统级的，系统中任何进程打开任何文件都会在其中添加一个记录项，按照一般情况下来说两个不同的进程打开相同的文件也会在表中创建两个不同的表项，因此两个进程对同一个文件可以有不同的状态标志以及文件当前偏移量，一个进程中不同的文件描述符所代表的文件描述符表项中的文件指针也该指向不同的打开文件表项，但是在某些情况下文件描述符表中不同表项的指针却又有可能指向系统级打开文件表中的同一个表项。例如我们在<code>fork</code>子进程时，子进程复制父进程PCB中的大部分信息包括IO状态信息时会复制文件描述符表，因此两个不同的进程此时就会打开同一个文件，并且文件指针的指向也不会改变会指向相同的打开文件表表项；在使用<code>dup</code>函数重定向时一个进程中不同文件描述符表项中的文件指针也会指向同一个打开文件表中的表项。<br>  这张表中的每个表项长这样。<br><img src="https://img-blog.csdnimg.cn/20210316000455506.png" alt="在这里插入图片描述"></p>
+<p>最后还剩一个问题，这个<code>v-node</code>结点指针干嘛用的？<code>v-node</code>节点指针当然指向<code>v-node</code>节点的啊。那么什么是<code>v-node</code>节点？说到<code>v-node</code>就不得不提起<code>i-node</code>节点，在<code>UNIX</code>操作系统中操作系统管理文件的方式是通过使用<code>v-node</code>和<code>i-node</code>节点的方式进行管理的，每个文件都会有这样的节点用于保存相关的文件信息，例如<code>v-node</code>节点上保存了文件类型，对这个文件进行操作的函数指针以及对应的<code>i-node</code>节点的指针；而<code>i-node</code>节点上保存了文件长度，文件数据存储在磁盘的位置，文件所属者等。这些文件信息平时存储在磁盘上，当一个文件倍打开时系统会将这些信息读入内存，并且相同的文件的<code>i-node</code>及<code>v-node</code>节点在内存中只会存在一份。这两个节点长这样。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210316000505869.png" alt="在这里插入图片描述"></p>
+<p>那么为什么要用两个节点保存这些信息呢？这是为了在一个操作系统上对多文件系统进行支持。把与文件系统无关的文件信息存储在<code>v-node</code>节点上，其余信息存在<code>i-node</code>上，分开存储，这样的系统也叫做<strong>虚拟文件系统</strong>。而<code>Linux</code>比较特殊，他其中没有<code>v-node</code>节点而是用了两个不同的<code>i-node</code>节点，但是结果而言大同小异。<br>  综上所述，把以上集中数据结构连接起来就构成了一个进程对文件进行控制的完整脉络，进程也就得到了和文件控制有关的所有信息，可见并不是所有文件信息都保存在PCB中的。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210316000516391.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>  对于两个不同的进程打开同一个文件，他们的文件指针可能指向不同的打开文件表项，但是最终都会指向同一个<code>v-node</code>和<code>i-node</code>节点，正如之前所说，相同文件的有关信息在内存中只会存在一份。如下图。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210316000526897.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="原子性操作"><a href="#原子性操作" class="headerlink" title="原子性操作"></a>原子性操作</h3><p>  考虑这么一种场景，两个不同的进程同时打开了一个文件，要对文件进行追加写，但是问题来了，两个进程这里都使用了<code>lseek</code>的方式将当前文件偏移量置为文件末尾处再写，这样的操作并不是一个原子性操作，很有可能导致两个进程同时先将偏移量移到末尾，然后一个写文件结束，另一个再继续在之前的偏移量接着写，这时的偏移量并不在文章末尾，会导致将第一个进程写的数据覆盖。举个例子，假设一个文件目前长度为1500，进程都将偏移量置为了1500，然后第一个线程先写400的数据，之后第二个进程接着准备写400数据，但是第二个进程的偏移量还在1500处，并没有更新为1900，此时再写入数据就会把之前进程写入的数据覆盖。<br>  以上的问题想要解决也很容易，使用<code>O_APPEND</code>选项，在打开文件加入这个选项后，每次写入数据都会自动将偏移量置为文件末尾处再写，不用<code>lseek</code>保证了原子性.</p>
+<h3 id="IO效率问题"><a href="#IO效率问题" class="headerlink" title="IO效率问题"></a>IO效率问题</h3><p>  首先看以下一段读取文件常用的代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BUFSIZE 4096</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Test2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">char</span> buf[BUFSIZE];</span><br><span class="line">  <span class="keyword">while</span>((n = read(STDIN_FILENO, buf, <span class="number">4096</span>)) &gt; <span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span>(write(STDOUT_FILENO, buf, n) != n)</span><br><span class="line">    &#123;</span><br><span class="line">      perror(<span class="string">&quot;write error:&quot;</span>);</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(n &lt; <span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(<span class="string">&quot;read error:&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(Test2() == <span class="literal">false</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cerr</span> &lt;&lt; <span class="string">&quot;copy error&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  &#125;                                        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>  这段代码是很普通的一段从标准输入读取数据写入标准输出的文件读取写入代码，但是其中有一个重要的问题，我们在用文件读取的时候往往需要在程序内开辟一块缓冲区用作数据暂存，问题来了，这块buffer开多大呢？<br>  这里跟文件系统相关了，我们都知道数据在磁盘上是按照扇区读取的，但是操作系统读取磁盘数据的最小单位是<strong>磁盘块</strong>，也就是说我们每次读取数据最小都要读取一个磁盘块大小的数据，如果读取数据长度小于磁盘块操作系统也要把整个磁盘块数据先读进来然后再拿其中一部分剩下的丢掉，这样就导致一个问题如果我们读取的数据小于一个磁盘块就会导致效率低下，造成性能浪费，而在<code>Linux</code>操作系统上一个磁盘块大小为<code>4K</code>，所以我们一次读取数据大于等于<code>4K</code>并且为<code>4K</code>整数倍的话效率是最高的。不过现在的操作系统为了提高效率使用了<strong>预读</strong>技术，这使得不带缓冲的文件IO在使用较小缓冲区读取大的连续存储的文件时也能有较高地效率，我们可以从下图看出：</p>
+<p><img src="https://img-blog.csdnimg.cn/20210316000620977.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>下一章节记录IO相关函数。</p>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>My Wechat<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/wechat.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          Li-eng
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://www.lienguang.com/文件io/" title="【UNIX环境高级编程】—文件IO-读书笔记" target="_blank">http://www.lienguang.com/文件io/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          转载请注明出处，感谢您的阅读！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C++11</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IO</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/%E6%96%87%E4%BB%B6io/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/http/" class="archive-article-date">
-        <time datetime="2021-01-10T15:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-10</time>
-</a>
 
+
+<nav id="article-nav">
+  
+    <a href="/kuangtu/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          C++/Linux 知识学习框图总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/consistent-hashing/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">一致性哈希算法 consistent hashing</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/http/" target="_blank">【网络系列】应用层HTTP协议格式解析、实现、HTTPS的加密流程</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">network</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">https</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#UNIX%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB"><span class="toc-number">1.</span> <span class="toc-text">UNIX环境下的文件共享</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%AD%90%E6%80%A7%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">原子性操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IO%E6%95%88%E7%8E%87%E9%97%AE%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">IO效率问题</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/set/" class="archive-article-date">
-        <time datetime="2021-01-03T08:44:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-03</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/set/" target="_blank">【C++系列】STL中的set与map用法详解及模拟实现</a>
-  
-    </h1>
-  
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">set</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">map</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2021/page/2/">Prev</a><a class="page-number" href="/archives/2021/">1</a><a class="page-number" href="/archives/2021/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
-  
+
+
+
+
+
+
+
 
 
           </div>
@@ -449,8 +555,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
