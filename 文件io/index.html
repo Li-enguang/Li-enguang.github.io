@@ -10,12 +10,12 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="【UNIX环境高级编程】——《文件IO》读书笔记">
+  <meta name="description" content="【UNIX环境高级编程】————文件IO 读书笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【UNIX环境高级编程】—文件IO-读书笔记">
 <meta property="og:url" content="http://www.lienguang.com/%E6%96%87%E4%BB%B6io/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="【UNIX环境高级编程】——《文件IO》读书笔记">
+<meta property="og:description" content="【UNIX环境高级编程】————文件IO 读书笔记">
 <meta property="og:locale">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210316000438281.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210316000455506.png">
@@ -23,8 +23,8 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210316000516391.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210316000526897.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210316000620977.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2021-03-14T11:36:04.000Z">
-<meta property="article:modified_time" content="2021-03-15T16:08:51.718Z">
+<meta property="article:published_time" content="2021-01-12T11:36:04.000Z">
+<meta property="article:modified_time" content="2021-03-16T06:52:10.565Z">
 <meta property="article:author" content="Li-eng">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="IO">
@@ -162,11 +162,11 @@
 			
 			
 			<div>
-				<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="240" height="86" src="//music.163.com/outchain/player?type=2&id=41641784&auto=0&height=66"></iframe>
+				<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="240" height="86" src="//music.163.com/outchain/player?type=2&id=546723298&auto=1&height=66"></iframe>
 			</div>
 			
 				
-				<p style="font-size: 12px;">我最喜欢的纯音乐 听一下喽<p>
+				<p style="font-size: 12px;">我挺喜欢的音乐 听一下喽<p>
 			
 		
 		</nav>
@@ -266,7 +266,7 @@
   
   
 <a href="/%E6%96%87%E4%BB%B6io/" class="archive-article-date">
-        <time datetime="2021-03-14T11:36:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
+        <time datetime="2021-01-12T11:36:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-12</time>
 </a>
 
   
@@ -299,7 +299,8 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>【UNIX环境高级编程】——《文件IO》读书笔记<span id="more"></span></p>
+    <p>【UNIX环境高级编程】————文件IO 读书笔记</p>
+<span id="more"></span>
 <h3 id="UNIX环境下的文件共享"><a href="#UNIX环境下的文件共享" class="headerlink" title="UNIX环境下的文件共享"></a>UNIX环境下的文件共享</h3><p>  文件描述符用来表征一个文件，但是为什么操作系统要用这么一个整数来表征一个文件呢？这就操作系统底层实现有莫大的关系。<br>  在进程PCB中有着这么一个部分，IO状态信息，说的再具体点，在PCB中存在着一张表，我们可以叫它<strong>文件描述符表</strong>也可以叫做<strong>打开文件描述符表</strong>，这张表每个进程都会有且为进程独有，所以它是<strong>进程级</strong>的。这张表上的每一个表项都有两个部分组成，<strong>文件描述符标志</strong>以及一个<strong>文件指针</strong>。其中文件描述符标志也就是我们所使用的文件描述符<code>fd</code>，当然我们也可以将其看做是这张表的下标。这张表长这样。<br><img src="https://img-blog.csdnimg.cn/20210316000438281.png" alt="在这里插入图片描述"></p>
 <p>这张表中每一项都有一个文件指针，那么这个指针又指向哪里呢？这就要提到另一张表<strong>打开文件表</strong>，注意这张表由操作系统管理，且系统中只有唯一一张这样的表，因此这张表是<strong>系统级的</strong>。这张表中的每一项都存储着一个进程与这个文件相关的一些信息，其中主要分为三个部分：<strong>文件状态标志，文件当前偏移量，v-node结点指针</strong>。</p>
 <p>文件状态标志就是文件在打开时的状态标志，例如可读，可写，可读写，阻塞等都会记录在其中，这些状态标志也可以使用<code>fcntl</code>函数修改。<br>  文件当前偏移量就是文件指针当前在文件中指向的位置，我们可以用<code>lseek</code>函数修改。</p>
@@ -457,18 +458,18 @@
 
 <nav id="article-nav">
   
-    <a href="/kuangtu/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/%E4%BA%94%E7%A7%8Dio/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          C++/Linux 知识学习框图总结
+          【Linux系列】从本质上理解五种IO模型的区别
         
       </div>
     </a>
   
   
-    <a href="/consistent-hashing/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">一致性哈希算法 consistent hashing</div>
+    <a href="/c++11/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【C++系列】C++11语法新特性，快来get一下</div>
       <i class="icon-circle-right"></i>
     </a>
   
