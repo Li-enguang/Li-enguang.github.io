@@ -6,28 +6,37 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.lienguang.com">
-  <title>二叉树经典算法题总结 | Li-eng</title>
+  <title>【Linux系列】操作系统的内存管理方式 | Li-eng</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="⼆叉树的定义⼆叉树有两种存储⽅式顺序存储，和链式存储，顺序存储就是⽤数组来存，我们来看看链式存储的⼆叉树节点的定义⽅式。C++代码如下： 1234567struct TreeNode &amp;#123; int val; TreeNode *left; TreeNode *right; TreeNode(int x) : val(x), left(NULL), right(NULL) &amp;#123;&amp;#1">
+  <meta name="description" content="在早期的计算机中，程序是直接运行在物理内存上的，所以其通常都会面临以下几种问题  地址空间不隔离 内存使用效率低 程序运行的地址不确定">
 <meta property="og:type" content="article">
-<meta property="og:title" content="二叉树经典算法题总结">
-<meta property="og:url" content="http://www.lienguang.com/bintree-leetcode/index.html">
+<meta property="og:title" content="【Linux系列】操作系统的内存管理方式">
+<meta property="og:url" content="http://www.lienguang.com/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="⼆叉树的定义⼆叉树有两种存储⽅式顺序存储，和链式存储，顺序存储就是⽤数组来存，我们来看看链式存储的⼆叉树节点的定义⽅式。C++代码如下： 1234567struct TreeNode &amp;#123; int val; TreeNode *left; TreeNode *right; TreeNode(int x) : val(x), left(NULL), right(NULL) &amp;#123;&amp;#1">
+<meta property="og:description" content="在早期的计算机中，程序是直接运行在物理内存上的，所以其通常都会面临以下几种问题  地址空间不隔离 内存使用效率低 程序运行的地址不确定">
 <meta property="og:locale">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210307140706474.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2021030714581062.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210307162701287.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210307162729321.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2021-03-07T05:49:42.000Z">
-<meta property="article:modified_time" content="2021-03-07T09:01:47.801Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316155730399.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316155741335.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021031615580951.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316155838759.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316155849491.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316155907617.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316155939469.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316160000173.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316160048750.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316160109980.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316160134488.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316160240676.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316160318151.png">
+<meta property="article:published_time" content="2021-02-12T07:30:04.000Z">
+<meta property="article:modified_time" content="2021-03-16T08:11:22.882Z">
 <meta property="article:author" content="Li-eng">
-<meta property="article:tag" content="binarytree">
-<meta property="article:tag" content="algorithm">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="内存管理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210307140706474.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210316155730399.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="Li-eng" type="application/atom+xml">
   
@@ -249,22 +258,22 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-bintree-leetcode" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-内存管理" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      二叉树经典算法题总结
+      【Linux系列】操作系统的内存管理方式
     </h1>
   
 
 
   
   
-<a href="/bintree-leetcode/" class="archive-article-date">
-        <time datetime="2021-03-07T05:49:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-07</time>
+<a href="/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="archive-article-date">
+        <time datetime="2021-02-12T07:30:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-12</time>
 </a>
 
   
@@ -277,7 +286,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">4.4k字</span>
+      <span class="post-count">3.2k字</span>
     </span>
   </span>
 
@@ -286,7 +295,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">18分</span>
+      <span class="post-count">10分</span>
     </span>
   </span>
 </div>
@@ -297,144 +306,77 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="⼆叉树的定义"><a href="#⼆叉树的定义" class="headerlink" title="⼆叉树的定义"></a>⼆叉树的定义</h3><p>⼆叉树有两种存储⽅式顺序存储，和链式存储，顺序存储就是⽤数组来存，我们来看看链式存储的⼆叉树节点的定义⽅式。<br>C++代码如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> &#123;</span></span><br><span class="line"> <span class="keyword">int</span> val;</span><br><span class="line"> TreeNode *left;</span><br><span class="line"> TreeNode *right;</span><br><span class="line"> TreeNode(<span class="keyword">int</span> x) : val(x), left(<span class="literal">NULL</span>), right(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<p>⼤家会发现⼆叉树的定义 和链表是差不多的，相对于链表 ，⼆叉树的节点⾥多了⼀个指针， 有两个指针，指向左右孩⼦.</p>
-<h3 id="二叉树的遍历方式"><a href="#二叉树的遍历方式" class="headerlink" title="二叉树的遍历方式"></a>二叉树的遍历方式</h3><p>关于二叉树的遍历方式，要知道二叉树遍历的基本方式都有哪些我这里把二叉树的几种遍历方式列出来，大家就可以一一串起来了。<br>二叉树主要有两种遍历方式：</p>
+    <p>在早期的计算机中，程序是直接运行在物理内存上的，所以其通常都会面临以下几种问题</p>
 <ul>
-<li>深度优先遍历：先往深走，遇到叶子节点再往回走。</li>
-<li>广度优先遍历：一层一层的去遍历。</li>
+<li>地址空间不隔离</li>
+<li>内存使用效率低</li>
+<li>程序运行的地址不确定<span id="more"></span>
+为了解决这些问题，我们又引入了虚拟内存这个概念，但是虚拟内存是如何解决这个问题的呢？它与物理内存又是如何进行映射的呢？</li>
 </ul>
-<p>那么从深度优先遍历和广度优先遍历进一步拓展，才有如下遍历方式：<br> <strong>深度优先遍历</strong></p>
+<p>对于操作系统来说，通常解决这个问题的方式有三种，一种是内存分页，另一种是内存分段，以及两者相结合的段页式。</p>
+<h3 id="分段"><a href="#分段" class="headerlink" title="分段"></a>分段</h3><p>在最开始时，人们采用的是分段的方法，为了简化地址管理，所以将虚拟内存空间中的虚拟内存按照其逻辑划分为代码段、数据段、堆段、栈段几部分<br><img src="https://img-blog.csdnimg.cn/20210316155730399.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>通过段寄存器中的段表，来将虚拟地址与物理地址进行映射。段表中存储了每一个逻辑段的段号对应的物理内存的起始地址。<br><img src="https://img-blog.csdnimg.cn/20210316155741335.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>对于每一个在虚拟内存中存储的数据，其虚拟地址都以其所在的段号以及段内偏移组成。</p>
+<p>因此虚拟地址与物理地址的转换方式如下</p>
 <ul>
-<li>前序遍历（递归法，迭代法）</li>
-<li>中序遍历（递归法，迭代法）</li>
-<li>后序遍历（递归法，迭代法）</li>
+<li>根据虚拟地址中的段号查询段表</li>
+<li>根据段表查询到对应的段的物理内存起始地址</li>
+<li>物理内存起始地址加上段内偏移，即为其对应的物理地址</li>
 </ul>
-<p><strong>广度优先遍历</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/2021031615580951.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>如上图，例如变量A段号为2，段内偏移为500。首先根据段号查询段表，得知物理内存起始地址位于3000的位置，接着找到对应的起始地址，加上段内偏移500，此时3500的位置即为其对应的物理地址。</p>
+<p>通过分段的方式，我们解决了上面所说的问题1和问题3，但是对于内存的使用效率，分段仍然存在以下两个问题</p>
+<pre><code>内存碎片
+内存交换的效率低
+为什么会存在内存碎片的问题呢？
+</code></pre>
+<p>在上面的讲解中可以看出，在分段存储中，一个段内可能保存有多个变量，而这些变量都是从同一个物理地址起始位置开始偏移。因此在物理内存中，同一个段中的数据使用了连续的地址空间。</p>
+<p>例如我们有1G的物理内存，倘若我们运行了512M的程序A，接着运行了128M的程序B，128M的程序C。剩余内存为256M<br><img src="https://img-blog.csdnimg.cn/20210316155838759.png" alt="在这里插入图片描述"><br>倘若我们此时结束程序B，释放内存，此时总剩余空间为384M<br><img src="https://img-blog.csdnimg.cn/20210316155849491.png" alt="在这里插入图片描述"><br>倘若我们此时需要运行300M的进程D，但是这时候就会因为剩余空间不连续，导致我们的程序无法运行，这也就是我们常说的内存外碎片问题。</p>
+<p>那么如何解决这个问题呢？这就会使用到内存交换。例如上面那种情况，我们就会将程序C写入硬盘的SWAP分区(交换分区，用于内存和硬盘的空间交换)。紧接着再将其从硬盘中读取回来，让其紧挨着程序A的那块内存，这样就能保证后面的空闲内存都是连续的了。<br><img src="https://img-blog.csdnimg.cn/20210316155907617.png" alt="在这里插入图片描述"><br><strong>为什么内存交换的效率低呢？</strong></p>
+<p>由于分段对物理内存的映射是以程序为单位，按照其逻辑进行分段映射，如果我们的内存不足，那么被换入换出到硬盘中的都是整个程序，这样就必然会造成大量的磁盘访问操作，总所周知，磁盘IO的速度特别慢，因此就会严重影响我们的访问速度。</p>
+<p>根据程序的局部性原理，当一个程序在运行时，在某个时间段内，它只是频繁地用到了一小部分数据，也就是说程序中的很多数据其实在一个时间段内都是不会被用到的。</p>
+<p>而我们分段的最大问题就在于其以程序为单位进行映射，因此我们只需要使用更小粒度的存储单位，就可以解决这个问题，大大的提升内存的使用率。因此在后续的设计中，就以页作为基本单位，这也就是分页机制的由来</p>
+<h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3><p>分页就是将内存空间人为地划分成固定大小的页，每一页地大小由硬件决定，在Linux中，一页是4KB</p>
+<p>与段表类似，虚拟地址与物理地址的映射是通过MMU(内存管理单元)中的页表来完成的。<br><img src="https://img-blog.csdnimg.cn/20210316155939469.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>页表中不仅保存了页号，物理内存地址，还保留了该物理页的访问权限，用以实现对页的访问控制</p>
+<p>在分页机制下，虚拟地址由页号以及页内偏移组成</p>
+<p>因此在分页机制下，虚拟地址与物理地址的转换方式如下</p>
 <ul>
-<li>层次遍历（迭代法）</li>
+<li>根据虚拟地址中的页号查询页表</li>
+<li>根据页表查询到对应的页的物理内存起始地址</li>
+<li>物理内存起始地址加上页内偏移，即为其对应的物理地址<br>如下图<br><img src="https://img-blog.csdnimg.cn/20210316160000173.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>当进程需要访问物理地址时，此时CPU就会通过MMU中的页表，来找到对应的物理地址。</li>
 </ul>
-<p>在深度优先遍历中：<br>这里前中后，其实指的就是中间节点的遍历顺序，只要大家记住前中后序指的就是中间节点的位置就可以了。看如下中间节点的顺序，就可以发现，中间节点的顺序就是所谓的遍历方式</p>
+<p>讲了这么多，再次回到之前的问题，分页是如何解决分段的内存利用率低的问题的呢？</p>
+<p>主要就是依靠以下两方面来完成的</p>
+<p>1、使用更低粒度的内存单位<br>分段所面临的最大问题，无非就是内存碎片以及交换效率低。</p>
+<p>导致内存碎片最大的原因就是各个逻辑段的数据需要连续存储，而逻辑段又过大，导致我们需求大量的连续空间。而当我们所有的内存分配释放都以页为单位时，就能够很好的解决这个问题了。</p>
+<p>而当内存空间不够时，我们需要进行将内存中的数据暂时写入到硬盘中，之后再重新写回来这样的换入换出操作。而使用页为单位后，即使我们还是需要进行磁盘IO，但是由于我们交换的容量仅仅只有几个页，所以也不会花费过多的时间。</p>
+<p>2、不需要将程序一次性加载进内存，什么时候需要，什么时候加载。<br>按照前面说的，为了满足程序的局部性原理。所以为了能够尽可能提高内存的利用率，在建立了虚拟内存空间后并不会直接分配物理内存，而是在我们程序运行中需要用到的时候，再将其加载进内存中。</p>
+<p>所以如果在页表中查找不到时，此时就会由内核的请求分页机制产生缺页中断，然后进入内核态中分配物理内存、更新进程页表，最后再返回用户态，恢复进程的运行。</p>
+<p>在上面所介绍的页表中，有一个非常致命的缺点，就是空间占用大。</p>
+<p>在 Linux中，可以并发的执行多个进程，而每个进程都有其自己的虚拟内存空间，那么也自然都有自己独有的页表。在32位Linux系统下，我们的虚拟内存空间的大小为4G，而每页的大小为4K,这也就意味着我们至少有2^20个内存页，倘若每个页表项为4Byte，那么每个页表大小也至少为4M。</p>
+<p>倘若我们此时并发了两百个进程，那么占用则高达800M，即使是在现在，这个数字也是非常庞大的，因为并发数百个进程是非常常见的情况，更别提64位的操作系统，随着寻址范围的增加，页表将更为庞大。</p>
+<p>为了解决这个问题，就引入了多级页表。</p>
+<h4 id="多级页表"><a href="#多级页表" class="headerlink" title="多级页表"></a>多级页表</h4><p>我们将一级页表再进行分页，分成1024个二级页表，并且每个二级页表中存有1024个页表项，形成如下的二级分页的结构。<br><img src="https://img-blog.csdnimg.cn/20210316160048750.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>虽然分级乍一看花费的物理内存变多了，但是实际上对于大多数程序来说，其使用到的空间远未达到 4G，所以会存在部分对应的页表项都是空的，根本没有分配。而对于已分配的页表项，如果存在最近一定时间未访问的页表，在物理内存紧张的情况下，操作系统会将页面换出到硬盘，也就是说不会占用物理内存。</p>
+<p>如果某个一级页表的页表项没有被用到，也就不需要创建这个页表项对应的二级页表了，即可以在需要时才创建二级页表。假设每个二级页表大小为4M(1024 * 4K)，而我们用到的一级页表只有20%</p>
+<p>在这种情况下，页表所占用的物理内存就只有4K + 20% * 4M，即0.804M，比起只用了一级页表的4M，大大的节约了内存。</p>
+<p>而在64位系统中，两级页表是肯定不够用的，因此又演变成了四级目录</p>
 <ul>
-<li>前序遍历：中左右</li>
-<li>中序遍历：左中右</li>
-<li>后序遍历：左右中</li>
+<li>全局页目录项 PGD</li>
+<li>上层页目录项 PUD</li>
+<li>中间页目录项 PMD</li>
+<li>页表项 PTE<br>结构如下图所示<br><img src="https://img-blog.csdnimg.cn/20210316160109980.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><h4 id="快表-TLB"><a href="#快表-TLB" class="headerlink" title="快表(TLB)"></a>快表(TLB)</h4>多级页表虽然解决了空间占用大的问题，但是由于其复杂化了地址的转换，因此也带来了大量的时间开销，使得地址转换速度减慢。</li>
 </ul>
-<p>大家可以对着如下图，看看自己理解的前后中序有没有问题。<br><img src="https://img-blog.csdnimg.cn/20210307140706474.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>最后再说⼀说⼆叉树中深度优先和⼴度优先遍历实现⽅式，我们做⼆叉树相关题⽬，经常会使⽤递归的⽅式来实现深度优先遍历，也就是实现前中后序遍历，使⽤递归是⽐较⽅便的。</p>
-<p>之前我们讲栈与队列的时候，就说过栈其实就是递归的⼀种是实现结构，也就说前中后序遍历的逻辑其实都是可以借助栈使⽤⾮递归的⽅式来实现的。</p>
-<p>⽽⼴度优先遍历的实现⼀般使⽤队列来实现，这也是队列先进先出的特点所决定的，因为需要先进先出的结构，才能⼀层⼀层的来遍历⼆叉树。</p>
-<h2 id="⼆叉树的递归遍历"><a href="#⼆叉树的递归遍历" class="headerlink" title="⼆叉树的递归遍历"></a>⼆叉树的递归遍历</h2><p>这⾥帮助⼤家确定下来递归算法的三个要素。每次写递归，都按照这三要素来写，可以保证⼤家写出正确的递归算法！</p>
-<ol>
-<li><p>确定递归函数的参数和返回值：<br>确定哪些参数是递归的过程中需要处理的，那么就在递归函数⾥加上这个参数， 并且还要明确每次递归的返回值是什么进⽽确定递归函数的返回类型。</p>
-</li>
-<li><p>确定终⽌条件：<br>写完了递归算法, 运⾏的时候，经常会遇到栈溢出的错误，就是没写终⽌条件或者终⽌条件写的不对，操作系统也是⽤⼀个栈的结构来保存每⼀层递归的信息，如果递归没有终⽌，操作系统的内存栈必然就会溢出。</p>
-</li>
-<li><p>确定单层递归的逻辑：<br>确定每⼀层递归需要处理的信息。在这⾥也就会᯿复调⽤⾃⼰来实现递归的过程。好了，我们确认了递归的三要素，接下来就来练练⼿：</p>
-</li>
-</ol>
-<p>以下以前序遍历为例：</p>
-<ol>
-<li>确定递归函数的参数和返回值：因为要打印出前序遍历节点的数值，所以参数⾥需要传⼊vector在放节点的数值，除了这⼀点就不需要在处理什么数据了也不需要有返回值，所以递归函数返回类型就是void，代码如下：</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">traversal</span><span class="params">(TreeNode* cur, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; vec)</span></span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>确定终⽌条件：在递归的过程中，如何算是递归结束了呢，当然是当前遍历的节点是空了，那么本层递归就要要结束了，所以如果当前遍历的这个节点是空，就直接return，代码如下：</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (cur == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>确定单层递归的逻辑：前序遍历是中左右的循序，所以在单层递归的逻辑，是要先取中节点的数值，代码如下：</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vec.push_back(cur-&gt;val); <span class="comment">// 中</span></span><br><span class="line">traversal(cur-&gt;left, vec); <span class="comment">// 左</span></span><br><span class="line">traversal(cur-&gt;right, vec); <span class="comment">// 右</span></span><br></pre></td></tr></table></figure>
-
-<p>单层递归的逻辑就是按照中左右的顺序来处理的，这样⼆叉树的前序遍历，基本就写完了，在看⼀下完整代码：<br><strong>前序遍历：</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">traversal</span><span class="params">(TreeNode* cur, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; vec)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (cur == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line"> vec.push_back(cur-&gt;val); <span class="comment">// 中</span></span><br><span class="line"> traversal(cur-&gt;left, vec); <span class="comment">// 左</span></span><br><span class="line"> traversal(cur-&gt;right, vec); <span class="comment">// 右</span></span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line"> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line"> traversal(root, result);</span><br><span class="line"> <span class="keyword">return</span> result;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>那么前序遍历写出来之后，中序和后序遍历就不难理解了，代码如下：<br><strong>中序遍历：</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">traversal</span><span class="params">(TreeNode* cur, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; vec)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (cur == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line"> traversal(cur-&gt;left, vec); <span class="comment">// 左</span></span><br><span class="line"> vec.push_back(cur-&gt;val); <span class="comment">// 中</span></span><br><span class="line"> traversal(cur-&gt;right, vec); <span class="comment">// 右</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>后序遍历：</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">traversal</span><span class="params">(TreeNode* cur, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; vec)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (cur == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line"> traversal(cur-&gt;left, vec); <span class="comment">// 左</span></span><br><span class="line"> vec.push_back(cur-&gt;val); <span class="comment">// 中</span></span><br><span class="line"> traversal(cur-&gt;right, vec); <span class="comment">// 右</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="⼆叉树的迭代遍历"><a href="#⼆叉树的迭代遍历" class="headerlink" title="⼆叉树的迭代遍历"></a>⼆叉树的迭代遍历</h2><p><strong>前序遍历（迭代法）</strong><br>我们先看⼀下前序遍历。<br>前序遍历是中左右，每次先处理的是中间节点，那么先将根节点放⼊栈中，然后将右孩⼦加⼊栈，再加⼊左孩⼦。<br>为什么要先加⼊右孩⼦，再加⼊左孩⼦呢？ 因为这样出栈的时候才是中左右的顺序。<br>不难写出如下代码: （注意代码中空节点不⼊栈）</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line"> <span class="built_in">stack</span>&lt;TreeNode*&gt; st;</span><br><span class="line"> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line"> <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> result;</span><br><span class="line"> st.push(root);</span><br><span class="line"> <span class="keyword">while</span> (!st.empty()) &#123;</span><br><span class="line"> TreeNode* node = st.top(); <span class="comment">// 中</span></span><br><span class="line"> st.pop();</span><br><span class="line"> result.push_back(node-&gt;val);</span><br><span class="line"> <span class="keyword">if</span> (node-&gt;right) st.push(node-&gt;right); <span class="comment">// 右（空节点不⼊栈）</span></span><br><span class="line"> <span class="keyword">if</span> (node-&gt;left) st.push(node-&gt;left); <span class="comment">// 左（空节点不⼊栈）</span></span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> result;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>此时是不是想改⼀点前序遍历代码顺序就把中序遍历搞出来了？<br>其实还真不⾏！<br>但接下来，再⽤迭代法写中序遍历的时候，会发现套路⼜不⼀样了，⽬前的前序遍历的逻辑⽆法直接应⽤到中序遍历上。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line"> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line"> <span class="built_in">stack</span>&lt;TreeNode*&gt; st;</span><br><span class="line"> TreeNode* cur = root;</span><br><span class="line"> <span class="keyword">while</span> (cur != <span class="literal">NULL</span> || !st.empty()) &#123;</span><br><span class="line"> <span class="keyword">if</span> (cur != <span class="literal">NULL</span>) &#123; <span class="comment">// 指针来访问节点，访问到最底层</span></span><br><span class="line"> st.push(cur); <span class="comment">// 将访问的节点放进栈</span></span><br><span class="line"> cur = cur-&gt;left; <span class="comment">// 左</span></span><br><span class="line"> &#125; </span><br><span class="line"> <span class="keyword">else</span> &#123;</span><br><span class="line"> cur = st.top(); <span class="comment">// 从栈⾥弹出的数据，就是要处理的数据（放进result数组⾥的数据）</span></span><br><span class="line"> st.pop();</span><br><span class="line"> result.push_back(cur-&gt;val); <span class="comment">// 中</span></span><br><span class="line"> cur = cur-&gt;right; <span class="comment">// 右</span></span><br><span class="line"> &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="后序遍历（迭代法）"><a href="#后序遍历（迭代法）" class="headerlink" title="后序遍历（迭代法）"></a>后序遍历（迭代法）</h2><p>再来看后序遍历，先序遍历是中左右，后序遍历是左右中，那么我们只需要调整⼀下先序遍历的代码顺序，就变成中右左的遍历顺序，然后在反转result数组，输出的结果顺序就是左右中了<br><img src="https://img-blog.csdnimg.cn/2021030714581062.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">postorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line"> <span class="built_in">stack</span>&lt;TreeNode*&gt; st;</span><br><span class="line"> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line"> <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> result;</span><br><span class="line"> st.push(root);</span><br><span class="line"> <span class="keyword">while</span> (!st.empty()) &#123;</span><br><span class="line"> TreeNode* node = st.top();</span><br><span class="line"> st.pop();</span><br><span class="line"> result.push_back(node-&gt;val);</span><br><span class="line"> <span class="keyword">if</span> (node-&gt;left) st.push(node-&gt;left); <span class="comment">// 相对于前序遍历，这更改⼀下⼊栈顺</span></span><br><span class="line">序 （空节点不⼊栈）</span><br><span class="line"> <span class="keyword">if</span> (node-&gt;right) st.push(node-&gt;right); <span class="comment">// 空节点不⼊栈</span></span><br><span class="line"> &#125;</span><br><span class="line"> reverse(result.begin(), result.end()); <span class="comment">// 将结果反转之后就是左右中的顺序了</span></span><br><span class="line"> <span class="keyword">return</span> result;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="⼆叉树的层序遍历"><a href="#⼆叉树的层序遍历" class="headerlink" title="⼆叉树的层序遍历"></a>⼆叉树的层序遍历</h2><p>题⽬地址：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-level-order-traversal/">https://leetcode-cn.com/problems/binary-tree-level-order-traversal/</a><br>给你⼀个⼆叉树，请你返回其按 层序遍历 得到的节点值。 （即逐层地，从左到右访问所有节点）。</p>
-<p>层序遍历⼀个⼆叉树。就是从左到右⼀层⼀层的去遍历⼆叉树。这种遍历的⽅式和我们之前讲过的都不太⼀样。<br>需要借⽤⼀个辅助数据结构即队列来实现，队列先进先出，符合⼀层⼀层遍历的逻辑，⽽⽤栈先进后出适合模拟深度优先遍历也就是递归的逻辑.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; levelOrder(TreeNode* root) &#123;</span><br><span class="line"> <span class="built_in">queue</span>&lt;TreeNode*&gt; que;</span><br><span class="line"> <span class="keyword">if</span> (root != <span class="literal">NULL</span>) que.push(root);</span><br><span class="line"> <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; result;</span><br><span class="line"> <span class="keyword">while</span> (!que.empty()) &#123;</span><br><span class="line"> <span class="keyword">int</span> size = que.size();</span><br><span class="line"> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec;</span><br><span class="line"> <span class="comment">// 这⾥⼀定要使⽤固定⼤⼩size，不要使⽤que.size()，因为que.size是不断变化的</span></span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line"> TreeNode* node = que.front();</span><br><span class="line"> que.pop();</span><br><span class="line"> vec.push_back(node-&gt;val);</span><br><span class="line"> <span class="keyword">if</span> (node-&gt;left) que.push(node-&gt;left);</span><br><span class="line"> <span class="keyword">if</span> (node-&gt;right) que.push(node-&gt;right);</span><br><span class="line"> &#125;</span><br><span class="line"> result.push_back(vec);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> result;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="翻转⼆叉树"><a href="#翻转⼆叉树" class="headerlink" title="翻转⼆叉树"></a>翻转⼆叉树</h2><p>题⽬地址：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/invert-binary-tree/">https://leetcode-cn.com/problems/invert-binary-tree/</a><br>翻转⼀棵⼆叉树</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="function">TreeNode* <span class="title">invertTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> root;</span><br><span class="line"> swap(root-&gt;left, root-&gt;right); <span class="comment">// 中</span></span><br><span class="line"> invertTree(root-&gt;left); <span class="comment">// 左</span></span><br><span class="line"> invertTree(root-&gt;right); <span class="comment">// 右</span></span><br><span class="line"> <span class="keyword">return</span> root;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>C++代码迭代法（前序遍历）</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="function">TreeNode* <span class="title">invertTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> root;</span><br><span class="line"> <span class="built_in">stack</span>&lt;TreeNode*&gt; st;</span><br><span class="line"> st.push(root);</span><br><span class="line"> <span class="keyword">while</span>(!st.empty()) &#123;</span><br><span class="line"> TreeNode* node = st.top(); <span class="comment">// 中</span></span><br><span class="line"> st.pop();</span><br><span class="line"> swap(node-&gt;left, node-&gt;right);</span><br><span class="line"> <span class="keyword">if</span>(node-&gt;right) st.push(node-&gt;right); <span class="comment">// 右</span></span><br><span class="line"> <span class="keyword">if</span>(node-&gt;left) st.push(node-&gt;left); <span class="comment">// 左</span></span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> root;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="对称⼆叉树"><a href="#对称⼆叉树" class="headerlink" title="对称⼆叉树"></a>对称⼆叉树</h2><p>题⽬地址：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/symmetric-tree/">https://leetcode-cn.com/problems/symmetric-tree/</a><br>给定⼀个⼆叉树，检查它是否是镜像对称的。</p>
-<p>对于⼆叉树是否对称，要⽐较的是根节点的左⼦树与右⼦树是不是相互翻转的，理解这⼀点就知道了其实我们要⽐较的是两个树（这两个树是根节点的左右⼦树）<br>使⽤的遍历⽅式，左⼦树左右中，右⼦树右左中</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">compare</span><span class="params">(TreeNode* left, TreeNode* right)</span> </span>&#123;</span><br><span class="line"> <span class="comment">// ⾸先排除空节点的情况</span></span><br><span class="line"> <span class="keyword">if</span> (left == <span class="literal">NULL</span> &amp;&amp; right != <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"> <span class="keyword">else</span> <span class="keyword">if</span> (left != <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"> <span class="keyword">else</span> <span class="keyword">if</span> (left == <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"> <span class="comment">// 排除了空节点，再排除数值不相同的情况</span></span><br><span class="line"> <span class="keyword">else</span> <span class="keyword">if</span> (left-&gt;val != right-&gt;val) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"> <span class="comment">// 此时就是：左右节点都不为空，且数值相同的情况</span></span><br><span class="line"> <span class="comment">// 此时才做递归，做下⼀层的判断</span></span><br><span class="line"> <span class="keyword">bool</span> outside = compare(left-&gt;left, right-&gt;right); <span class="comment">// 左⼦树：左、 右⼦树：右</span></span><br><span class="line"> <span class="keyword">bool</span> inside = compare(left-&gt;right, right-&gt;left); <span class="comment">// 左⼦树：右、 右⼦树：左</span></span><br><span class="line"> <span class="keyword">bool</span> isSame = outside &amp;&amp; inside; <span class="comment">// 左⼦树：中、 右⼦树：中 （逻辑处理）</span></span><br><span class="line"> <span class="keyword">return</span> isSame;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">bool</span> <span class="title">isSymmetric</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"> <span class="keyword">return</span> compare(root-&gt;left, root-&gt;right);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="⼆叉树的最⼤深度"><a href="#⼆叉树的最⼤深度" class="headerlink" title="⼆叉树的最⼤深度"></a>⼆叉树的最⼤深度</h2><p>题⽬地址：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/">https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/</a><br>给定⼀个⼆叉树，找出其最⼤深度。<br>⼆叉树的深度为根节点到最远叶⼦节点的最⻓路径上的节点数。<br>说明: 叶⼦节点是指没有⼦节点的节点。</p>
-<p><strong>递归法</strong><br>本题其实也要后序遍历（左右中），依然是因为要通过递归函数的返回值做计算树的⾼度。<br>按照递归三部曲，来看看如何来写。</p>
-<ol>
-<li>确定递归函数的参数和返回值：参数就是传⼊树的根节点，返回就返回这棵树的深度，所以返回值为int类型。</li>
-</ol>
+<p>如果要解决这个问题，那么最简单的方式就是降低查询页表的频率，那么如何实现呢？这时候就需要用到缓存的技术</p>
+<p>对于热点资源，我们可以将其提前缓存下来，到以后使用时就可以直接到缓存中查找。对于操作系统来说，也是这么一个道理。</p>
+<p>在操作系统中，这个缓存就是CPU中的TLB，也就是我们通常所说的快表。我们将最常访问的几个页表项存储到TLB中，在之后进行寻址时，CPU就会先到TLB中进行查找，如果没有找到，这时才会去查询页表。</p>
+<h3 id="段页式"><a href="#段页式" class="headerlink" title="段页式"></a>段页式</h3><p>虽然分段和分页各有优缺点，但他们直接并不是对立的，所以如今大部分的内存管理方式，都是将分段与分页相结合，也就是我们常说的段页式</p>
+<p>它的原理非常简单，就是先对虚拟内存空间进行分段管理，然后再对每一个段进行分页管理。如下图<br><img src="https://img-blog.csdnimg.cn/20210316160134488.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>所以此时的虚拟地址结构，就由段号、段内页号、页内偏移所组成。此时对于每个进程来说，都会建立一个段表，而对于段表中的每一个段，又会再分别建立一个页表，如下图</p>
+<p><img src="https://img-blog.csdnimg.cn/20210316160240676.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>所以此时的虚拟地址转换为物理地址，就需要以下三个步骤</p>
 <ul>
-<li>int getDepth(TreeNode* node)</li>
+<li>访问段表，得到页表的起始地址</li>
+<li>访问页表，得到物理页的起始地址</li>
+<li>访问物理页，加上页内偏移，得到实际的物理地址<br>这种方法虽然增加了系统开销以及硬件成本，但是内存的利用率得到了巨大的提升。</li>
 </ul>
-<ol start="2">
-<li>确定终⽌条件：如果为空节点的话，就返回0，表示⾼度为0</li>
-</ol>
-<ul>
-<li>if (node == NULL) return 0;</li>
-</ul>
-<ol start="3">
-<li>确定单层递归的逻辑：先求它的左⼦树的深度，再求的右⼦树的深度，最后取左右深度最⼤的数值 再+1 （加1是因为算上当前中间节点）就是⽬前节点为根节点的树的深度。</li>
-</ol>
-<ul>
-<li>int leftDepth = getDepth(node-&gt;left); // 左</li>
-<li>int rightDepth = getDepth(node-&gt;right); // 右</li>
-<li>int depth = 1 + max(leftDepth, rightDepth); // 中</li>
-<li>return depth;</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">getDepth</span><span class="params">(TreeNode* node)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (node == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"> <span class="keyword">int</span> leftDepth = getDepth(node-&gt;left); <span class="comment">// 左</span></span><br><span class="line"> <span class="keyword">int</span> rightDepth = getDepth(node-&gt;right); <span class="comment">// 右</span></span><br><span class="line"> <span class="keyword">int</span> depth = <span class="number">1</span> + max(leftDepth, rightDepth); <span class="comment">// 中</span></span><br><span class="line"> <span class="keyword">return</span> depth;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> getDepth(root);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>代码精简之后C++代码如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"> <span class="keyword">return</span> <span class="number">1</span> + max(maxDepth(root-&gt;left), maxDepth(root-&gt;right));</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="⼆叉树的最⼩深度"><a href="#⼆叉树的最⼩深度" class="headerlink" title="⼆叉树的最⼩深度"></a>⼆叉树的最⼩深度</h2><p>题⽬地址：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/">https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/</a><br>给定⼀个⼆叉树，找出其最⼩深度。<br>最⼩深度是从根节点到最近叶⼦节点的最短路径上的节点数ᰁ。<br>说明: 叶⼦节点是指没有⼦节点的节点。</p>
-<p>直觉上好像和求最⼤深度差不多，其实还是差不少的。<br>遍历顺序上依然是后序遍历（因为要⽐较递归返回之后的结果），但在处理中间节点的逻辑上，最⼤深度很容易理解，最⼩深度可有⼀个误区，题⽬中说的是：最⼩深度是从根节点到最近叶⼦节点的最短路径上的节点数量。注意是叶⼦节点。<br>什么是叶⼦节点，<strong>左右孩⼦都为空的节点才是叶⼦节点！</strong></p>
-<p>所以，如果左⼦树为空，右⼦树不为空，说明最⼩深度是 1 + 右⼦树的深度。<br>反之，右⼦树为空，左⼦树不为空，最⼩深度是 1 + 左⼦树的深度。 最后如果左右⼦树都不为空，返回左右⼦树深度最⼩值 + 1 。<br>代码如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">getDepth</span><span class="params">(TreeNode* node)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (node == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"> <span class="keyword">int</span> leftDepth = getDepth(node-&gt;left); <span class="comment">// 左</span></span><br><span class="line"> <span class="keyword">int</span> rightDepth = getDepth(node-&gt;right); <span class="comment">// 右</span></span><br><span class="line"> <span class="comment">// 中</span></span><br><span class="line"> <span class="comment">// 当⼀个左⼦树为空，右不为空，这时并不是最低点</span></span><br><span class="line"> <span class="keyword">if</span> (node-&gt;left == <span class="literal">NULL</span> &amp;&amp; node-&gt;right != <span class="literal">NULL</span>) &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="number">1</span> + rightDepth;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">// 当⼀个右⼦树为空，左不为空，这时并不是最低点</span></span><br><span class="line"> <span class="keyword">if</span> (node-&gt;left != <span class="literal">NULL</span> &amp;&amp; node-&gt;right == <span class="literal">NULL</span>) &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="number">1</span> + leftDepth;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">int</span> result = <span class="number">1</span> + min(leftDepth, rightDepth);</span><br><span class="line"> <span class="keyword">return</span> result;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">minDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> getDepth(root);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>精简之后代码如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">minDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"> <span class="keyword">if</span> (root-&gt;left == <span class="literal">NULL</span> &amp;&amp; root-&gt;right != <span class="literal">NULL</span>) &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="number">1</span> + minDepth(root-&gt;right);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">if</span> (root-&gt;left != <span class="literal">NULL</span> &amp;&amp; root-&gt;right == <span class="literal">NULL</span>) &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="number">1</span> + minDepth(root-&gt;left);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="number">1</span> + min(minDepth(root-&gt;left), minDepth(root-&gt;right));</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="平衡⼆叉树"><a href="#平衡⼆叉树" class="headerlink" title="平衡⼆叉树"></a>平衡⼆叉树</h2><p>题⽬地址：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/balanced-binary-tree/">https://leetcode-cn.com/problems/balanced-binary-tree/</a><br>给定⼀个⼆叉树，判断它是否是⾼度平衡的⼆叉树。<br>本题中，⼀棵⾼度平衡⼆叉树定义为：⼀个⼆叉树每个节点的左右两个⼦树的⾼度差的绝对值不超过1。</p>
-<p><strong>递归三步曲分析：</strong></p>
-<ol>
-<li>明确递归函数的参数和返回值<br>参数的话为传⼊的节点指针，就没有其他参数需要传递了，返回值要返回传⼊节点为根节点树的深度。<br>那么如何标记左右⼦树是否差值⼤于1呢。<br>如果当前传⼊节点为根节点的⼆叉树已经不是⼆叉平衡树了，还返回⾼度的话就没有意义了。<br>所以如果已经不是⼆叉平衡树了，可以返回-1 来标记已经不符合平衡树的规则了。<br>代码如下：<blockquote>
-<p>// -1 表示已经不是平衡⼆叉树了，否则返回值是以该节点为根节点树的⾼度<br>int getDepth(TreeNode* node)</p>
-</blockquote>
-</li>
-<li>明确终⽌条件<br>递归的过程中依然是遇到空节点了为终⽌，返回0，表示当前节点为根节点的书⾼度为0<br>代码如下：<blockquote>
-<p>if (node == NULL) {<br>return 0;}</p>
-</blockquote>
-</li>
-<li>明确单层递归的逻辑<br>如何判断当前传⼊节点为根节点的⼆叉树是否是平衡⼆叉树呢，当然是左⼦树⾼度和右⼦树⾼度相差。<br>分别求出左右⼦树的⾼度，然后如果差值⼩于等于1，则返回当前⼆叉树的⾼度，否则则返回-1，表示已经不是⼆叉树了。</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="comment">// 返回以该节点为根节点的⼆叉树的⾼度，如果不是⼆叉搜索树了则返回-1</span></span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">getDepth</span><span class="params">(TreeNode* node)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (node == <span class="literal">NULL</span>) &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">int</span> leftDepth = getDepth(node-&gt;left);</span><br><span class="line"> <span class="keyword">if</span> (leftDepth == <span class="number">-1</span>) <span class="keyword">return</span> <span class="number">-1</span>; <span class="comment">// 说明左⼦树已经不是⼆叉平衡树</span></span><br><span class="line"> <span class="keyword">int</span> rightDepth = getDepth(node-&gt;right);</span><br><span class="line"> <span class="keyword">if</span> (rightDepth == <span class="number">-1</span>) <span class="keyword">return</span> <span class="number">-1</span>; <span class="comment">// 说明右⼦树已经不是⼆叉平衡树</span></span><br><span class="line"> <span class="keyword">return</span> <span class="built_in">abs</span>(leftDepth - rightDepth) &gt; <span class="number">1</span> ? <span class="number">-1</span> : <span class="number">1</span> + max(leftDepth, rightDepth);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">bool</span> <span class="title">isBalanced</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> getDepth(root) == <span class="number">-1</span> ? <span class="literal">false</span> : <span class="literal">true</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="重建二叉树"><a href="#重建二叉树" class="headerlink" title="重建二叉树"></a>重建二叉树</h2><p>输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。</p>
-<p>示例1</p>
-<ul>
-<li>输入<br>[1,2,3,4,5,6,7],[3,2,4,1,6,5,7]</li>
-<li>输出<br>{1,2,5,3,4,6,7}</li>
-</ul>
-<p>从前序遍历可知，前序遍历数组pre的首元素就是二叉树的根结点，然后根据根结点的值在中序遍历中找到根结点的位置，那么根结点左边就为左子树的序列，<br>根结点右边就是右子树的序列</p>
-<p><img src="https://img-blog.csdnimg.cn/20210307162701287.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/20210307162729321.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for binary tree</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">reConstructBinaryTree</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; pre,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vin)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> vinlen=vin.size();</span><br><span class="line">        <span class="keyword">if</span>(vinlen==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; pre_left, pre_right, vin_left, vin_right;</span><br><span class="line">        <span class="comment">//创建根节点，根节点肯定是前序遍历的第一个数</span></span><br><span class="line">        TreeNode* head = <span class="keyword">new</span> TreeNode(pre[<span class="number">0</span>]);</span><br><span class="line">        <span class="comment">//找到中序遍历根节点所在位置,存放于变量gen中</span></span><br><span class="line">        <span class="keyword">int</span> gen=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;vinlen;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(vin[i]==pre[<span class="number">0</span>])&#123;</span><br><span class="line">                gen=i;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//对于中序遍历，根节点左边的节点位于二叉树的左边，根节点右边的节点位于二叉树的右边</span></span><br><span class="line">        <span class="comment">// 左子树</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; gen; i++)&#123;</span><br><span class="line">            vin_left.push_back(vin[i]);</span><br><span class="line">            pre_left.push_back(pre[i+<span class="number">1</span>]);<span class="comment">//先序第一个为根节点</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 右子树</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = gen + <span class="number">1</span>; i &lt; vinlen; i++)&#123;</span><br><span class="line">            vin_right.push_back(vin[i]);</span><br><span class="line">            pre_right.push_back(pre[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//递归，执行上述步骤，区分子树的左、右子子树，直到叶节点</span></span><br><span class="line">        head-&gt;left = reConstructBinaryTree(pre_left, vin_left);</span><br><span class="line">        head-&gt;right = reConstructBinaryTree(pre_right, vin_right);</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>由于硬件问题的限制，Linux 内存主要采用的是页式内存管理，但同时也不可避免地涉及了段机制。</p>
+<p>在往常的机制中，地址的转换流程如下<br><img src="https://img-blog.csdnimg.cn/20210316160318151.png" alt="在这里插入图片描述"><br>但是在Linux中，并没有逻辑地址这一说(所有段起始地址相同)，因为其将段机制进行了弱化，此时段只用于进行访问控制以及内存保护</p>
+<p>Linux 系统中的每个段都是从 0 地址开始的整个 4GB 虚拟空间（32 位环境下），也就是所有的段的起始地址都是一样的。<br>这意味着，Linux系统中的代码，包括操作系统本身的代码和应用程序代码，所面对的地址空间都是线性地址空间（虚拟地址），这种做法相当于屏蔽了处理器中的逻辑地址概念，段只被用于访问控制和内存保护。</p>
 
     
 
@@ -476,7 +418,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://www.lienguang.com/bintree-leetcode/" title="二叉树经典算法题总结" target="_blank">http://www.lienguang.com/bintree-leetcode/</a>
+          <a href="http://www.lienguang.com/内存管理/" title="【Linux系列】操作系统的内存管理方式" target="_blank">http://www.lienguang.com/内存管理/</a>
         </li>
         
         <li>
@@ -498,11 +440,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">binarytree</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内存管理</a>
         		</li>
       		
 		</ul>
@@ -558,7 +500,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/bintree-leetcode/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -573,18 +515,18 @@
 
 <nav id="article-nav">
   
-    <a href="/order/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/udp/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          【Linux系列】查看硬件信息常用命令
+          【网络系列】传输层协议UDP头部解析、网络通信编程实现
         
       </div>
     </a>
   
   
-    <a href="/class-struct/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">经典面试题：你能讲讲class与struct的区别吗?</div>
+    <a href="/mysql%E7%B4%A2%E5%BC%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MySQL的索引以及存储引擎</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -611,7 +553,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%BC%86%E5%8F%89%E6%A0%91%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">⼆叉树的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">二叉树的遍历方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%BC%86%E5%8F%89%E6%A0%91%E7%9A%84%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86"><span class="toc-number"></span> <span class="toc-text">⼆叉树的递归遍历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%BC%86%E5%8F%89%E6%A0%91%E7%9A%84%E8%BF%AD%E4%BB%A3%E9%81%8D%E5%8E%86"><span class="toc-number"></span> <span class="toc-text">⼆叉树的迭代遍历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%88%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89"><span class="toc-number"></span> <span class="toc-text">后序遍历（迭代法）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%BC%86%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="toc-number"></span> <span class="toc-text">⼆叉树的层序遍历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BF%BB%E8%BD%AC%E2%BC%86%E5%8F%89%E6%A0%91"><span class="toc-number"></span> <span class="toc-text">翻转⼆叉树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E2%BC%86%E5%8F%89%E6%A0%91"><span class="toc-number"></span> <span class="toc-text">对称⼆叉树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%BC%86%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E2%BC%A4%E6%B7%B1%E5%BA%A6"><span class="toc-number"></span> <span class="toc-text">⼆叉树的最⼤深度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%BC%86%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E2%BC%A9%E6%B7%B1%E5%BA%A6"><span class="toc-number"></span> <span class="toc-text">⼆叉树的最⼩深度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B3%E8%A1%A1%E2%BC%86%E5%8F%89%E6%A0%91"><span class="toc-number"></span> <span class="toc-text">平衡⼆叉树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-number"></span> <span class="toc-text">重建二叉树</span></a>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%AE%B5"><span class="toc-number">1.</span> <span class="toc-text">分段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E9%A1%B5"><span class="toc-number">2.</span> <span class="toc-text">分页</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E7%BA%A7%E9%A1%B5%E8%A1%A8"><span class="toc-number">2.1.</span> <span class="toc-text">多级页表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E8%A1%A8-TLB"><span class="toc-number">2.2.</span> <span class="toc-text">快表(TLB)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E9%A1%B5%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">段页式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux"><span class="toc-number">4.</span> <span class="toc-text">Linux</span></a></li></ol>
                     </div>
                 </span>
             </div>
