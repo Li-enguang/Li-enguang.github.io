@@ -10,12 +10,12 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="IO模型输入操作通常包括两个不同的阶段:(1)等待数据准备好;(2)从内核向进程复制数据。对于一个套接字上的输入操作，第一步通常涉及等待数据从网络中到达。当所等待分组到达时，它被复制到内核中的某个缓冲区。第二步就是把数据从内核缓冲区复制到应用进程缓冲区。 根据各自的特性不同，IO模型被分为阻塞IO、非阻塞IO、信号驱动IO、异步IO、多路复用IO五类。 最主要的两个区别就是阻塞与非阻塞，同步与异步">
+  <meta name="description" content="IO模型输入操作通常包括两个不同的阶段:(1)等待数据准备好;(2)从内核向进程复制数据。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【Linux系列】从本质上理解五种IO模型的区别">
 <meta property="og:url" content="http://www.lienguang.com/%E4%BA%94%E7%A7%8Dio/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="IO模型输入操作通常包括两个不同的阶段:(1)等待数据准备好;(2)从内核向进程复制数据。对于一个套接字上的输入操作，第一步通常涉及等待数据从网络中到达。当所等待分组到达时，它被复制到内核中的某个缓冲区。第二步就是把数据从内核缓冲区复制到应用进程缓冲区。 根据各自的特性不同，IO模型被分为阻塞IO、非阻塞IO、信号驱动IO、异步IO、多路复用IO五类。 最主要的两个区别就是阻塞与非阻塞，同步与异步">
+<meta property="og:description" content="IO模型输入操作通常包括两个不同的阶段:(1)等待数据准备好;(2)从内核向进程复制数据。">
 <meta property="og:locale">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210316140539170.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210316140809166.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210316142845261.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/2021031614323897.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2021-01-14T11:36:04.000Z">
-<meta property="article:modified_time" content="2021-03-16T06:52:06.852Z">
+<meta property="article:modified_time" content="2021-03-16T06:58:19.996Z">
 <meta property="article:author" content="Li-eng">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="IO">
@@ -299,7 +299,9 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h3><p>输入操作通常包括两个不同的阶段:<br>(1)等待数据准备好;<br>(2)从内核向进程复制数据。<br>对于一个套接字上的输入操作，第一步通常涉及等待数据从网络中到达。当所等待分组到达时，它被复制到内核中的某个缓冲区。第二步就是把数据从内核缓冲区复制到应用进程缓冲区。</p>
+    <h3 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h3><p>输入操作通常包括两个不同的阶段:<br>(1)等待数据准备好;<br>(2)从内核向进程复制数据。</p>
+<span id="more"></span>
+<p>对于一个套接字上的输入操作，第一步通常涉及等待数据从网络中到达。当所等待分组到达时，它被复制到内核中的某个缓冲区。第二步就是把数据从内核缓冲区复制到应用进程缓冲区。</p>
 <p>根据各自的特性不同，IO模型被分为阻塞IO、非阻塞IO、信号驱动IO、异步IO、多路复用IO五类。</p>
 <p>最主要的两个区别就是阻塞与非阻塞，同步与异步。</p>
 <p><strong>阻塞与非阻塞</strong><br>阻塞与非阻塞最主要的区别就是程序在等待调用结果时的状态。</p>
@@ -853,6 +855,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">task_struct</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">select</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">epoll</a>
               </li>
             
             <div class="clearfix"></div>
