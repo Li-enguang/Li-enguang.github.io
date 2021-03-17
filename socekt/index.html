@@ -6,19 +6,31 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.lienguang.com">
-  <title>Tag: signal | Li-eng</title>
+  <title>【网络】再谈Socket模型与TCP的连接管理 | Li-eng</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Be the best you can be">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Li-eng">
-<meta property="og:url" content="http://www.lienguang.com/tags/signal/index.html">
+  <meta name="description" content="Socket 模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【网络】再谈Socket模型与TCP的连接管理">
+<meta property="og:url" content="http://www.lienguang.com/socekt/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="Be the best you can be">
+<meta property="og:description" content="Socket 模型">
 <meta property="og:locale">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210317231941118.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/202103172316158.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210317233044257.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210317232332705.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210317232704236.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210317233217744.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210317233355578.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2021-03-17T15:29:04.000Z">
+<meta property="article:modified_time" content="2021-03-17T15:37:17.435Z">
 <meta property="article:author" content="Li-eng">
+<meta property="article:tag" content="TCP">
+<meta property="article:tag" content="socket">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210317231941118.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="Li-eng" type="application/atom+xml">
   
@@ -240,69 +252,326 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-socekt" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/signal/" class="archive-article-date">
-        <time datetime="2020-11-29T08:52:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-29</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/signal/" target="_blank">【Linux系列】Linux下信号详解-产生，注册，注销以及处理机制</a>
   
+    <h1 class="article-title" itemprop="name">
+      【网络】再谈Socket模型与TCP的连接管理
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+<a href="/socekt/" class="archive-article-date">
+        <time datetime="2021-03-17T15:29:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-17</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">3.4k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">12分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="Socket-模型"><a href="#Socket-模型" class="headerlink" title="Socket 模型"></a>Socket 模型</h3><span id="more"></span>
+<p><img src="https://img-blog.csdnimg.cn/20210317231941118.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><strong>服务器端</strong></p>
+<ul>
+<li><p>服务器端和客户端首先创建socket，服务器调用bind，绑定指定端口和IP。绑定端口主要是为了内核收到数据包知道交给哪个进程，绑定IP主要是因为机器可能有多个网卡，需要选择监听哪个网卡。</p>
+</li>
+<li><p>然后服务器调用listen，将套接字转成被动套接字。</p>
+</li>
+<li><p>接下来服务器就阻塞在accept等待客户端的请求到来。</p>
+</li>
+</ul>
+<p><strong>客户端</strong></p>
+<ul>
+<li><p>客户端调用完socket后，就需要调用connect向服务器发起连接请求。其中，发起connect，就是主动发起三次握手，三次握手完成。客户端和服务器随后就可以进行read和write数据了。因为TCP是全双工的，所以read和write过程是双向的。</p>
+</li>
+<li><p>通信完毕后，其中的一方(服务端 or 客户端)调用close，就会给对方发送一个FIN包，表示我不再给你发送数据了。对方读到FIN，read返回0，感知到对端的关闭连接请求，随后自己也调用close，通知对方，我也关闭了。<br><img src="https://img-blog.csdnimg.cn/202103172316158.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+</ul>
+<p>TCP为了保证可靠的传输，设计了复杂的头部，为了方便后面的讲述，我们简单回顾一下。</p>
+<p>源端口和目的端口：主要是决定数据发给哪个应用程序的。</p>
+<p>序列号：序号主要是为了解决乱序问题。</p>
+<p>确认号：发送出去的包都需要确认，如果没有收到对方的确认包，就重新发送，直到送达。</p>
+<p>首部长度：TCP头部的大小。</p>
+<p>标志位：</p>
+<p> CWR：拥塞窗口减少。</p>
+<p>ECE：显示拥塞提醒回应。</p>
+<p> URG：紧急指针。</p>
+<p>ACK：设置为1时，确认号有效。</p>
+<p> PSH：设置为1时，接收方应尽快将这个报文交给应用层。</p>
+<p>RST：为1时，释放连接，重连。</p>
+<p> SYN：为1时，发起一个连接。</p>
+<p>FIN：为1时，关闭一个连接。</p>
+<p>窗口大小：主要用于流量控制。</p>
+<p>校验和：对TCP头和数据进行校验。</p>
+<p>紧急指针：当URG位为1，这个指针有效。</p>
+<h3 id="TCP全双工是如何实现的"><a href="#TCP全双工是如何实现的" class="headerlink" title="TCP全双工是如何实现的"></a>TCP全双工是如何实现的</h3><p><img src="https://img-blog.csdnimg.cn/20210317233044257.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>Linux中一切皆文件，Socket在Linux中也以文件的形式存在。</p>
+<p>调用socket函数，内核返回的是一个文件描述符，既然是文件描述符，那就要在代表进程的task_struct结构体中的已打开文件描述符数组中占用一个文件描述符，这个数组中的内容就是一个指针，指向内核中打开的文件列表，然后通过文件列表找到对应的inode。</p>
+<p>网络文件的inode不是指向真正的磁盘文件，而是指向了struct sock结构体，我们在理解上，可以将该内核结构看做我们创建的链接，因为链接需要系统维护，所以要占用系统的资源。</p>
+<p>struct sock结构体中有一个发送队列和一个接收队列，因为是两个独立的队列，所以TCP就可以进行同时收发数据，进而实现全双工通信。</p>
+<p>队列的节点数据是sk_buff，这个结构体缓存的是完整的数据包。</p>
+<p>sk_buff 可以表示各个层的数据包，在应用层数据包叫 data，在 TCP 层我们称为 segment，在 IP 层我们叫 packet，在数据链路层称为 frame。</p>
+<p>你可能会好奇，为什么全部数据包只用一个结构体来描述呢？协议栈采用的是分层结构，上层向下层传递数据时需要增加包头，下层向上层数据时又需要去掉包头，如果每一层都用一个结构体，那在层之间传递数据的时候，就要发生多次拷贝，这将大大降低 CPU 效率。</p>
+<p>于是，为了在层级之间传递数据时，不发生拷贝，只用 sk_buff 一个结构体来描述所有的网络包，那它是如何做到的呢？是通过调整 sk_buff 中 data 的指针，比如：</p>
+<p>当接收报文时，从网卡驱动开始，通过协议栈层层往上传送数据报，通过增加 skb-&gt;data 的值，来逐步剥离协议首部。</p>
+<p>当要发送报文时，创建 sk_buff 结构体，数据缓存区的头部预留足够的空间，用来填充各层首部，在经过各下层协议时，通过减少 skb-&gt;data 的值来增加协议首部。</p>
+<p>你可以从下面这张图看到，当发送报文时，data 指针的移动过程。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210317232332705.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="connect、listen、accept内部原理"><a href="#connect、listen、accept内部原理" class="headerlink" title="connect、listen、accept内部原理"></a>connect、listen、accept内部原理</h3><p><img src="https://img-blog.csdnimg.cn/20210317232704236.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在Linux内核中listen会在内核中创建两个队列，一个用于插入未完成三次握手的请求包，一个用于插入已完成三次握手的连接请求，注意，这里的两个队列和上面讲的读写队列是完全不同的，这两个队列是用于连接管理的，上面的两个队列是用来数据全双工通信的。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">(<span class="keyword">int</span> sockid, <span class="keyword">int</span> backlog)</span> </span>&#123;</span><br><span class="line">    tcp_manager *tcp = get_tcp_manager();  <span class="comment">// 代表TCP的指针</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">socket</span> *<span class="title">s</span> =</span> fdtable-&gt;sockfds[sockid];  <span class="comment">// 通过文件表获取当前socket的指针</span></span><br><span class="line">    <span class="keyword">if</span> (tcp-&gt;smap[sockid].socktype == TCP_SOCK_STREAM) &#123; <span class="comment">// 如果是TCP，就设置成监听套接字</span></span><br><span class="line">    tcp-&gt;smap[sockid].socktype = TCP_SOCK_LISTENER;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 分配监听对象</span></span><br><span class="line">    tcp_listener *listener = (tcp_listener*)<span class="built_in">calloc</span>(<span class="number">1</span>, <span class="keyword">sizeof</span>(tcp_listener));</span><br><span class="line">    listener-&gt;sockid = sockid;</span><br><span class="line">    listener-&gt;backlog = backlog;</span><br><span class="line">    listener-&gt;s = s;</span><br><span class="line"></span><br><span class="line">    listener-&gt;synq = CreateStreamQueue(backlog);     <span class="comment">// 创建未完成三次握手队列</span></span><br><span class="line">    listener-&gt;acceptq = CreateStreamQueue(backlog);  <span class="comment">// 创建已完成三次握手队列</span></span><br><span class="line"></span><br><span class="line">    ListenerInsert(tcp-&gt;listeners, listener); <span class="comment">// 插入到TCP对象的listeners</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>accept函数的实现就是阻塞等待，从完成三次握手的队列中取得一个连接，然后创建一个新的socket，将目标和源IP端口信息填入，然后返回：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">accept</span><span class="params">(<span class="keyword">int</span> sockid, struct sockaddr *addr, <span class="keyword">socklen_t</span> *addrlen)</span> </span>&#123;</span><br><span class="line">    tcp_manager *tcp = get_tcp_manager();</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">socket</span> *<span class="title">s</span> =</span> fdtable-&gt;sockfds[sockid]; <span class="comment">// 获取监听套接字的socket</span></span><br><span class="line"></span><br><span class="line">    tcp_listener *listener = s-&gt;listener;</span><br><span class="line">    tcp_stream *accepted = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 等待从accept队列中拿完成三次握手的连接</span></span><br><span class="line">    <span class="keyword">while</span> ( accepted == <span class="literal">NULL</span> &amp;&amp;  (accepted = StreamDequeue(listener-&gt;acceptq)) ) &#123;</span><br><span class="line">       pthread_cond_wait(&amp;listener-&gt;accept_cond, &amp;listener-&gt;accept_lock);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 建立新的套接字，并将客户端的连接信息保存进来</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">socket</span> *<span class="title">socket</span> =</span> socket_allocate(TCP_SOCK_STREAM);</span><br><span class="line">    socket-&gt;stream = accepted;</span><br><span class="line">    accepted-&gt;s = socket;</span><br><span class="line">    socket-&gt;s_addr.sin_family = AF_INET;</span><br><span class="line">    socket-&gt;s_addr.sin_port = accepted-&gt;dport;</span><br><span class="line">    socket-&gt;s_addr.sin_addr.s_addr = accepted-&gt;daddr;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> accepted-&gt;s-&gt;id;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>connect在自己内部创建一个connect队列，将当前要发送SYN请求的信息放入该队列，然后发送第一次SYN到服务器时，服务器就将这个连接放入到自身SYN队列，同时服务器给客户端回复ACK和自己的SYN，客户端收到这个ACK，将连接从connect队列中取出，并且connect函数返回，表示自己这一端连接成功。</p>
+<p>服务器收到客户端的ACK,将连接从SYN队列中删除，并形成新的链接节点插入到ACCEPT队列中。阻塞在pthread_cond_wait的accept函数由于ACCEPT队列中有数据而被唤醒。取走队头节点，accept返回。</p>
+<h3 id="为什么建立连接需要三次握手呢？"><a href="#为什么建立连接需要三次握手呢？" class="headerlink" title="为什么建立连接需要三次握手呢？"></a>为什么建立连接需要三次握手呢？</h3><p>（1）为了满足在信道不可靠的情况下建立双向连接。我们来假设网络环境不好，经常丢包，客户端发起了一个连接SYN，但是可能丢包了，也可能超时了，总之没有得到服务器的确认。这时客户端就不断的重发，服务器终于收到了SYN包，他就知道有人要连接自己，回应一个SYN和ACK。我们还是假设网络环境还是不好，那这个回应包也有可能丢失或者超时，当然也可能此时客户端已经挂了。服务器的回应经过多次重发，终于到了客户端，客户端就认为连接建立成功，因为客户端认为我的消息有去有回，此路就是通的。服务器也会等待客户端的应答消息，因为对于服务器来说，我的消息有去有回才算通了。所以，三次握手，能够以最小通信次数，确定在两个方向上的全双工信道是联通的。</p>
+<p>（2）减少恶意伪造数据包的用户对服务器攻击。大量的攻击数据包占用着服务器的未完成三次握手队列，使得正常需要提供服务的连接进不来。有了第三次握手，如果服务器收不到攻击数据包的ACK，就会尝试重发SYN+ACK报文，如果多次重试，都连接不上，就会关闭连接。这样就能有效降低SYN攻击带来的资源损害。</p>
+<p>一般，这个尝试重发次数默认是5次，分别是经历过1、2、4、8、16、32秒的等待后重试，总共耗时63秒，如果觉得这个时间太长或太短，可以调整tcp_synack_retries的值：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ipv4]<span class="meta"># cat /proc/sys/net/ipv4/tcp_synack_retries </span></span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure>
+
+<p>对于服务器端来说，如果SYN队列满了，再来新的请求报文，直接丢弃。当然，我们可以调整更大的SYN队列：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ipv4]<span class="meta"># cat /proc/sys/net/ipv4/tcp_max_syn_backlog </span></span><br><span class="line"><span class="number">128</span></span><br></pre></td></tr></table></figure>
+
+<p>但是再大的SYN队列都有可能被占满，能不能在SYN队列占满的情况下，不丢弃连接呢？这就需要开启syncookie功能。syncookie的设计思想是：服务器根据当前状态计算出一个值，放在SYN+ACK报文中，当客户端回复ACK时，取出该值验证，如果合法，就认为连接成功，直接放入ACCEPT队列中。开启syncookie的方法是：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ipv4]<span class="meta"># cat /proc/sys/net/ipv4/tcp_syncookies</span></span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>（3）减少异常情况下的服务器端资源占用情况。在实际建立连接的过程中，因为通信双方都需要维护连接，换句话说，都要占用系统资源。因为服务器和客户端是1：n的，所以，服务器资源就显得尤为宝贵。n次握手中，我们不担心前几次丢失，我们最担心第n次丢失。因为第n次丢失会造成，连接建立发起方认为连接建立好，而连接建立确认方会认为连接没有建立好，这种认知不一致的情况，会造成一定时间的链接建立确认方的资源浪费。能解决吗？很难，因为我们本来就在一个不稳定的网络环境中，任何一个报文丢失都有可能。既然无法避免，那就转移危害。而奇数次握手能做到将危害转移到连接发起方。三次握手就是比较精简的做法。一般主动发起链接的都在客户端，进而能有效保护服务器资源。</p>
+<h3 id="理清四次挥手过程"><a href="#理清四次挥手过程" class="headerlink" title="理清四次挥手过程"></a>理清四次挥手过程</h3><p><img src="https://img-blog.csdnimg.cn/20210317233217744.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li><p>主动关闭的一方调用close，发送一个TCP的FIN包，表示要关闭连接。之后就进入FIN_WAIT_1状态。</p>
+</li>
+<li><p>接着，接收到FIN包的一端执行被动关闭。这个FIN由TCP协议栈处理，TCP协议栈为FIN包插入一个文件结束符EOF到接收缓冲区之后，应用程序通过read感知到这个FIN包。被动接受的一方就进入到CLOSE_WAIT状态。</p>
+</li>
+<li><p>被动方read到EOF，调用close，导致TCP发送一个FIN，被动关闭方就进入了LAST_ACK。</p>
+</li>
+<li><p>主动方收到FIN，发起确认包ACK，主动方进入TIME_WAIT，被动方收到ACK进入CLOSED。主动方在2倍的MSL时间后，也进入了CLOSED状态。</p>
+</li>
+<li><p>（1）如果没有这个TIME_WAIT，端口可以复用于新连接了。这时被动方的FIN报文可能再次到达，可能是路由器重复发的，也可能是被动方没有收到ACK重发的。这样正常的新连接就会被重复发送的旧的FIN误关闭。保留了TIME_WAIT就可以应付重发的FIN。</p>
+</li>
+</ul>
+<p>（2）等待2倍MSL，其实是允许ACK丢失一次，如果一个ACK丢失，被动方重发的FIN就会在第二个MSL内到达，TIME_WAIT就可以应付。那为什么不是4MSL或者更多呢？这是因为就算是网络很差，丢包率为1%，那么连续丢两包的可能性也只有万分之一，这个概率太小了。同时，等待2MSL时间，能够保证双向上的历史数据在网络中消散。</p>
+<p>两个方向都要FIN和ACK，所以关闭是四次挥手。</p>
+<h3 id="为什么断开连接需要四次挥手"><a href="#为什么断开连接需要四次挥手" class="headerlink" title="为什么断开连接需要四次挥手"></a>为什么断开连接需要四次挥手</h3><p><img src="https://img-blog.csdnimg.cn/20210317233355578.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>这里又有个疑问，为什么建立连接需要三次握手，而断开连接需要四次挥手呢？</p>
+<p>原因是：</p>
+<p>TCP不允许连接处于半打开状态时就单向传递数据，所以在三次握手建立连接时，服务器会把SYN和ACK放在一起发送给客户端，数据包中的ACK是用来打开客户端的发送通道，SYN是用来打开服务器端的发送通道。所以原本的四次握手就变成了三次。</p>
+<p>但是当处于半关闭状态时，TCP允许单向发送数据。当主动关闭方关闭连接，被动方在不调用close的状态下，可以长时间发送数据，此时连接处于半关闭状态。这一特性是TCP的双向通道相互独立导致的，也导致了关闭连接必须进行四次挥手。</p>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>My Wechat<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/wechat.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          Li-eng
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://www.lienguang.com/socekt/" title="【网络】再谈Socket模型与TCP的连接管理" target="_blank">http://www.lienguang.com/socekt/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          转载请注明出处，感谢您的阅读！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">TCP</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">signal</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">socket</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+    
 
     
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/socekt/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/select/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【Linux系列】多路复用IO,从底层理解select</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Socket-%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">Socket 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E5%85%A8%E5%8F%8C%E5%B7%A5%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84"><span class="toc-number">2.</span> <span class="toc-text">TCP全双工是如何实现的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#connect%E3%80%81listen%E3%80%81accept%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">connect、listen、accept内部原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5%E9%9C%80%E8%A6%81%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%91%A2%EF%BC%9F"><span class="toc-number">4.</span> <span class="toc-text">为什么建立连接需要三次握手呢？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%90%86%E6%B8%85%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%BF%87%E7%A8%8B"><span class="toc-number">5.</span> <span class="toc-text">理清四次挥手过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5%E9%9C%80%E8%A6%81%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="toc-number">6.</span> <span class="toc-text">为什么断开连接需要四次挥手</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
           </div>
@@ -343,9 +612,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
