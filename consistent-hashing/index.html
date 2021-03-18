@@ -10,12 +10,12 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="一致性哈希算法 consistent hashing在了解一致性哈希算法之前，最好先了解一下缓存中的一个应用场景，了解了这个应用场景之后，再来理解一致性哈希算法，就容易多了，也更能体现出一致性哈希算法的优点，那么，我们先来描述一下这个经典的分布式缓存的应用场景。">
+  <meta name="description" content="在了解一致性哈希算法之前，最好先了解一下缓存中的一个应用场景，了解了这个应用场景之后，再来理解一致性哈希算法，就容易多了，也更能体现出一致性哈希算法的优点，那么，我们先来描述一下这个经典的分布式缓存的应用场景。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一致性哈希算法 consistent hashing">
 <meta property="og:url" content="http://www.lienguang.com/consistent-hashing/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="一致性哈希算法 consistent hashing在了解一致性哈希算法之前，最好先了解一下缓存中的一个应用场景，了解了这个应用场景之后，再来理解一致性哈希算法，就容易多了，也更能体现出一致性哈希算法的优点，那么，我们先来描述一下这个经典的分布式缓存的应用场景。">
+<meta property="og:description" content="在了解一致性哈希算法之前，最好先了解一下缓存中的一个应用场景，了解了这个应用场景之后，再来理解一致性哈希算法，就容易多了，也更能体现出一致性哈希算法的优点，那么，我们先来描述一下这个经典的分布式缓存的应用场景。">
 <meta property="og:locale">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210314120858136.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/83b42890047cd25a5b87a884b4699d4d.png">
@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210314121349596.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210314121408935.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2021-03-13T16:00:42.000Z">
-<meta property="article:modified_time" content="2021-03-14T06:04:46.447Z">
+<meta property="article:modified_time" content="2021-03-18T05:58:30.910Z">
 <meta property="article:author" content="Li-eng">
 <meta property="article:tag" content="consistent hashing">
 <meta name="twitter:card" content="summary">
@@ -116,9 +116,9 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/" target="_blank">主页</a></li>
+				<li><a href="/" >主页</a></li>
 			
-				<li><a href="/archives" target="_blank">归档</a></li>
+				<li><a href="/archives" >归档</a></li>
 			
 			</ul>
 		</nav>
@@ -141,23 +141,23 @@
 			<div class="social">
 				
 					
-						<a class="github" href="https://github.com/Li-enguang/" 
-												title="GitHub" target="_blank"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" rel="noopener" href="https://github.com/Li-enguang/" 
+												title="GitHub" ><i class="icon-github"></i></a>
 					
 				
 					
-						<a class="csdn" href="https://blog.csdn.net/weixin_51582527" 
-												title="CSDN" target="_blank"><i class="icon-csdn"></i></a>
+						<a class="csdn" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51582527" 
+												title="CSDN" ><i class="icon-csdn"></i></a>
 					
 				
 					
 						<a class="qq" href="/img/qq.png" 
-												title="QQ" target="_blank"><i class="icon-qq"></i></a>
+												title="QQ" ><i class="icon-qq"></i></a>
 					
 				
 					
 						<a class="weixin" href="/img/wechat.png" 
-												title="微信" target="_blank"><i class="icon-weixin"></i></a>
+												title="微信" ><i class="icon-weixin"></i></a>
 					
 				
 			</div>
@@ -304,7 +304,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="一致性哈希算法-consistent-hashing"><a href="#一致性哈希算法-consistent-hashing" class="headerlink" title="一致性哈希算法 consistent hashing"></a>一致性哈希算法 consistent hashing</h2><p>在了解一致性哈希算法之前，最好先了解一下缓存中的一个应用场景，了解了这个应用场景之后，再来理解一致性哈希算法，就容易多了，也更能体现出一致性哈希算法的优点，那么，我们先来描述一下这个经典的分布式缓存的应用场景。</p>
+    <p>在了解一致性哈希算法之前，最好先了解一下缓存中的一个应用场景，了解了这个应用场景之后，再来理解一致性哈希算法，就容易多了，也更能体现出一致性哈希算法的优点，那么，我们先来描述一下这个经典的分布式缓存的应用场景。</p>
 <span id="more"></span>
 <h3 id="场景描述"><a href="#场景描述" class="headerlink" title="场景描述"></a>场景描述</h3><p>假设，我们有三台缓存服务器，用于缓存图片，我们为这三台缓存服务器编号为0号、1号、2号，现在，有3万张图片需要缓存，我们希望这些图片被均匀的缓存到这3台服务器上，以便它们能够分摊缓存的压力。也就是说，我们希望每台服务器能够缓存1万张左右的图片，那么，我们应该怎样做呢？如果我们没有任何规律的将3万张图片平均的缓存在3台服务器上，可以满足我们的要求吗？可以！但是如果这样做，当我们需要访问某个缓存项时，则需要遍历3台缓存服务器，从3万个缓存项中找到我们需要访问的缓存，遍历的过程效率太低，时间太长，当我们找到需要访问的缓存项时，时长可能是不能被接受的，也就失去了缓存的意义，缓存的目的就是提高速度，改善用户体验，减轻后端服务器压力，如果每次访问一个缓存项都需要遍历所有缓存服务器的所有缓存项，想想就觉得很累，那么，我们该怎么办呢？原始的做法是对缓存项的键进行哈希，将hash后的结果对缓存服务器的数量进行取模操作，通过取模后的结果，决定缓存项将会缓存在哪一台服务器上，这样说可能不太容易理解，我们举例说明，仍然以刚才描述的场景为例，假设我们使用图片名称作为访问图片的key，假设图片名称是不重复的，那么，我们可以使用如下公式，计算出图片应该存放在哪台服务器上。</p>
 <p><strong>hash（图片名称）% N</strong></p>
@@ -542,7 +542,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95-consistent-hashing"><span class="toc-number">1.</span> <span class="toc-text">一致性哈希算法 consistent hashing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">场景描述</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">2.</span> <span class="toc-text">一致性哈希算法的基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">一致性哈希算法的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hash%E7%8E%AF%E7%9A%84%E5%81%8F%E6%96%9C"><span class="toc-number">4.</span> <span class="toc-text">hash环的偏斜</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E8%8A%82%E7%82%B9"><span class="toc-number">5.</span> <span class="toc-text">虚拟节点</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">场景描述</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number"></span> <span class="toc-text">一致性哈希算法的基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-number"></span> <span class="toc-text">一致性哈希算法的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hash%E7%8E%AF%E7%9A%84%E5%81%8F%E6%96%9C"><span class="toc-number"></span> <span class="toc-text">hash环的偏斜</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E8%8A%82%E7%82%B9"><span class="toc-number"></span> <span class="toc-text">虚拟节点</span></a>
                     </div>
                 </span>
             </div>
@@ -619,23 +619,6 @@
 
 
 <!--  -->
-
-<script>
-  /* 标签页标题切换 */
-  var originTitle = document.title;
-  var titleTime;
-  document.addEventListener("visibilitychange", function () {
-    if (document.hidden) {
-      document.title = "快来看我~ " + originTitle;
-      clearTimeout(titleTime);
-    } else {
-      document.title = "欢迎回来~ " + originTitle;
-      titleTime = setTimeout(function () {
-        document.title = originTitle;
-      }, 2000);
-    }
-  });
-</script>
 
 
     

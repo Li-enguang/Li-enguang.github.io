@@ -10,15 +10,15 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="一，string的介绍与使用 C语言中，字符串是以’\0’结尾的一些字符的集合，为了操作方便，C标准库中提供了一些str系列的库函数，但是这些库函数与字符串是分离开的，不太符合OOP的思想，而且底层空间需要用户自己管理，稍不留神可 能还会越界访问。  string类的文档介绍（cpp官网）  string是表示字符串的字符串类 该类的接口与常规容器的接口基本相同，再添加了一些专门用来操作strin">
+  <meta name="description" content="C语言中，字符串是以’\0’结尾的一些字符的集合，为了操作方便，C标准库中提供了一些str系列的库函数，但是这些库函数与字符串是分离开的，不太符合OOP的思想，而且底层空间需要用户自己管理，稍不留神可 能还会越界访问。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【C++系列】STL中的string用法详解及模拟实现">
 <meta property="og:url" content="http://www.lienguang.com/string/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="一，string的介绍与使用 C语言中，字符串是以’\0’结尾的一些字符的集合，为了操作方便，C标准库中提供了一些str系列的库函数，但是这些库函数与字符串是分离开的，不太符合OOP的思想，而且底层空间需要用户自己管理，稍不留神可 能还会越界访问。  string类的文档介绍（cpp官网）  string是表示字符串的字符串类 该类的接口与常规容器的接口基本相同，再添加了一些专门用来操作strin">
+<meta property="og:description" content="C语言中，字符串是以’\0’结尾的一些字符的集合，为了操作方便，C标准库中提供了一些str系列的库函数，但是这些库函数与字符串是分离开的，不太符合OOP的思想，而且底层空间需要用户自己管理，稍不留神可 能还会越界访问。">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-11-21T06:05:12.000Z">
-<meta property="article:modified_time" content="2021-03-06T06:49:24.683Z">
+<meta property="article:modified_time" content="2021-03-18T05:56:10.893Z">
 <meta property="article:author" content="Li-eng">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="string">
@@ -104,9 +104,9 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/" target="_blank">主页</a></li>
+				<li><a href="/" >主页</a></li>
 			
-				<li><a href="/archives" target="_blank">归档</a></li>
+				<li><a href="/archives" >归档</a></li>
 			
 			</ul>
 		</nav>
@@ -129,23 +129,23 @@
 			<div class="social">
 				
 					
-						<a class="github" href="https://github.com/Li-enguang/" 
-												title="GitHub" target="_blank"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" rel="noopener" href="https://github.com/Li-enguang/" 
+												title="GitHub" ><i class="icon-github"></i></a>
 					
 				
 					
-						<a class="csdn" href="https://blog.csdn.net/weixin_51582527" 
-												title="CSDN" target="_blank"><i class="icon-csdn"></i></a>
+						<a class="csdn" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51582527" 
+												title="CSDN" ><i class="icon-csdn"></i></a>
 					
 				
 					
 						<a class="qq" href="/img/qq.png" 
-												title="QQ" target="_blank"><i class="icon-qq"></i></a>
+												title="QQ" ><i class="icon-qq"></i></a>
 					
 				
 					
 						<a class="weixin" href="/img/wechat.png" 
-												title="微信" target="_blank"><i class="icon-weixin"></i></a>
+												title="微信" ><i class="icon-weixin"></i></a>
 					
 				
 			</div>
@@ -292,13 +292,12 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="一，string的介绍与使用"><a href="#一，string的介绍与使用" class="headerlink" title="一，string的介绍与使用"></a>一，string的介绍与使用</h3><blockquote>
-<p>C语言中，字符串是以’\0’结尾的一些字符的集合，为了操作方便，C标准库中提供了一些str系列的库函数，但是这些库函数与字符串是分离开的，不太符合OOP的思想，而且底层空间需要用户自己管理，稍不留神可 能还会越界访问。</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="http://www.cplusplus.com/reference/string/string/?kw=string">string类的文档介绍（cpp官网）</a></p>
+    <p>C语言中，字符串是以’\0’结尾的一些字符的集合，为了操作方便，C标准库中提供了一些str系列的库函数，但是这些库函数与字符串是分离开的，不太符合OOP的思想，而且底层空间需要用户自己管理，稍不留神可 能还会越界访问。</p>
+<span id="more"></span>
+<h3 id="一，string的介绍与使用"><a href="#一，string的介绍与使用" class="headerlink" title="一，string的介绍与使用"></a>一，string的介绍与使用</h3><p><a target="_blank" rel="noopener" href="http://www.cplusplus.com/reference/string/string/?kw=string">string类的文档介绍（cpp官网）</a></p>
 <ol>
 <li>string是表示字符串的字符串类</li>
-<li>该类的接口与常规容器的接口基本相同，再添加了一些专门用来操作string的常规操作。<span id="more"></span></li>
+<li>该类的接口与常规容器的接口基本相同，再添加了一些专门用来操作string的常规操作。</li>
 <li>string在底层实际是：basic_string模板类的别名，typedef basic_string&lt;char, char_traits, allocator&gt;<br>string;</li>
 <li>不能操作多字节或者变长字符的序列。</li>
 </ol>
@@ -568,23 +567,6 @@
 
 
 <!--  -->
-
-<script>
-  /* 标签页标题切换 */
-  var originTitle = document.title;
-  var titleTime;
-  document.addEventListener("visibilitychange", function () {
-    if (document.hidden) {
-      document.title = "快来看我~ " + originTitle;
-      clearTimeout(titleTime);
-    } else {
-      document.title = "欢迎回来~ " + originTitle;
-      titleTime = setTimeout(function () {
-        document.title = originTitle;
-      }, 2000);
-    }
-  });
-</script>
 
 
     

@@ -10,12 +10,12 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="什么是HTTP协议 应用层负责程序之间的数据沟通，其中协议大概分为两类，自定制协议和知名协议。自定制协议就是程序员自己定义的协议，用来对应用程序发送的数据进行整理或者加密，对端只有了解这种协议才能对数据进行解析。">
+  <meta name="description" content="什么是HTTP协议，什么又是HTTPS协议呢？">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【网络系列】应用层HTTP协议格式解析、实现、HTTPS的加密流程">
 <meta property="og:url" content="http://www.lienguang.com/http/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="什么是HTTP协议 应用层负责程序之间的数据沟通，其中协议大概分为两类，自定制协议和知名协议。自定制协议就是程序员自己定义的协议，用来对应用程序发送的数据进行整理或者加密，对端只有了解这种协议才能对数据进行解析。">
+<meta property="og:description" content="什么是HTTP协议，什么又是HTTPS协议呢？">
 <meta property="og:locale">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210102180646148.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210102180718922.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210102180950929.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210206171712795.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2021-01-10T15:09:04.000Z">
-<meta property="article:modified_time" content="2021-03-06T11:59:39.409Z">
+<meta property="article:modified_time" content="2021-03-18T05:43:39.679Z">
 <meta property="article:author" content="Li-eng">
 <meta property="article:tag" content="network">
 <meta property="article:tag" content="http">
@@ -111,9 +111,9 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/" target="_blank">主页</a></li>
+				<li><a href="/" >主页</a></li>
 			
-				<li><a href="/archives" target="_blank">归档</a></li>
+				<li><a href="/archives" >归档</a></li>
 			
 			</ul>
 		</nav>
@@ -136,23 +136,23 @@
 			<div class="social">
 				
 					
-						<a class="github" href="https://github.com/Li-enguang/" 
-												title="GitHub" target="_blank"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" rel="noopener" href="https://github.com/Li-enguang/" 
+												title="GitHub" ><i class="icon-github"></i></a>
 					
 				
 					
-						<a class="csdn" href="https://blog.csdn.net/weixin_51582527" 
-												title="CSDN" target="_blank"><i class="icon-csdn"></i></a>
+						<a class="csdn" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51582527" 
+												title="CSDN" ><i class="icon-csdn"></i></a>
 					
 				
 					
 						<a class="qq" href="/img/qq.png" 
-												title="QQ" target="_blank"><i class="icon-qq"></i></a>
+												title="QQ" ><i class="icon-qq"></i></a>
 					
 				
 					
 						<a class="weixin" href="/img/wechat.png" 
-												title="微信" target="_blank"><i class="icon-weixin"></i></a>
+												title="微信" ><i class="icon-weixin"></i></a>
 					
 				
 			</div>
@@ -299,7 +299,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="什么是HTTP协议"><a href="#什么是HTTP协议" class="headerlink" title="什么是HTTP协议"></a>什么是HTTP协议</h3><p> 应用层负责程序之间的数据沟通，其中协议大概分为两类，<strong>自定制协议和知名协议</strong>。自定制协议就是程序员自己定义的协议，用来对应用程序发送的数据进行整理或者加密，对端只有了解这种协议才能对数据进行解析。<span id="more"></span><br> <br>在对于自定制协议的使用中有两条重要概念，序列化与反序列化。
+    <p>什么是HTTP协议，什么又是HTTPS协议呢？</p>
+<span id="more"></span>
+<h3 id="什么是HTTP协议"><a href="#什么是HTTP协议" class="headerlink" title="什么是HTTP协议"></a>什么是HTTP协议</h3><p> 应用层负责程序之间的数据沟通，其中协议大概分为两类，<strong>自定制协议和知名协议</strong>。自定制协议就是程序员自己定义的协议，用来对应用程序发送的数据进行整理或者加密，对端只有了解这种协议才能对数据进行解析。</p>
+<p> <br>在对于自定制协议的使用中有两条重要概念，序列化与反序列化。
  </p>
 <blockquote>
 <p> <strong>序列化</strong>：将数据对象按照指定协议在内存中进行排布成为可持久化存储。<br><strong>反序列化</strong>：将数据传按照指定的协议进行解析得到各个数据对象。</p>
@@ -652,23 +655,6 @@
 
 
 <!--  -->
-
-<script>
-  /* 标签页标题切换 */
-  var originTitle = document.title;
-  var titleTime;
-  document.addEventListener("visibilitychange", function () {
-    if (document.hidden) {
-      document.title = "快来看我~ " + originTitle;
-      clearTimeout(titleTime);
-    } else {
-      document.title = "欢迎回来~ " + originTitle;
-      titleTime = setTimeout(function () {
-        document.title = originTitle;
-      }, 2000);
-    }
-  });
-</script>
 
 
     

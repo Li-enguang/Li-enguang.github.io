@@ -10,12 +10,12 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="位图在谈什么是位图之前我们先来看一道”非常简单的题”：有40亿个无符号的整型数据，现在给定一个目标数字，判断这个数字是否在这40亿数据中。  遍历，时间复杂度O(N) 排序(O(NlogN))，利用二分查找: logN 位图解决">
+  <meta name="description" content="在谈什么是位图之前我们先来看一道”非常简单的题”：有40亿个无符号的整型数据，现在给定一个目标数字，判断这个数字是否在这40亿数据中。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="位图与布隆过滤器的原理及实现">
 <meta property="og:url" content="http://www.lienguang.com/bitmap%E2%80%94-bloomfilter/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="位图在谈什么是位图之前我们先来看一道”非常简单的题”：有40亿个无符号的整型数据，现在给定一个目标数字，判断这个数字是否在这40亿数据中。  遍历，时间复杂度O(N) 排序(O(NlogN))，利用二分查找: logN 位图解决">
+<meta property="og:description" content="在谈什么是位图之前我们先来看一道”非常简单的题”：有40亿个无符号的整型数据，现在给定一个目标数字，判断这个数字是否在这40亿数据中。">
 <meta property="og:locale">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210313205402947.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210313205548732.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210313210148924.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210313220034650.png">
 <meta property="article:published_time" content="2021-03-13T14:09:30.000Z">
-<meta property="article:modified_time" content="2021-03-13T14:20:06.459Z">
+<meta property="article:modified_time" content="2021-03-18T05:59:13.613Z">
 <meta property="article:author" content="Li-eng">
 <meta property="article:tag" content="bitmap">
 <meta property="article:tag" content="bloomfilter">
@@ -110,9 +110,9 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/" target="_blank">主页</a></li>
+				<li><a href="/" >主页</a></li>
 			
-				<li><a href="/archives" target="_blank">归档</a></li>
+				<li><a href="/archives" >归档</a></li>
 			
 			</ul>
 		</nav>
@@ -135,23 +135,23 @@
 			<div class="social">
 				
 					
-						<a class="github" href="https://github.com/Li-enguang/" 
-												title="GitHub" target="_blank"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" rel="noopener" href="https://github.com/Li-enguang/" 
+												title="GitHub" ><i class="icon-github"></i></a>
 					
 				
 					
-						<a class="csdn" href="https://blog.csdn.net/weixin_51582527" 
-												title="CSDN" target="_blank"><i class="icon-csdn"></i></a>
+						<a class="csdn" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51582527" 
+												title="CSDN" ><i class="icon-csdn"></i></a>
 					
 				
 					
 						<a class="qq" href="/img/qq.png" 
-												title="QQ" target="_blank"><i class="icon-qq"></i></a>
+												title="QQ" ><i class="icon-qq"></i></a>
 					
 				
 					
 						<a class="weixin" href="/img/wechat.png" 
-												title="微信" target="_blank"><i class="icon-weixin"></i></a>
+												title="微信" ><i class="icon-weixin"></i></a>
 					
 				
 			</div>
@@ -298,13 +298,14 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="位图"><a href="#位图" class="headerlink" title="位图"></a>位图</h3><p>在谈什么是位图之前我们先来看一道”非常简单的题”：有40亿个无符号的整型数据，现在给定一个目标数字，判断这个数字是否在这40亿数据中。</p>
+    <p>在谈什么是位图之前我们先来看一道”非常简单的题”：有40亿个无符号的整型数据，现在给定一个目标数字，判断这个数字是否在这40亿数据中。</p>
+<span id="more"></span>
 <ol>
 <li>遍历，时间复杂度O(N)</li>
 <li>排序(O(NlogN))，利用二分查找: logN</li>
-<li>位图解决<span id="more"></span>
-数据是否在给定的整形数据中，结果是在或者不在，刚好是两种状态，那么可以使用一个二进制比特位来代表数据是否存在的信息，如果二进制比特位为1，代表存在，为0代表不存在。比如：<br><img src="https://img-blog.csdnimg.cn/20210313205402947.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+<li>位图解决</li>
 </ol>
+<p>数据是否在给定的整形数据中，结果是在或者不在，刚好是两种状态，那么可以使用一个二进制比特位来代表数据是否存在的信息，如果二进制比特位为1，代表存在，为0代表不存在。比如：<br><img src="https://img-blog.csdnimg.cn/20210313205402947.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h4 id="位图的实现"><a href="#位图的实现" class="headerlink" title="位图的实现"></a>位图的实现</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bitmap</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">Bitmap(<span class="keyword">size_t</span> range)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//range 范围 加一防止出现没有比32大的数，计算出来全是0，不能开空间</span></span><br><span class="line">    _bit.resize(range / <span class="number">32</span> + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//查询操作</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Test</span><span class="params">(<span class="keyword">size_t</span> num)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> idx = num / <span class="number">32</span>;<span class="comment">//整数位置</span></span><br><span class="line">    <span class="keyword">int</span> bitidx = num % <span class="number">32</span>;<span class="comment">//在哪一位</span></span><br><span class="line">    <span class="keyword">return</span> _bit[idx] &amp;(<span class="number">1</span>&lt;&lt;bitidx);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Set</span><span class="params">(<span class="keyword">size_t</span> num)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> idx = num / <span class="number">32</span>;<span class="comment">//整数位置</span></span><br><span class="line">    <span class="keyword">int</span> bitidx = num % <span class="number">32</span>;<span class="comment">//在哪一位</span></span><br><span class="line">    _bit[idx] |= (<span class="number">1</span> &lt;&lt; bitidx);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Reset</span><span class="params">(<span class="keyword">size_t</span> num)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> idx = num / <span class="number">32</span>;<span class="comment">//整数位置</span></span><br><span class="line">    <span class="keyword">int</span> bitidx = num % <span class="number">32</span>;<span class="comment">//在哪一位</span></span><br><span class="line">    _bit[idx] &amp;= ~(<span class="number">1</span> &lt;&lt; bitidx);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; _bit;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -532,7 +533,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8D%E5%9B%BE"><span class="toc-number">1.</span> <span class="toc-text">位图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%8D%E5%9B%BE%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.1.</span> <span class="toc-text">位图的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">布隆过滤器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.1.</span> <span class="toc-text">布隆过滤器的实现</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%8D%E5%9B%BE%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.</span> <span class="toc-text">位图的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-number"></span> <span class="toc-text">布隆过滤器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.</span> <span class="toc-text">布隆过滤器的实现</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -609,23 +610,6 @@
 
 
 <!--  -->
-
-<script>
-  /* 标签页标题切换 */
-  var originTitle = document.title;
-  var titleTime;
-  document.addEventListener("visibilitychange", function () {
-    if (document.hidden) {
-      document.title = "快来看我~ " + originTitle;
-      clearTimeout(titleTime);
-    } else {
-      document.title = "欢迎回来~ " + originTitle;
-      titleTime = setTimeout(function () {
-        document.title = originTitle;
-      }, 2000);
-    }
-  });
-</script>
 
 
     

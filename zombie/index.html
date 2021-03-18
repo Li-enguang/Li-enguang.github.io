@@ -10,19 +10,19 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Linux 进程管理命令介绍 ps、pstree、top、htop、nice、renice、kill、ulimit、w 和 who 和 whoami、pgrep、fg 和 bg、ipcs  ps：查看 Linux 中当前运行的进程的命令。能列出系统中运行的进程，包括进程号、命令、CPU使用量、内存使用量等">
+  <meta name="description" content="先来看一下Linux 进程管理的部分命令ps、pstree、top、htop、nice、renice、kill、ulimit、w 和 who 和 whoami、pgrep、fg 和 bg、ipcs">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【Linux系列】再谈僵尸进程的产生与避免">
 <meta property="og:url" content="http://www.lienguang.com/zombie/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="Linux 进程管理命令介绍 ps、pstree、top、htop、nice、renice、kill、ulimit、w 和 who 和 whoami、pgrep、fg 和 bg、ipcs  ps：查看 Linux 中当前运行的进程的命令。能列出系统中运行的进程，包括进程号、命令、CPU使用量、内存使用量等">
+<meta property="og:description" content="先来看一下Linux 进程管理的部分命令ps、pstree、top、htop、nice、renice、kill、ulimit、w 和 who 和 whoami、pgrep、fg 和 bg、ipcs">
 <meta property="og:locale">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210309171334459.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210309170929235.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210309171233421.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210309194008985.png">
 <meta property="article:published_time" content="2021-03-09T12:10:20.000Z">
-<meta property="article:modified_time" content="2021-03-10T15:50:55.705Z">
+<meta property="article:modified_time" content="2021-03-18T05:59:49.997Z">
 <meta property="article:author" content="Li-eng">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="zombie">
@@ -110,9 +110,9 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/" target="_blank">主页</a></li>
+				<li><a href="/" >主页</a></li>
 			
-				<li><a href="/archives" target="_blank">归档</a></li>
+				<li><a href="/archives" >归档</a></li>
 			
 			</ul>
 		</nav>
@@ -135,23 +135,23 @@
 			<div class="social">
 				
 					
-						<a class="github" href="https://github.com/Li-enguang/" 
-												title="GitHub" target="_blank"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" rel="noopener" href="https://github.com/Li-enguang/" 
+												title="GitHub" ><i class="icon-github"></i></a>
 					
 				
 					
-						<a class="csdn" href="https://blog.csdn.net/weixin_51582527" 
-												title="CSDN" target="_blank"><i class="icon-csdn"></i></a>
+						<a class="csdn" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51582527" 
+												title="CSDN" ><i class="icon-csdn"></i></a>
 					
 				
 					
 						<a class="qq" href="/img/qq.png" 
-												title="QQ" target="_blank"><i class="icon-qq"></i></a>
+												title="QQ" ><i class="icon-qq"></i></a>
 					
 				
 					
 						<a class="weixin" href="/img/wechat.png" 
-												title="微信" target="_blank"><i class="icon-weixin"></i></a>
+												title="微信" ><i class="icon-weixin"></i></a>
 					
 				
 			</div>
@@ -298,11 +298,13 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="Linux-进程管理命令介绍"><a href="#Linux-进程管理命令介绍" class="headerlink" title="Linux 进程管理命令介绍"></a>Linux 进程管理命令介绍</h3><p> <strong>ps、pstree、top、htop、nice、renice、kill、ulimit、w 和 who 和 whoami、pgrep、fg 和 bg、ipcs</strong></p>
+    <p>先来看一下Linux 进程管理的部分命令<br>ps、pstree、top、htop、nice、renice、kill、ulimit、w 和 who 和 whoami、pgrep、fg 和 bg、ipcs<br> <span id="more"></span></p>
 <ol>
-<li><p><strong>ps</strong>：查看 Linux 中当前运行的进程的命令。能列出系统中运行的进程，包括进程号、命令、CPU使用量、内存使用量等</p>
-<span id="more"></span>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">示例：</span><br><span class="line">    ps -a         - 列出所有运行中/激活进程</span><br><span class="line">    ps -ef |grep   - 列出需要进程</span><br><span class="line">    ps -aux     - 显示进程信息，包括无终端的（x）和针对用户（u）的进程：如USER, PID, %CPU, %MEM等</span><br></pre></td></tr></table></figure></li>
+<li><strong>ps</strong>：查看 Linux 中当前运行的进程的命令。能列出系统中运行的进程，包括进程号、命令、CPU使用量、内存使用量等</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">示例：</span><br><span class="line">    ps -a         - 列出所有运行中/激活进程</span><br><span class="line">    ps -ef |grep   - 列出需要进程</span><br><span class="line">    ps -aux     - 显示进程信息，包括无终端的（x）和针对用户（u）的进程：如USER, PID, %CPU, %MEM等</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
 <li><p><strong>pstree</strong> ：linux中每一个进程都是由其父进程创建的。pstree以可视化方式显示进程，通过显示进程的树状图来展示进程间关系。如果指定了pid了，那么树的根是该pid，不然将会是init（pid： 1）。</p>
 </li>
 <li><p><strong>top</strong>：实时的监控系统状态信息和进程所使用的资源。显示进程的数据包括 PID、进程属主、优先级、%CPU、%memory等。可以使用这些显示指示出资源使用量。</p>
@@ -548,7 +550,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">Linux 进程管理命令介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%A7%8D%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="toc-number">2.</span> <span class="toc-text">5 种进程状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E6%98%AF%E6%80%8E%E4%B9%88%E4%BA%A7%E7%94%9F%E7%9A%84"><span class="toc-number">3.</span> <span class="toc-text">僵尸进程是怎么产生的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8D%B1%E5%AE%B3%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">僵尸进程的危害：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E7%9A%84%E9%81%BF%E5%85%8D"><span class="toc-number">5.</span> <span class="toc-text">僵尸进程的避免</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%A7%8D%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="toc-number">1.</span> <span class="toc-text">5 种进程状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E6%98%AF%E6%80%8E%E4%B9%88%E4%BA%A7%E7%94%9F%E7%9A%84"><span class="toc-number">2.</span> <span class="toc-text">僵尸进程是怎么产生的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8D%B1%E5%AE%B3%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">僵尸进程的危害：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E7%9A%84%E9%81%BF%E5%85%8D"><span class="toc-number">4.</span> <span class="toc-text">僵尸进程的避免</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -625,23 +627,6 @@
 
 
 <!--  -->
-
-<script>
-  /* 标签页标题切换 */
-  var originTitle = document.title;
-  var titleTime;
-  document.addEventListener("visibilitychange", function () {
-    if (document.hidden) {
-      document.title = "快来看我~ " + originTitle;
-      clearTimeout(titleTime);
-    } else {
-      document.title = "欢迎回来~ " + originTitle;
-      titleTime = setTimeout(function () {
-        document.title = originTitle;
-      }, 2000);
-    }
-  });
-</script>
 
 
     

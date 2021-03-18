@@ -10,15 +10,15 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="在C语言中，我们想要动态分配内存空间需要使用到malloc,calloc,realloc函数，malloc函数申请空间失败返回指针空值，成功返回空间首地址。在C++中我们同样有动态进行内存管理的方式，并且与C语言中的内存管理有着一些区别。 new&#x2F;delete在C++中我们使用new进行内存的申请，用delete进行内存的释放。他们的使用比malloc和free更加简单方便。">
+  <meta name="description" content="在C语言中，我们想要动态分配内存空间需要使用到malloc,calloc,realloc函数，malloc函数申请空间失败返回指针空值，成功返回空间首地址。在C++中我们同样有动态进行内存管理的方式，并且与C语言中的内存管理有着一些区别。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【C++系列】内存管理-new与delete的使用以及实现原理">
 <meta property="og:url" content="http://www.lienguang.com/new/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="在C语言中，我们想要动态分配内存空间需要使用到malloc,calloc,realloc函数，malloc函数申请空间失败返回指针空值，成功返回空间首地址。在C++中我们同样有动态进行内存管理的方式，并且与C语言中的内存管理有着一些区别。 new&#x2F;delete在C++中我们使用new进行内存的申请，用delete进行内存的释放。他们的使用比malloc和free更加简单方便。">
+<meta property="og:description" content="在C语言中，我们想要动态分配内存空间需要使用到malloc,calloc,realloc函数，malloc函数申请空间失败返回指针空值，成功返回空间首地址。在C++中我们同样有动态进行内存管理的方式，并且与C语言中的内存管理有着一些区别。">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-02-06T06:39:05.000Z">
-<meta property="article:modified_time" content="2021-03-07T08:49:27.522Z">
+<meta property="article:modified_time" content="2021-03-18T05:46:50.110Z">
 <meta property="article:author" content="Li-eng">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="new">
@@ -105,9 +105,9 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/" target="_blank">主页</a></li>
+				<li><a href="/" >主页</a></li>
 			
-				<li><a href="/archives" target="_blank">归档</a></li>
+				<li><a href="/archives" >归档</a></li>
 			
 			</ul>
 		</nav>
@@ -130,23 +130,23 @@
 			<div class="social">
 				
 					
-						<a class="github" href="https://github.com/Li-enguang/" 
-												title="GitHub" target="_blank"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" rel="noopener" href="https://github.com/Li-enguang/" 
+												title="GitHub" ><i class="icon-github"></i></a>
 					
 				
 					
-						<a class="csdn" href="https://blog.csdn.net/weixin_51582527" 
-												title="CSDN" target="_blank"><i class="icon-csdn"></i></a>
+						<a class="csdn" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51582527" 
+												title="CSDN" ><i class="icon-csdn"></i></a>
 					
 				
 					
 						<a class="qq" href="/img/qq.png" 
-												title="QQ" target="_blank"><i class="icon-qq"></i></a>
+												title="QQ" ><i class="icon-qq"></i></a>
 					
 				
 					
 						<a class="weixin" href="/img/wechat.png" 
-												title="微信" target="_blank"><i class="icon-weixin"></i></a>
+												title="微信" ><i class="icon-weixin"></i></a>
 					
 				
 			</div>
@@ -294,130 +294,18 @@
   <div class="article-entry" itemprop="articleBody">
     
     <p>在C语言中，我们想要动态分配内存空间需要使用到malloc,calloc,realloc函数，malloc函数申请空间失败返回指针空值，成功返回空间首地址。在C++中我们同样有动态进行内存管理的方式，并且与C语言中的内存管理有着一些区别。</p>
-<p><strong>new/delete</strong><br>在C++中我们使用new进行内存的申请，用delete进行内存的释放。他们的使用比malloc和free更加简单方便。<span id="more"></span></p>
-<h3 id="内置类型的内存分配与释放"><a href="#内置类型的内存分配与释放" class="headerlink" title="内置类型的内存分配与释放"></a>内置类型的内存分配与释放</h3><pre><code class="cpp">#include &lt;iostream&gt;
-using namespace std;
-int main()
-&#123;
-  int* a = new int;
-  //等同于int* a = (int*)malloc(sizeof(int));
-  int* b = new int[10];
-  //等同于int* b = (int*)malloc(sizeof(int) * 10);
-  int* c = new int(10);
-  //new还可以进行内置类型的初始化
-  cout &lt;&lt; *c &lt;&lt; endl;
-  delete a;
-  //等同于free(a);
-  delete[] b;//对于多个变量的空间释放要用delete[]
-  //等同于free(b);
-  delete c;
-  //等同于free(c);                                
-&#125;
-</code></pre>
+<span id="more"></span>
+<p><strong>new/delete</strong><br>在C++中我们使用new进行内存的申请，用delete进行内存的释放。他们的使用比malloc和free更加简单方便。</p>
+<h3 id="内置类型的内存分配与释放"><a href="#内置类型的内存分配与释放" class="headerlink" title="内置类型的内存分配与释放"></a>内置类型的内存分配与释放</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span>* a = <span class="keyword">new</span> <span class="keyword">int</span>;</span><br><span class="line">  <span class="comment">//等同于int* a = (int*)malloc(sizeof(int));</span></span><br><span class="line">  <span class="keyword">int</span>* b = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br><span class="line">  <span class="comment">//等同于int* b = (int*)malloc(sizeof(int) * 10);</span></span><br><span class="line">  <span class="keyword">int</span>* c = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">10</span>);</span><br><span class="line">  <span class="comment">//new还可以进行内置类型的初始化</span></span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; *c &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  <span class="keyword">delete</span> a;</span><br><span class="line">  <span class="comment">//等同于free(a);</span></span><br><span class="line">  <span class="keyword">delete</span>[] b;<span class="comment">//对于多个变量的空间释放要用delete[]</span></span><br><span class="line">  <span class="comment">//等同于free(b);</span></span><br><span class="line">  <span class="keyword">delete</span> c;</span><br><span class="line">  <span class="comment">//等同于free(c);                                </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;new和malloc一样会在堆上开辟空间同时需要我们手动进行内存的释放，但是new的写法更加简单易于理解同时我们还可以对单个申请的变量进行初始化。</p>
-<h3 id="自定义类型的内存分配与释放"><a href="#自定义类型的内存分配与释放" class="headerlink" title="自定义类型的内存分配与释放"></a>自定义类型的内存分配与释放</h3><pre><code class="cpp">#include &lt;iostream&gt;                                 
-#include &lt;stdlib.h&gt;  
-using namespace std;                           
-class Stu                
-&#123;                                                   
-  public:                
-    Stu()                          
-    &#123;                  
-      cout &lt;&lt; &quot;default building&quot; &lt;&lt; endl;
-    &#125;;              
-    Stu(int num, string name):_num(num), _name(name)
-    &#123;               
-      cout &lt;&lt; &quot;custom building&quot; &lt;&lt; endl;
-    &#125;               
-    ~Stu()                  
-    &#123;                                
-      cout &lt;&lt; &quot;destroying&quot; &lt;&lt; endl;
-    &#125;                         
-  private:                  
-    int _num;                            
-    string _name;        
-&#125;;                    
-int main()
-&#123;         
-  cout &lt;&lt; &quot;malloc:&quot; &lt;&lt; endl;
-  Stu* a = (Stu*)malloc(sizeof(Stu));
-  cout &lt;&lt; &quot;new:&quot; &lt;&lt; endl;
-  Stu* b = new Stu(1, &quot;张三&quot;);
-  cout &lt;&lt; &quot;malloc:&quot; &lt;&lt; endl;
-  Stu* c = (Stu*)malloc(sizeof(Stu) * 5);
-  cout &lt;&lt; &quot;new:&quot; &lt;&lt; endl;
-  Stu* d = new Stu[5];
-  cout &lt;&lt; &quot;free:&quot; &lt;&lt; endl;
-  free(a);
-  cout &lt;&lt; &quot;delete:&quot; &lt;&lt; endl;
-  delete b;
-  cout &lt;&lt; &quot;free:&quot; &lt;&lt; endl;
-  free(c);
-  cout &lt;&lt; &quot;delete:&quot; &lt;&lt; endl;
-  delete[] d;
-&#125;              
-
-
-[root@localhost 内存管理]$ ./New 
-malloc:
-new:
-custom building
-malloc:
-new:
-default building
-default building
-default building
-default building
-default building
-free:
-delete:
-destroying
-free:
-delete:
-destroying
-destroying
-destroying
-destroying
-destroying
-</code></pre>
+<h3 id="自定义类型的内存分配与释放"><a href="#自定义类型的内存分配与释放" class="headerlink" title="自定义类型的内存分配与释放"></a>自定义类型的内存分配与释放</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;                                 </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;  </span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;                           </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stu</span>                </span></span><br><span class="line"><span class="class">&#123;</span>                                                   </span><br><span class="line">  <span class="keyword">public</span>:                </span><br><span class="line">    Stu()                          </span><br><span class="line">    &#123;                  </span><br><span class="line">      <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;default building&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;;              </span><br><span class="line">    Stu(<span class="keyword">int</span> num, <span class="built_in">string</span> name):_num(num), _name(name)</span><br><span class="line">    &#123;               </span><br><span class="line">      <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;custom building&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;               </span><br><span class="line">    ~Stu()                  </span><br><span class="line">    &#123;                                </span><br><span class="line">      <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;destroying&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;                         </span><br><span class="line">  <span class="keyword">private</span>:                  </span><br><span class="line">    <span class="keyword">int</span> _num;                            </span><br><span class="line">    <span class="built_in">string</span> _name;        </span><br><span class="line">&#125;;                    </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;         </span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;malloc:&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  Stu* a = (Stu*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Stu));</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;new:&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  Stu* b = <span class="keyword">new</span> Stu(<span class="number">1</span>, <span class="string">&quot;张三&quot;</span>);</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;malloc:&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  Stu* c = (Stu*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Stu) * <span class="number">5</span>);</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;new:&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  Stu* d = <span class="keyword">new</span> Stu[<span class="number">5</span>];</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;free:&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  <span class="built_in">free</span>(a);</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;delete:&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  <span class="keyword">delete</span> b;</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;free:&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  <span class="built_in">free</span>(c);</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;delete:&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  <span class="keyword">delete</span>[] d;</span><br><span class="line">&#125;              </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@localhost 内存管理]$ ./New </span><br><span class="line"><span class="built_in">malloc</span>:</span><br><span class="line"><span class="keyword">new</span>:</span><br><span class="line">custom building</span><br><span class="line"><span class="built_in">malloc</span>:</span><br><span class="line"><span class="keyword">new</span>:</span><br><span class="line"><span class="keyword">default</span> building</span><br><span class="line"><span class="keyword">default</span> building</span><br><span class="line"><span class="keyword">default</span> building</span><br><span class="line"><span class="keyword">default</span> building</span><br><span class="line"><span class="keyword">default</span> building</span><br><span class="line"><span class="built_in">free</span>:</span><br><span class="line"><span class="keyword">delete</span>:</span><br><span class="line">destroying</span><br><span class="line"><span class="built_in">free</span>:</span><br><span class="line"><span class="keyword">delete</span>:</span><br><span class="line">destroying</span><br><span class="line">destroying</span><br><span class="line">destroying</span><br><span class="line">destroying</span><br><span class="line">destroying</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;以上这段代码我分别使用malloc和new对自定义类型进行内存分配和释放，我们可以发现<strong>new不但可以在分配内存的时候手动调用指定的构造函数还会在分配多个对象的空间时自动调用默认构造函数，delete也会自动调用析构函数，而malloc和free却做不到这一点。</strong> 因此可以理解为malloc和free分配出来的只不过是一个和类一样大小的空间，并不能称作是一个对象，而new和delete分配出来的才能被成为对象。</p>
 <h3 id="new和delete实现原理"><a href="#new和delete实现原理" class="headerlink" title="new和delete实现原理"></a>new和delete实现原理</h3><p>  &emsp;&emsp;new和delete在C++中其实被定义为两个运算符，我们在使用这两个运算符的时候它会在底层调用全局函数operator new和operator delete。</p>
 <p><strong>operator new/operator delete</strong><br>  我们首先看下这两个函数在底层的实现源码。
   </p>
-<pre><code class="csharp">void *__CRTDECL operator new(size_t size) _THROW1(_STD bad_alloc)
-&#123;
- // try to allocate size bytes
- void *p;
- while ((p = malloc(size)) == 0)
- if (_callnewh(size) == 0)
- &#123;
- // report no memory
- // 如果申请内存失败了，这里会抛出bad_alloc 类型异常
- static const std::bad_alloc nomem;
- _RAISE(nomem);
- &#125;
- return (p);
-&#125;
-</code></pre>
-<pre><code class="c">void operator delete(void *pUserData)
-&#123;
- _CrtMemBlockHeader * pHead;
- RTCCALLBACK(_RTC_Free_hook, (pUserData, 0));
- if (pUserData == NULL)
- return;
-  _mlock(_HEAP_LOCK); /* block other threads */
- __TRY
- /* get a pointer to memory block header */
- pHead = pHdr(pUserData);
- /* verify block type */
- _ASSERTE(_BLOCK_TYPE_IS_VALID(pHead-&gt;nBlockUse));
- _free_dbg( pUserData, pHead-&gt;nBlockUse );
- __FINALLY
- _munlock(_HEAP_LOCK); /* release other threads */
- __END_TRY_FINALLY
- return;
-&#125;
-</code></pre>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> *__<span class="function">CRTDECL <span class="keyword">operator</span> <span class="keyword">new</span>(<span class="params">size_t size</span>) _<span class="title">THROW1</span>(<span class="params">_STD bad_alloc</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> <span class="comment">// try to allocate size bytes</span></span><br><span class="line"> <span class="keyword">void</span> *p;</span><br><span class="line"> <span class="keyword">while</span> ((p = malloc(size)) == <span class="number">0</span>)</span><br><span class="line"> <span class="keyword">if</span> (_callnewh(size) == <span class="number">0</span>)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="comment">// report no memory</span></span><br><span class="line"> <span class="comment">// 如果申请内存失败了，这里会抛出bad_alloc 类型异常</span></span><br><span class="line"> static const std::bad_alloc nomem;</span><br><span class="line"> _RAISE(nomem);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> (p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="keyword">void</span> *pUserData)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> _CrtMemBlockHeader * pHead;</span><br><span class="line"> RTCCALLBACK(_RTC_Free_hook, (pUserData, <span class="number">0</span>));</span><br><span class="line"> <span class="keyword">if</span> (pUserData == <span class="literal">NULL</span>)</span><br><span class="line"> <span class="keyword">return</span>;</span><br><span class="line">  _mlock(_HEAP_LOCK); <span class="comment">/* block other threads */</span></span><br><span class="line"> __TRY</span><br><span class="line"> <span class="comment">/* get a pointer to memory block header */</span></span><br><span class="line"> pHead = pHdr(pUserData);</span><br><span class="line"> <span class="comment">/* verify block type */</span></span><br><span class="line"> _ASSERTE(_BLOCK_TYPE_IS_VALID(pHead-&gt;nBlockUse));</span><br><span class="line"> _free_dbg( pUserData, pHead-&gt;nBlockUse );</span><br><span class="line"> __FINALLY</span><br><span class="line"> _munlock(_HEAP_LOCK); <span class="comment">/* release other threads */</span></span><br><span class="line"> __END_TRY_FINALLY</span><br><span class="line"> <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;从源码中能看出的是<strong>operator new</strong>和<strong>operator delete</strong>在底层也是利用malloc和free分配内存的，因此可以说new和delete不过是malloc和free的一层封装。</p>
 <p><strong>operator new</strong><br>&emsp;&emsp;1.内部通过malloc分配空间<br>&emsp;&emsp;2.如果malloc申请空间失败,设置空间不足的应对措施，则执行，执行之后继续调用malloc再次申请，直到申请成功。<br>        &emsp;&emsp;如果没有设置应对措施，直接抛异常（内存空间不足）。</p>
 <p><strong>operator delete</strong><br>&emsp;&emsp;    封装free，不会抛异常。</p>
@@ -442,42 +330,7 @@ destroying
 <p> new (place_address) type(initializer-list)。</p>
 <p>  place_address为指向某一块空间的指针，type为自定义类型，initializer-list为参数列表。</p>
 <p><strong>例</strong></p>
-<pre><code class="c">#include &lt;iostream&gt;                                 
-#include &lt;stdlib.h&gt;
-using namespace std;
-class Stu                                          
-&#123;                   
-  public:    
-    Stu()           
-    &#123;                         
-      cout &lt;&lt; &quot;default building&quot; &lt;&lt; endl;
-    &#125;;                     
-    Stu(int num, string name):_num(num), _name(name)
-    &#123;                         
-      cout &lt;&lt; &quot;custom building&quot; &lt;&lt; endl;   
-    &#125;                      
-    ~Stu()              
-    &#123;                       
-      cout &lt;&lt; &quot;destroying&quot; &lt;&lt; endl;
-    &#125;                         
-  private:   
-    int _num;               
-    string _name;
-&#125;;                            
-int main()     
-&#123;                                    
-  Stu* p = (Stu*)malloc(sizeof(Stu));
-  cout &lt;&lt; &quot;定位new表达式：&quot; &lt;&lt; endl;
-  new(p) Stu(1,&quot;张三&quot;);              
-  delete p;              
-&#125;                                    
-
-
-[root@localhost 内存管理]$ ./New
-定位new表达式：
-custom building
-destroying
-</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;                                 </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stu</span>                                          </span></span><br><span class="line"><span class="class">&#123;</span>                   </span><br><span class="line">  <span class="keyword">public</span>:    </span><br><span class="line">    Stu()           </span><br><span class="line">    &#123;                         </span><br><span class="line">      <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;default building&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;;                     </span><br><span class="line">    Stu(<span class="keyword">int</span> num, <span class="built_in">string</span> name):_num(num), _name(name)</span><br><span class="line">    &#123;                         </span><br><span class="line">      <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;custom building&quot;</span> &lt;&lt; <span class="built_in">endl</span>;   </span><br><span class="line">    &#125;                      </span><br><span class="line">    ~Stu()              </span><br><span class="line">    &#123;                       </span><br><span class="line">      <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;destroying&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;                         </span><br><span class="line">  <span class="keyword">private</span>:   </span><br><span class="line">    <span class="keyword">int</span> _num;               </span><br><span class="line">    <span class="built_in">string</span> _name;</span><br><span class="line">&#125;;                            </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>     </span></span><br><span class="line"><span class="function"></span>&#123;                                    </span><br><span class="line">  Stu* p = (Stu*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Stu));</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;定位new表达式：&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  <span class="keyword">new</span>(p) Stu(<span class="number">1</span>,<span class="string">&quot;张三&quot;</span>);              </span><br><span class="line">  <span class="keyword">delete</span> p;              </span><br><span class="line">&#125;                                    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@localhost 内存管理]$ ./New</span><br><span class="line">定位<span class="keyword">new</span>表达式：</span><br><span class="line">custom building</span><br><span class="line">destroying</span><br></pre></td></tr></table></figure>
 <p> 这样我们就用定位new表达式给已经分配好的空间调用了构造函数。</p>
 <h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><p><strong>new和malloc的异同</strong></p>
 <p>相同<br>  1、new和delete都在堆上进行空间的申请。</p>
@@ -746,23 +599,6 @@ destroying
 
 
 <!--  -->
-
-<script>
-  /* 标签页标题切换 */
-  var originTitle = document.title;
-  var titleTime;
-  document.addEventListener("visibilitychange", function () {
-    if (document.hidden) {
-      document.title = "快来看我~ " + originTitle;
-      clearTimeout(titleTime);
-    } else {
-      document.title = "欢迎回来~ " + originTitle;
-      titleTime = setTimeout(function () {
-        document.title = originTitle;
-      }, 2000);
-    }
-  });
-</script>
 
 
     

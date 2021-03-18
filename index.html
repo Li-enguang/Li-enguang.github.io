@@ -104,9 +104,9 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/" target="_blank">主页</a></li>
+				<li><a href="/" >主页</a></li>
 			
-				<li><a href="/archives" target="_blank">归档</a></li>
+				<li><a href="/archives" >归档</a></li>
 			
 			</ul>
 		</nav>
@@ -129,23 +129,23 @@
 			<div class="social">
 				
 					
-						<a class="github" href="https://github.com/Li-enguang/" 
-												title="GitHub" target="_blank"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" rel="noopener" href="https://github.com/Li-enguang/" 
+												title="GitHub" ><i class="icon-github"></i></a>
 					
 				
 					
-						<a class="csdn" href="https://blog.csdn.net/weixin_51582527" 
-												title="CSDN" target="_blank"><i class="icon-csdn"></i></a>
+						<a class="csdn" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51582527" 
+												title="CSDN" ><i class="icon-csdn"></i></a>
 					
 				
 					
 						<a class="qq" href="/img/qq.png" 
-												title="QQ" target="_blank"><i class="icon-qq"></i></a>
+												title="QQ" ><i class="icon-qq"></i></a>
 					
 				
 					
 						<a class="weixin" href="/img/wechat.png" 
-												title="微信" target="_blank"><i class="icon-weixin"></i></a>
+												title="微信" ><i class="icon-weixin"></i></a>
 					
 				
 			</div>
@@ -247,6 +247,62 @@
             
 
   
+    <article id="post-前序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p><strong>致读者：</strong></p>
+<ul>
+<li>一个00后，搭建这个小博客记录一下自己的学习</li>
+<li>我比较喜欢简洁的风格，看上去是不是很清新呢</li>
+<li>每天进步一点点，要努力生活、努力学习呀</li>
+</ul>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/%E5%89%8D%E5%BA%8F/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-socekt" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -276,9 +332,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="Socket-模型"><a href="#Socket-模型" class="headerlink" title="Socket 模型"></a>Socket 模型</h3>
-    
-    <a class="article-more-a" href="/socekt/#more">more >></a>
+    <p>了解socket系列函数内部是如何做的，TCP全双工通信如何实现，三次握手四次挥手的一些理解。</p>
     
     
 
@@ -368,9 +422,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="网络数据是怎么接收到的"><a href="#网络数据是怎么接收到的" class="headerlink" title="网络数据是怎么接收到的"></a>网络数据是怎么接收到的</h3>
-    
-    <a class="article-more-a" href="/select/#more">more >></a>
+    <p>网络数据是怎么接收到的？read读不到数据又是怎么阻塞的，select和epoll又是如何实现的呢？</p>
     
     
 
@@ -464,9 +516,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="TCP中为什么要设置计时器"><a href="#TCP中为什么要设置计时器" class="headerlink" title="TCP中为什么要设置计时器"></a>TCP中为什么要设置计时器</h3><p>TCP 是提供给可靠的传输层，它使用的方法之一就是确认从另一端收到的数据，但是数据和确认都可能会丢失。TCP 通过在发送时设置一个定时器来解决这个问题。如果当定时器溢出时还没收到确认，它就会重传该数据(关键在于超时和重传策略，即怎样决定超时的时间间隔和如何确定重传的频率) , 对于每个连接，TCP 管理着四个不同的定时器。</p>
-    
-    <a class="article-more-a" href="/tcp-clock/#more">more >></a>
+    <p>TCP 是提供给可靠的传输层，它使用的方法之一就是确认从另一端收到的数据，但是数据和确认都可能会丢失。TCP 通过在发送时设置一个定时器来解决这个问题。如果当定时器溢出时还没收到确认，它就会重传该数据(关键在于超时和重传策略，即怎样决定超时的时间间隔和如何确定重传的频率) , 对于每个连接，TCP 管理着四个不同的定时器。</p>
     
     
 
@@ -556,9 +606,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="C-Linux-框图总结"><a href="#C-Linux-框图总结" class="headerlink" title="C++/Linux 框图总结"></a>C++/Linux 框图总结</h3>
-    
-    <a class="article-more-a" href="/kuangtu/#more">more >></a>
+    <p>C++、Linux 一个大体的知识总结。</p>
     
     
 
@@ -648,9 +696,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="一致性哈希算法-consistent-hashing"><a href="#一致性哈希算法-consistent-hashing" class="headerlink" title="一致性哈希算法 consistent hashing"></a>一致性哈希算法 consistent hashing</h2><p>在了解一致性哈希算法之前，最好先了解一下缓存中的一个应用场景，了解了这个应用场景之后，再来理解一致性哈希算法，就容易多了，也更能体现出一致性哈希算法的优点，那么，我们先来描述一下这个经典的分布式缓存的应用场景。</p>
-    
-    <a class="article-more-a" href="/consistent-hashing/#more">more >></a>
+    <p>在了解一致性哈希算法之前，最好先了解一下缓存中的一个应用场景，了解了这个应用场景之后，再来理解一致性哈希算法，就容易多了，也更能体现出一致性哈希算法的优点，那么，我们先来描述一下这个经典的分布式缓存的应用场景。</p>
     
     
 
@@ -736,13 +782,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="位图"><a href="#位图" class="headerlink" title="位图"></a>位图</h3><p>在谈什么是位图之前我们先来看一道”非常简单的题”：有40亿个无符号的整型数据，现在给定一个目标数字，判断这个数字是否在这40亿数据中。</p>
-<ol>
-<li>遍历，时间复杂度O(N)</li>
-<li>排序(O(NlogN))，利用二分查找: logN</li>
-<li>位图解决
-    
-    <a class="article-more-a" href="/bitmap%E2%80%94-bloomfilter/#more">more >></a>
+    <p>在谈什么是位图之前我们先来看一道”非常简单的题”：有40亿个无符号的整型数据，现在给定一个目标数字，判断这个数字是否在这40亿数据中。</p>
     
     
 
@@ -832,10 +872,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="一-无序系列关联式容器"><a href="#一-无序系列关联式容器" class="headerlink" title="一. 无序系列关联式容器"></a>一. 无序系列关联式容器</h2><h3 id="1-对比"><a href="#1-对比" class="headerlink" title="1. 对比"></a>1. 对比</h3><p><strong>什么是unordered系列</strong></p>
-<p>  unordered系列的关联式容器有unordered-map/unordered-set/unordered-multimap/unordered-multiset，这些版本的关联式容器和普通版本的又有什么区别呢？我们简单使用下和普通版本的做一个对比。</p>
-    
-    <a class="article-more-a" href="/hash/#more">more >></a>
+    <p>长文预警，关于STL中unordered系列的关联式容器，做一个总结。</p>
     
     
 
@@ -929,12 +966,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><ul>
-<li><p>静态绑定又称为前期绑定(早绑定)，在程序编译期间确定了程序的行为，也称为静态多态，比如：函数重载, 模板</p>
-</li>
-<li><p>动态绑定又称后期绑定(晚绑定)，是在程序运行期间，根据具体拿到的类型确定程序的具体行为，调用具体的函数，也称为动态多态。</p>
-    
-    <a class="article-more-a" href="/%E5%A4%9A%E6%80%81/#more">more >></a>
+    <p>这篇文章理解一下多态的类型与实现过程。</p>
     
     
 
@@ -1024,11 +1056,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="Linux-进程管理命令介绍"><a href="#Linux-进程管理命令介绍" class="headerlink" title="Linux 进程管理命令介绍"></a>Linux 进程管理命令介绍</h3><p> <strong>ps、pstree、top、htop、nice、renice、kill、ulimit、w 和 who 和 whoami、pgrep、fg 和 bg、ipcs</strong></p>
-<ol>
-<li><p><strong>ps</strong>：查看 Linux 中当前运行的进程的命令。能列出系统中运行的进程，包括进程号、命令、CPU使用量、内存使用量等</p>
-    
-    <a class="article-more-a" href="/zombie/#more">more >></a>
+    <p>先来看一下Linux 进程管理的部分命令<br>ps、pstree、top、htop、nice、renice、kill、ulimit、w 和 who 和 whoami、pgrep、fg 和 bg、ipcs<br>
     
     
 
@@ -1064,110 +1092,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/zombie/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-order" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/order/" target="_blank">【Linux系列】查看硬件信息常用命令</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/order/" class="archive-article-date">
-        <time datetime="2021-03-08T16:10:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-09</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="Linux查看硬件信息"><a href="#Linux查看硬件信息" class="headerlink" title="Linux查看硬件信息"></a>Linux查看硬件信息</h3><p>系统</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># uname -a               # 查看内核/操作系统/CPU信息</span></span><br><span class="line"><span class="meta"># head -n 1 /etc/issue   # 查看操作系统版本</span></span><br><span class="line"><span class="meta"># cat /proc/cpuinfo      # 查看CPU信息</span></span><br><span class="line"><span class="meta"># hostname               # 查看计算机名</span></span><br><span class="line"><span class="meta"># lspci -tv              # 列出所有PCI设备（yum install pciutils）</span></span><br><span class="line"><span class="meta"># lsusb -tv              # 列出所有USB设备</span></span><br><span class="line"><span class="meta"># lsmod                  # 列出加载的内核模块</span></span><br><span class="line"><span class="meta"># env                    # 查看环境变量</span></span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/order/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">order</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/order/">展开全文 >></a>
     </p>
     
 
@@ -1259,23 +1183,6 @@
 
 
 <!--  -->
-
-<script>
-  /* 标签页标题切换 */
-  var originTitle = document.title;
-  var titleTime;
-  document.addEventListener("visibilitychange", function () {
-    if (document.hidden) {
-      document.title = "快来看我~ " + originTitle;
-      clearTimeout(titleTime);
-    } else {
-      document.title = "欢迎回来~ " + originTitle;
-      titleTime = setTimeout(function () {
-        document.title = originTitle;
-      }, 2000);
-    }
-  });
-</script>
 
 
     

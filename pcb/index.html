@@ -10,12 +10,12 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="1.什么是进程进程的定义有以下几条：  1、一个正在执行的程序。  2、一个正在计算机上执行的程序实例。  3、能分配给处理器并由处理器执行的实体。">
+  <meta name="description" content="你真的了解进程吗？PCB到底是什么。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【Linux系列】进程PCB控制管理详解">
 <meta property="og:url" content="http://www.lienguang.com/pcb/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="1.什么是进程进程的定义有以下几条：  1、一个正在执行的程序。  2、一个正在计算机上执行的程序实例。  3、能分配给处理器并由处理器执行的实体。">
+<meta property="og:description" content="你真的了解进程吗？PCB到底是什么。">
 <meta property="og:locale">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201231165338749.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201231151754525.png">
@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201231163218891.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201231164554650.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2020-12-31T09:09:24.000Z">
-<meta property="article:modified_time" content="2021-03-06T11:49:03.434Z">
+<meta property="article:modified_time" content="2021-03-18T05:47:43.976Z">
 <meta property="article:author" content="Li-eng">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="pcb">
@@ -111,9 +111,9 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/" target="_blank">主页</a></li>
+				<li><a href="/" >主页</a></li>
 			
-				<li><a href="/archives" target="_blank">归档</a></li>
+				<li><a href="/archives" >归档</a></li>
 			
 			</ul>
 		</nav>
@@ -136,23 +136,23 @@
 			<div class="social">
 				
 					
-						<a class="github" href="https://github.com/Li-enguang/" 
-												title="GitHub" target="_blank"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" rel="noopener" href="https://github.com/Li-enguang/" 
+												title="GitHub" ><i class="icon-github"></i></a>
 					
 				
 					
-						<a class="csdn" href="https://blog.csdn.net/weixin_51582527" 
-												title="CSDN" target="_blank"><i class="icon-csdn"></i></a>
+						<a class="csdn" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51582527" 
+												title="CSDN" ><i class="icon-csdn"></i></a>
 					
 				
 					
 						<a class="qq" href="/img/qq.png" 
-												title="QQ" target="_blank"><i class="icon-qq"></i></a>
+												title="QQ" ><i class="icon-qq"></i></a>
 					
 				
 					
 						<a class="weixin" href="/img/wechat.png" 
-												title="微信" target="_blank"><i class="icon-weixin"></i></a>
+												title="微信" ><i class="icon-weixin"></i></a>
 					
 				
 			</div>
@@ -299,8 +299,9 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="1-什么是进程"><a href="#1-什么是进程" class="headerlink" title="1.什么是进程"></a>1.什么是进程</h3><p>进程的定义有以下几条：<br>  1、一个正在执行的程序。<br>  2、一个正在计算机上执行的程序实例。<br>  3、能分配给处理器并由处理器执行的实体。</p>
+    <p>你真的了解进程吗？PCB到底是什么。</p>
 <span id="more"></span>
+<h3 id="1-什么是进程"><a href="#1-什么是进程" class="headerlink" title="1.什么是进程"></a>1.什么是进程</h3><p>进程的定义有以下几条：<br>  1、一个正在执行的程序。<br>  2、一个正在计算机上执行的程序实例。<br>  3、能分配给处理器并由处理器执行的实体。</p>
 <p>  4、由一组执行的指令、一个当前状态和一组相关的系统资源表征的活动单元。<br>  简单来说什么是进程，<strong>进程就是正在执行中的程序,是操作系统分配资源的基本单位，</strong> 而在操作系统中，操作系统为了更好的描述一个进程，于是将进程视为一些元素组成的实体，而其中最重要的两个元素是<strong>程序代码和数据集</strong>。一般来说一个程序有了程序代码和数据集就可以顺利执行了，但是操作系统说还不够，为了满足操作系统对进程的控制，例如调度，中断，执行等操作，操作系统将每个进程描述为一个叫做<strong>进程控制块(PCB) 的数据结构</strong>，在PCB中存储着操作系统对控制一个进程所需要的全部信息，可以根据PCB找到程序代码，找到程序的数据，程序获得的资源等等。<strong>所以一个进程对于操作系统来说就是一个PCB。</strong><br>在Linux上<strong>PCB是一个结构体</strong>，这个结构体中保存着一个个进程的信息。系统在管理进程实际上就是在管理一个个PCB，这是<strong>系统管理进程的媒介</strong>。</p>
 <h3 id="2-PCB"><a href="#2-PCB" class="headerlink" title="2.PCB"></a>2.PCB</h3><p>一般情况下，PCB中包含4个部分<br>1.进程标识信息<br>2.处理机状态<br>3.进程调度信息<br>4.进程控制信息<br>        <img src="https://img-blog.csdnimg.cn/20201231165338749.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>Linux中的PCB：task_struct</strong></p>
 <p>1、<strong>PID</strong>：这是PCB中最为重要的信息，也是我们区分不同的进程的标志。每一个进程都有一个属于自己的ID编号这个编号就存储在PID中。</p>
@@ -639,23 +640,6 @@
 
 
 <!--  -->
-
-<script>
-  /* 标签页标题切换 */
-  var originTitle = document.title;
-  var titleTime;
-  document.addEventListener("visibilitychange", function () {
-    if (document.hidden) {
-      document.title = "快来看我~ " + originTitle;
-      clearTimeout(titleTime);
-    } else {
-      document.title = "欢迎回来~ " + originTitle;
-      titleTime = setTimeout(function () {
-        document.title = originTitle;
-      }, 2000);
-    }
-  });
-</script>
 
 
     

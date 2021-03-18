@@ -104,9 +104,9 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/" target="_blank">主页</a></li>
+				<li><a href="/" >主页</a></li>
 			
-				<li><a href="/archives" target="_blank">归档</a></li>
+				<li><a href="/archives" >归档</a></li>
 			
 			</ul>
 		</nav>
@@ -129,23 +129,23 @@
 			<div class="social">
 				
 					
-						<a class="github" href="https://github.com/Li-enguang/" 
-												title="GitHub" target="_blank"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" rel="noopener" href="https://github.com/Li-enguang/" 
+												title="GitHub" ><i class="icon-github"></i></a>
 					
 				
 					
-						<a class="csdn" href="https://blog.csdn.net/weixin_51582527" 
-												title="CSDN" target="_blank"><i class="icon-csdn"></i></a>
+						<a class="csdn" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51582527" 
+												title="CSDN" ><i class="icon-csdn"></i></a>
 					
 				
 					
 						<a class="qq" href="/img/qq.png" 
-												title="QQ" target="_blank"><i class="icon-qq"></i></a>
+												title="QQ" ><i class="icon-qq"></i></a>
 					
 				
 					
 						<a class="weixin" href="/img/wechat.png" 
-												title="微信" target="_blank"><i class="icon-weixin"></i></a>
+												title="微信" ><i class="icon-weixin"></i></a>
 					
 				
 			</div>
@@ -247,7 +247,7 @@
             
 
   
-    <article id="post-ptnread" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-sort" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -255,7 +255,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/ptnread/" target="_blank">【Linux系列】线程控制管理、线程安全-同步与互斥</a>
+	  <a class="article-title" href="/sort/" target="_blank">【排序算法系列】常见排序算法总结，复杂度分析</a>
   
     </h1>
   
@@ -263,8 +263,8 @@
 
   
   
-<a href="/ptnread/" class="archive-article-date">
-        <time datetime="2021-01-16T15:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-16</time>
+<a href="/sort/" class="archive-article-date">
+        <time datetime="2021-01-22T14:18:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-22</time>
 </a>
 
   
@@ -276,9 +276,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="Linux下的多线程"><a href="#Linux下的多线程" class="headerlink" title="Linux下的多线程"></a>Linux下的多线程</h3><h4 id="一、线程的概念"><a href="#一、线程的概念" class="headerlink" title="一、线程的概念"></a>一、线程的概念</h4><h5 id="1-什么是线程？"><a href="#1-什么是线程？" class="headerlink" title="1.什么是线程？"></a>1.什么是线程？</h5><p>线程就是进程中的一条执行流，是cpu调度的基本单位（而进程是cpu资源分配的基本单位），在linux下是一个轻量级进程。<br>linux下的线程是通过pcb实现，是程序运行的动态描述，通过这个描述 操作系统实现程序运行的调度，一个进程中可以有多个线程，这些线程共享进程中大部分资源，相较于传统pcb更加轻量化，因此也成为轻量级进程。
-    
-    <a class="article-more-a" href="/ptnread/#more">more >></a>
+    <p>如果一个排序算法排序结束后，表中相同大小的元素依然可用保持和排序前一样的相对顺序则称该排序是稳定的，反之是不稳定的。<br>举个例子，以下这个序列中，出现了相同的元素3，为了便于区分，我将其中一个用红色标记出来。</p>
     
     
 
@@ -295,11 +293,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">sort</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pthread</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
         		</li>
       		
 		</ul>
@@ -309,7 +307,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/ptnread/">展开全文 >></a>
+      <a class="article-more-a" href="/sort/">展开全文 >></a>
     </p>
     
 
@@ -368,10 +366,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="网络层功能"><a href="#网络层功能" class="headerlink" title="网络层功能"></a>网络层功能</h3><p>  网络层主要负责地址管理以及路由选择。在网络中我们从一个ip到另一个ip有很多条路可以走，而网络层则是帮我们规划我们传输数据的最佳路线。 </p>
-<p>因为网络层是整个互联网的核心，因此应当让网络层尽可能简单。网络层向上只提供简单灵活的、无连接的、尽最大努力交互的数据报服务。</p>
-    
-    <a class="article-more-a" href="/ip_arp/#more">more >></a>
+    <p>  网络层主要负责地址管理以及路由选择。在网络中我们从一个ip到另一个ip有很多条路可以走，而网络层则是帮我们规划我们传输数据的最佳路线。 </p>
     
     
 
@@ -444,6 +439,96 @@
 
 
   
+    <article id="post-pthread" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/pthread/" target="_blank">【Linux系列】线程控制管理、线程安全-同步与互斥</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/pthread/" class="archive-article-date">
+        <time datetime="2021-01-16T15:09:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-16</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>线程是如何进行控制管理的？线程安全的同步与互斥怎么做的？多进程与多线程的优缺点再来分析一下。</p>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pthread</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/pthread/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-五种io" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -473,9 +558,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h3><p>输入操作通常包括两个不同的阶段:<br>(1)等待数据准备好;<br>(2)从内核向进程复制数据。</p>
-    
-    <a class="article-more-a" href="/%E4%BA%94%E7%A7%8Dio/#more">more >></a>
+    <p>理解一下五种IO模型的区别，阻塞IO，非阻塞IO，同步IO，异步IO，多路复用IO。</p>
     
     
 
@@ -565,9 +648,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>【UNIX环境高级编程】————文件IO 读书笔记</p>
-    
-    <a class="article-more-a" href="/%E6%96%87%E4%BB%B6io/#more">more >></a>
+    <p>读了一下《UNIX环境高级编程》文件IO这一章节，记录一下笔记。UNIX环境下的文件共享，原子性操作，IO效率相关话题。</p>
     
     
 
@@ -657,9 +738,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="初始化列表"><a href="#初始化列表" class="headerlink" title="初始化列表"></a>初始化列表</h3><p><strong>如何使用</strong><br>  在Cpp11中允许使用初始化列表初始化任何类型，不论是内置类型还是自定义类型都可以使用初始化列表进行初始化，而在Cpp98的版本中是不能初始化自定义类型的。
-    
-    <a class="article-more-a" href="/c++11/#more">more >></a>
+    <p>C++11新增了很多语法，来看一下吧。</p>
     
     
 
@@ -749,9 +828,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="什么是HTTP协议"><a href="#什么是HTTP协议" class="headerlink" title="什么是HTTP协议"></a>什么是HTTP协议</h3><p> 应用层负责程序之间的数据沟通，其中协议大概分为两类，<strong>自定制协议和知名协议</strong>。自定制协议就是程序员自己定义的协议，用来对应用程序发送的数据进行整理或者加密，对端只有了解这种协议才能对数据进行解析。
-    
-    <a class="article-more-a" href="/http/#more">more >></a>
+    <p>什么是HTTP协议，什么又是HTTPS协议呢？</p>
     
     
 
@@ -845,10 +922,8 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><h4 id="1-关联式容器"><a href="#1-关联式容器" class="headerlink" title="1.关联式容器"></a>1.关联式容器</h4><p>我们已经接触过STL中的部分容器，比如：vector、list、deque、forward_list(C++11)等，这些容器统称为序列式容器，因为其底层为线性序列的数据结构，里面存储的是元素本身。</p>
+    <p>我们已经接触过STL中的部分容器，比如：vector、list、deque、forward_list(C++11)等，这些容器统称为序列式容器，因为其底层为线性序列的数据结构，里面存储的是元素本身。</p>
 <p>那什么是关联式容器？它与序列式容器有什么区别？
-    
-    <a class="article-more-a" href="/set/#more">more >></a>
     
     
 
@@ -942,9 +1017,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="1-什么是进程"><a href="#1-什么是进程" class="headerlink" title="1.什么是进程"></a>1.什么是进程</h3><p>进程的定义有以下几条：<br>  1、一个正在执行的程序。<br>  2、一个正在计算机上执行的程序实例。<br>  3、能分配给处理器并由处理器执行的实体。</p>
-    
-    <a class="article-more-a" href="/pcb/#more">more >></a>
+    <p>你真的了解进程吗？PCB到底是什么。</p>
     
     
 
@@ -1034,10 +1107,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h4 id="继承的概念"><a href="#继承的概念" class="headerlink" title="继承的概念"></a>继承的概念</h4><blockquote>
-<p><strong>继承(inheritance)机制</strong>是面向对象程序设计使代码可以<strong>复用</strong>的最重要的手段，它允许程序员在保持原有类特性的基础上进行扩展，增加功能，这样产生新的类，称派生类。继承呈现了面向对象程序设计的层次结构，体现了由简单到复杂的认知过程。以前我们接触的复用都是函数复用，<strong>继承是类设计层次的复用</strong>。
-    
-    <a class="article-more-a" href="/jicheng/#more">more >></a>
+    <p>探究一下C++中的继承-多继承的内存模型，继承与组合又有什么区别呢？</p>
     
     
 
@@ -1069,98 +1139,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/jicheng/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-exception" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/exception/" target="_blank">【C++系列】C++中的异常处理机制</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/exception/" class="archive-article-date">
-        <time datetime="2020-12-19T12:34:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-19</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="传统C中处理错误的方式"><a href="#传统C中处理错误的方式" class="headerlink" title="传统C中处理错误的方式"></a>传统C中处理错误的方式</h3><p>以往我们在写C语言程序时，当用户的错误输入或者非期望结果发生时我们的程序有可能就会开始不正确的走向，此时我们为了程序的可靠性和健壮性往往需要对结果进行判断，并且防止一些非预期行为的发生。
-    
-    <a class="article-more-a" href="/exception/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">exception</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/exception/">展开全文 >></a>
     </p>
     
 
@@ -1252,23 +1230,6 @@
 
 
 <!--  -->
-
-<script>
-  /* 标签页标题切换 */
-  var originTitle = document.title;
-  var titleTime;
-  document.addEventListener("visibilitychange", function () {
-    if (document.hidden) {
-      document.title = "快来看我~ " + originTitle;
-      clearTimeout(titleTime);
-    } else {
-      document.title = "欢迎回来~ " + originTitle;
-      titleTime = setTimeout(function () {
-        document.title = originTitle;
-      }, 2000);
-    }
-  });
-</script>
 
 
     
