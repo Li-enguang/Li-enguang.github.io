@@ -21,12 +21,12 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210316145931724.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/2021031615054264.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210316150739832.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316152252343.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316152313947.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210316150900520.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210316151007384.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316152252343.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210316152313947.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2021-03-16T05:29:04.000Z">
-<meta property="article:modified_time" content="2021-03-18T05:51:52.965Z">
+<meta property="article:modified_time" content="2021-03-21T09:51:36.665Z">
 <meta property="article:author" content="Li-eng">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="select">
@@ -308,15 +308,15 @@
 <p>对于每个中断线，处理器会跳到对应的一个唯一的位置，这样，内核就知道接收中断的IRQ号，然后调用函数do_IRQ()，最终调到网卡中断处理程序去处理数据。</p>
 <h3 id="read读不到数据怎么阻塞的"><a href="#read读不到数据怎么阻塞的" class="headerlink" title="read读不到数据怎么阻塞的"></a>read读不到数据怎么阻塞的</h3><p>网络应用程序调用到read读取数据时，如果没有数据就一直阻塞。阻塞的话，就会将当前进程从工作队列中移除，放入到等待队列中。当数据到达时，又放入工作队列中。</p>
 <p>假如A进程是一个网络应用程序，调用socket函数，文件系统会创建一个有接收缓冲、发送缓冲和等待队列的sock对象，这个等待队列指向了所有需要等待该socket事件的进程。<br><img src="https://img-blog.csdnimg.cn/2021031615054264.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>当进程执行到read时，A进程就从工作队列中移到该socket的等待队列中，A进程就被阻塞。<br><img src="https://img-blog.csdnimg.cn/20210316150739832.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>阻塞期间，如果来数据了，中断处理就会将数据装入接收队列，然后唤醒A进程，移动到工作队列中。</p>
+<h3 id="如何同时监控多个socket"><a href="#如何同时监控多个socket" class="headerlink" title="如何同时监控多个socket"></a>如何同时监控多个socket</h3><p>每个read只能监控一个socket，select的想法是，预先传入一个socket数组，如果数组中的所有socket都没有数据，进程就被挂起，直到有socket收到数据，唤醒进程。</p>
+<p>如果需要监控1，2，3三个socket，就把A进程加入三个socket的等待队列中。<br><img src="https://img-blog.csdnimg.cn/20210316150900520.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>当其中任何一个socket有数据，就将进程唤醒，从所有的等待队列中移除，加入工作队列。被唤醒后，A进程知道至少有一个socket有数据了，遍历一遍，就能得到所有就绪的socket。<br><img src="https://img-blog.csdnimg.cn/20210316151007384.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>这里有两个问题：</p>
+<p>1.每次调用select都需要将进程加入到所有要监控的socket的等待队列中，每次唤醒都要从所有的队列中移除。并且每次都要将整个fds数组传递给内核。开销比较大。</p>
+<p>2.被唤醒后，进程并不知道哪些socket有数据，需要遍历。</p>
 <h3 id="epoll的改进"><a href="#epoll的改进" class="headerlink" title="epoll的改进"></a>epoll的改进</h3><p>1.select低效的第一个原因，是因为每次调用它都需要维护等待队列和阻塞进程，而大多数情况，需要将进程放入哪些socket的等待队列都是固定的，不需要每次都修改。所以，epoll将等待队列和阻塞进程分开了，使用epoll_ctl维护等待队列，使用epoll_wait阻塞进程。</p>
 <p>2.对于select不知道哪些socket收到数据，需要遍历，epoll内部维护了一个就绪队列，收到数据的socket直接加入就绪队列，当进程被唤醒，只要获取就绪队列rdlist就能知道哪些socket收到数据了。<br><img src="https://img-blog.csdnimg.cn/20210316152252343.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h3 id="epoll的实现"><a href="#epoll的实现" class="headerlink" title="epoll的实现"></a>epoll的实现</h3><p>调用epoll_create，返回一个文件描述符，内核会创建eventpoll对象。</p>
 <p>通过epoll_ctl，将向eventpoll中的红黑树添加所有要监控的socket，和删除不需要监控的socket。</p>
 <p>执行epoll_wait，由于rdlist为空，将A进程放入eventpoll的等待队列，阻塞进程。当某个socket收到数据，就加入到rdlist，同时唤醒eventpoll中的等待进程，加入工作队列。所有有数据的socket都在rdlist中。<br><img src="https://img-blog.csdnimg.cn/20210316152313947.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h3 id="如何同时监控多个socket"><a href="#如何同时监控多个socket" class="headerlink" title="如何同时监控多个socket"></a>如何同时监控多个socket</h3><p>每个read只能监控一个socket，select的想法是，预先传入一个socket数组，如果数组中的所有socket都没有数据，进程就被挂起，直到有socket收到数据，唤醒进程。</p>
-<p>如果需要监控1，2，3三个socket，就把A进程加入三个socket的等待队列中。<br><img src="https://img-blog.csdnimg.cn/20210316150900520.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>当其中任何一个socket有数据，就将进程唤醒，从所有的等待队列中移除，加入工作队列。被唤醒后，A进程知道至少有一个socket有数据了，遍历一遍，就能得到所有就绪的socket。<br><img src="https://img-blog.csdnimg.cn/20210316151007384.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>这里有两个问题：</p>
-<p>1.每次调用select都需要将进程加入到所有要监控的socket的等待队列中，每次唤醒都要从所有的队列中移除。并且每次都要将整个fds数组传递给内核。开销比较大。</p>
-<p>2.被唤醒后，进程并不知道哪些socket有数据，需要遍历。</p>
 <h3 id="select的使用"><a href="#select的使用" class="headerlink" title="select的使用"></a>select的使用</h3><p>select系统调用是用来让我们的程序监视多个文件描述状态变化的。程序会停在select这里等待，直到被监视的文件描述符有一个或多个发生状态变化。通常I/O操作有两个步骤，一个是等，另一个是数据搬迁。select主要是在等的这个状态阻塞着直到事件发生。</p>
 <p>头文件：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/select.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/time.h&gt;</span></span></span><br></pre></td></tr></table></figure>
@@ -520,7 +520,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#read%E8%AF%BB%E4%B8%8D%E5%88%B0%E6%95%B0%E6%8D%AE%E6%80%8E%E4%B9%88%E9%98%BB%E5%A1%9E%E7%9A%84"><span class="toc-number">1.</span> <span class="toc-text">read读不到数据怎么阻塞的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#epoll%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">2.</span> <span class="toc-text">epoll的改进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#epoll%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">epoll的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%90%8C%E6%97%B6%E7%9B%91%E6%8E%A7%E5%A4%9A%E4%B8%AAsocket"><span class="toc-number">4.</span> <span class="toc-text">如何同时监控多个socket</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#select%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">select的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-number">6.</span> <span class="toc-text">应用</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#read%E8%AF%BB%E4%B8%8D%E5%88%B0%E6%95%B0%E6%8D%AE%E6%80%8E%E4%B9%88%E9%98%BB%E5%A1%9E%E7%9A%84"><span class="toc-number">1.</span> <span class="toc-text">read读不到数据怎么阻塞的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%90%8C%E6%97%B6%E7%9B%91%E6%8E%A7%E5%A4%9A%E4%B8%AAsocket"><span class="toc-number">2.</span> <span class="toc-text">如何同时监控多个socket</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#epoll%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">3.</span> <span class="toc-text">epoll的改进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#epoll%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.</span> <span class="toc-text">epoll的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#select%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">select的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-number">6.</span> <span class="toc-text">应用</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -876,6 +876,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">索引</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">多路复用IO</a>
               </li>
             
             <div class="clearfix"></div>
