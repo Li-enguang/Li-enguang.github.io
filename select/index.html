@@ -6,13 +6,13 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.lienguang.com">
-  <title>【Linux系列】多路复用IO,从底层理解select | Li-eng</title>
+  <title>【Linux系列】从底层理解select和epoll的区别 | Li-eng</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="description" content="网络数据是怎么接收到的？read读不到数据又是怎么阻塞的，select和epoll又是如何实现的呢？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Linux系列】多路复用IO,从底层理解select">
+<meta property="og:title" content="【Linux系列】从底层理解select和epoll的区别">
 <meta property="og:url" content="http://www.lienguang.com/select/index.html">
 <meta property="og:site_name" content="Li-eng">
 <meta property="og:description" content="网络数据是怎么接收到的？read读不到数据又是怎么阻塞的，select和epoll又是如何实现的呢？">
@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210316152252343.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210316152313947.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2021-03-16T05:29:04.000Z">
-<meta property="article:modified_time" content="2021-03-21T09:51:36.665Z">
+<meta property="article:modified_time" content="2021-03-21T13:44:30.279Z">
 <meta property="article:author" content="Li-eng">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="select">
@@ -261,7 +261,7 @@
   
   
     <h1 class="article-title" itemprop="name">
-      【Linux系列】多路复用IO,从底层理解select
+      【Linux系列】从底层理解select和epoll的区别
     </h1>
   
 
@@ -381,7 +381,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://www.lienguang.com/select/" title="【Linux系列】多路复用IO,从底层理解select" target="_blank">http://www.lienguang.com/select/</a>
+          <a href="http://www.lienguang.com/select/" title="【Linux系列】从底层理解select和epoll的区别" target="_blank">http://www.lienguang.com/select/</a>
         </li>
         
         <li>
@@ -880,6 +880,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">多路复用IO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DS</a>
               </li>
             
             <div class="clearfix"></div>
