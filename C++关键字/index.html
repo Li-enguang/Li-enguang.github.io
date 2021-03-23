@@ -6,27 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.lienguang.com">
-  <title>哈希索引、B+树索引(聚集，非聚集，联合，覆盖) | Li-eng</title>
+  <title>【C++系列】经典面试题：C++中的关键字 | Li-eng</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="在数据库中，表、数据、索引之间的关系就类似于书籍、书籍内容、书籍目录。">
+  <meta name="description" content="static  不考虑类的情况   隐藏。所有不加static的全局变量和函数具有全局可见性，可以在其他文件中使用，加了之后只能在该文件所在的编译模块中使用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="哈希索引、B+树索引(聚集，非聚集，联合，覆盖)">
-<meta property="og:url" content="http://www.lienguang.com/%E7%B4%A2%E5%BC%95/index.html">
+<meta property="og:title" content="【C++系列】经典面试题：C++中的关键字">
+<meta property="og:url" content="http://www.lienguang.com/C++%E5%85%B3%E9%94%AE%E5%AD%97/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="在数据库中，表、数据、索引之间的关系就类似于书籍、书籍内容、书籍目录。">
+<meta property="og:description" content="static  不考虑类的情况   隐藏。所有不加static的全局变量和函数具有全局可见性，可以在其他文件中使用，加了之后只能在该文件所在的编译模块中使用">
 <meta property="og:locale">
-<meta property="og:image" content="http://www.lienguang.com/%E7%B4%A2%E5%BC%95/0.png">
-<meta property="og:image" content="http://www.lienguang.com/%E7%B4%A2%E5%BC%95/1.png">
-<meta property="og:image" content="http://www.lienguang.com/%E7%B4%A2%E5%BC%95/2.png">
-<meta property="article:published_time" content="2021-03-18T12:36:04.000Z">
-<meta property="article:modified_time" content="2021-03-21T13:45:56.225Z">
+<meta property="article:published_time" content="2021-03-21T02:10:20.000Z">
+<meta property="article:modified_time" content="2021-03-23T14:55:30.920Z">
 <meta property="article:author" content="Li-eng">
-<meta property="article:tag" content="MYSQL">
-<meta property="article:tag" content="索引">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.lienguang.com/%E7%B4%A2%E5%BC%95/0.png">
   
     <link rel="alternative" href="/atom.xml" title="Li-eng" type="application/atom+xml">
   
@@ -248,22 +243,22 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-索引" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-C++关键字" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      哈希索引、B+树索引(聚集，非聚集，联合，覆盖)
+      【C++系列】经典面试题：C++中的关键字
     </h1>
   
 
 
   
   
-<a href="/%E7%B4%A2%E5%BC%95/" class="archive-article-date">
-        <time datetime="2021-03-18T12:36:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-18</time>
+<a href="/C++%E5%85%B3%E9%94%AE%E5%AD%97/" class="archive-article-date">
+        <time datetime="2021-03-21T02:10:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-21</time>
 </a>
 
   
@@ -276,7 +271,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">2k字</span>
+      <span class="post-count">1.4k字</span>
     </span>
   </span>
 
@@ -285,7 +280,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">7分</span>
+      <span class="post-count">4分</span>
     </span>
   </span>
 </div>
@@ -296,72 +291,56 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>在数据库中，表、数据、索引之间的关系就类似于书籍、书籍内容、书籍目录。</p>
-<span id="more"></span>
-<h3 id="什么是索引"><a href="#什么是索引" class="headerlink" title="什么是索引"></a>什么是索引</h3><p>倘若不使用索引，则MySQL必须遍历整个表，直到找到数据，而表越大，查询的时间则越长，则数据库的效率也就越低。而索引就类似于书籍的目录，可以帮助我们快速的定位、检索到需要的数据行，对提高数据库的性能有着很大的帮助。</p>
-<h3 id="索引优缺点与适用场景"><a href="#索引优缺点与适用场景" class="headerlink" title="索引优缺点与适用场景"></a>索引优缺点与适用场景</h3><p><strong>优点</strong></p>
+    <p><strong>static</strong></p>
 <ul>
-<li>大大加快了数据检索的速度</li>
-<li>所有的列类型都可以被索引，也就是可以给任意字段设置索引</li>
+<li>不考虑类的情况  <ul>
+<li>隐藏。所有不加static的全局变量和函数具有全局可见性，可以在其他文件中使用，加了之后只能在该文件所在的编译模块中使用 <span id="more"></span></li>
+<li>默认初始化为0，包括未初始化的全局静态变量与局部静态变量，都存在全局未初始化区 </li>
+<li>静态变量在函数内定义，始终存在，且只进行一次初始化，具有记忆性，其作用范围与局部变量相同，函数退出后仍然存在，但不能使用 </li>
 </ul>
-<p><strong>缺点</strong></p>
-<ul>
-<li><p>索引需要占用物理空间，建立的索引越多则需要的空间越大</p>
 </li>
-<li><p>创建和维护索引需要耗费时间，并且时间随着数据量的增加而增加</p>
-</li>
-<li><p>当对表中的数据进行增加、删除、修改的时候，索引也要动态的维护，降低了数据的维护速度</p>
-<p>考虑到它的优缺点，通常在满足以下两种条件的情况下才会为其建立索引</p>
-</li>
-<li><p>数据量较大，并且经常对这些列进行查询</p>
-</li>
-<li><p>该数据库表的插入操作，以及对这些列的修改操作频率较低</p>
+<li>考虑类的情况  <ul>
+<li>static成员变量：只与类关联，不与类的对象关联。定义时要分配空间，不能在类声明中初始化，必须在类定义体外部初始化，初始化时不需要标示为static；可以被非static成员函数任意访问。 </li>
+<li>static成员函数：不具有this指针，无法访问类对象的非static成员变量和非static成员函数；<strong>不能被声明为const、虚函数和volatile</strong>；可以被非static成员函数任意访问 </li>
+</ul>
 </li>
 </ul>
-<p>因为MySQL 中索引是在存储引擎层实现的，所以并没有统一的索引标准，即不同存储引擎的索引的工作方式并不一样。</p>
-<p>在InnoDB存储引擎中，主要支持以下三种常见的索引</p>
+<p><strong>const</strong></p>
 <ul>
-<li>B+树索引</li>
-<li>哈希索引</li>
-<li>全文索引</li>
+<li><p>不考虑类的情况</p>
+<ul>
+<li><p>const常量在定义时必须初始化，之后无法更改</p>
+</li>
+<li><p>const形参可以接收const和非const类型的实参，例如</p>
+</li>
 </ul>
-<h3 id="哈希索引"><a href="#哈希索引" class="headerlink" title="哈希索引"></a>哈希索引</h3><p>哈希索引的原理其实就是通过除留余数法将键值转换为哈希值，并将数据存储对应的桶中，如果出现了哈希冲突，则使用链地址法进行解决，将数据插入对应桶中的链表。哈希之前的博客有讲。</p>
-<p>由于哈希是直接通过哈希值来将数据映射到对应位置，所以哈希索引对于等值查询的效率特别高，但是也正因为这个特性，使得哈希查找在面对范围查找的时候就毫无用武之地了。</p>
-<h3 id="自适应哈希索引"><a href="#自适应哈希索引" class="headerlink" title="自适应哈希索引"></a>自适应哈希索引</h3><p>在InnoDB存储引擎会监控对表上各个索引页的查询，如果它观察到建立哈希索引可以带来速度提升，则会自行建立哈希索引，这也就是<strong>自适应哈希索引</strong>。即会自动根据访问频率和模式来为<strong>热点数据</strong>建立哈希索引。</p>
-<p>由于哈希索引是数据库自身自动创建并使用的，人工无法对其进行干预</p>
-<h3 id="B-树索引"><a href="#B-树索引" class="headerlink" title="B+树索引"></a>B+树索引</h3><p>比起哈希索引，B+树索引的优势主要在于<strong>排序查找以及区间查找</strong></p>
-<p>在数据库中，B+树索引可以分为<strong>聚集索引（主键索引）</strong>和<strong>非聚集索引（辅助索引）</strong>，它们之间的区别在于<strong>叶子节点中存放的是否是一整行的信息（即用户数据）</strong></p>
-<h3 id="聚集索引"><a href="#聚集索引" class="headerlink" title="聚集索引"></a>聚集索引</h3><p>聚集索引其实就是<strong>索引和数据在同一个数据结构中</strong></p>
-<p>由于InnoDB存储引擎中表的数据按照主键顺序存放，所以聚集索引也就是按照每张表的主键来构造出一颗B+树。由于数据真正的排序方式只能有一种，所以在每张表中只能存在着<strong>一个</strong>聚集索引。</p>
-<p>这颗B+树的<strong>非叶子节点存放的是数据的索引</strong>，而<strong>叶子节点存放的即为整张表的行记录数据</strong>，所以我们通常也将叶子节点称为<strong>数据页</strong>，并且每个叶子节点之间用<strong>双向链表</strong>进行连接</p>
-<p><img src="/%E7%B4%A2%E5%BC%95/0.png"><br>聚集索引对于主键的排序查找和范围查找速度非常快，并且由于叶子节点就是数据，所以只需要查找<strong>一次</strong>就可以得到结果</p>
-<h3 id="非聚集索引"><a href="#非聚集索引" class="headerlink" title="非聚集索引"></a>非聚集索引</h3><p>对于非聚集索引（辅助索引）来说，<strong>叶子节点并不包含行记录的全部数据，而是包含了主键的值</strong><br>也就是说，我们需要在<strong>非聚集索引中查找到主键，再通过主键在聚集索引中查找到具体的值</strong>，也就是需要<strong>两次</strong>查找。<br><img src="/%E7%B4%A2%E5%BC%95/1.png"><br>这就好比我们在查看书籍后面的专有名词索引一样，通过某个关键词查找到其在哪一个章节中，再通过目录来找到具体的章节位置。所以非聚集索引其实也就是一个<strong>二级索引</strong></p>
-<p>基于以上特性，由于辅助索引的存在并不会影响数据在聚集索引中的组织，因此每张表中可以有<strong>多个</strong>辅助索引</p>
-<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>创建主键约束（PRIMARY KEY）、唯一约束（UNIQUE）、外键约束（FOREIGN KEY）时，会自动创建对应列的索引。</p>
-<p>查看索引</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> INDEX <span class="keyword">FROM</span> 表名</span><br></pre></td></tr></table></figure>
-
-<p>创建</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> INDEX 索引名 <span class="keyword">ON</span> 表名（字段名）</span><br><span class="line">或者</span><br><span class="line">ALTER TABLE 表名 ADD &#123;KEY | INDEX&#125; 索引名</span><br></pre></td></tr></table></figure>
-
-<p>删除</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> INDEX 索引名 <span class="keyword">ON</span> 表名</span><br></pre></td></tr></table></figure>
-
-<h3 id="联合索引"><a href="#联合索引" class="headerlink" title="联合索引"></a>联合索引</h3><p>联合索引即<strong>对表上的多个列进行索引</strong>，例如下图。<br><img src="/%E7%B4%A2%E5%BC%95/2.png"><br>联合索引和普通的B+树不同的地方在于它具有<strong>多个</strong>键值，虽然键值有序，但是是<strong>按照从左往右的优先级以此对键值的大小进行排序</strong>，例如上图有两个键值，首先会<strong>先按照第一个键值的大小进行排序，当第一个键相同时，再按照第二个键的大小进行排序</strong>。</p>
-<p>因为以上特性，联合索引具有最左前缀匹配规则，<strong>当不满足规则时则不会使用联合索引，而是进行全索引扫描</strong>。</p>
-<h3 id="最左前缀匹配规则"><a href="#最左前缀匹配规则" class="headerlink" title="最左前缀匹配规则"></a>最左前缀匹配规则</h3><p>就以上述数据进行举例，此时以键值（a, b）构建联合索引</p>
-<p><strong>全值匹配查询</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="keyword">TABLE</span> <span class="keyword">WHERE</span> a <span class="operator">=</span> xxx <span class="keyword">AND</span> b <span class="operator">=</span> xxx 、</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="keyword">TABLE</span> <span class="keyword">WHERE</span> a <span class="operator">=</span> xxx </span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="keyword">TABLE</span> <span class="keyword">WHERE</span> b <span class="operator">=</span> xxx </span><br></pre></td></tr></table></figure>
-
-<p>对于以上几条查询语句来说，虽然看起来差不多，但是效率却大相径庭。</p>
-<p>对于前两句来说，它们是可以使用联合索引的，因为无论是按照a作为条件，或者是a和b作为条件，都可以利用索引进行搜索，因为前面也说过了，联合索引的排序是按照从左往右优先的，所以当查找条件中包含a的时候则不会出现问题。</p>
-<p>但对于b=xxx则无法适用以上性质，因为在联合索引中，<strong>后面的主键只有在前面的主键相同时才会具有有序性</strong>，而单独适用它的时候显然数据是无序的，所以这时只能进行行全索引扫描。</p>
-<p>对于<strong>范围查找</strong>也是这么一个道理，假设此时联合索引的主键为（a, b, c)</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="keyword">TABLE</span> <span class="keyword">WHERE</span> a <span class="operator">&gt;</span> <span class="number">3</span> <span class="keyword">AND</span> b <span class="operator">&gt;</span> <span class="number">3</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="keyword">TABLE</span> <span class="keyword">WHERE</span> a <span class="operator">&gt;</span> <span class="number">3</span> <span class="keyword">AND</span> b <span class="operator">&gt;</span> <span class="number">3</span> <span class="keyword">AND</span> c <span class="operator">&gt;</span> <span class="number">3</span> </span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="keyword">TABLE</span> <span class="keyword">WHERE</span> a <span class="operator">&gt;</span> <span class="number">3</span> <span class="keyword">AND</span> c <span class="operator">&gt;</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
-
-<p>同样按照上面的规则，前两种查询都可以适用联合索引，因为其遵循了从左至右的匹配原则，而第三条因为跳过了b，此时的数据是无序的，无法适用索引。</p>
-<h3 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h3><p>覆盖索引即从辅助索引中就可以得到查询的记录，而不需要查询聚集索引中的记录。使用覆盖索引的一个好处就是由于辅助索引中不包含整行的所有记录，所以它的大小要远远小于聚集索引，因此可以减少大量的I/O操作。</p>
-<p>由于辅助索引中叶子节点存放的数据就是主键，所以当我们要查找主键，或者通过主键来统计数量的时候，就可以使用覆盖索引来完成。</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// i 可以是 int 型或者 const int 型</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>&amp; i)</span></span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>考虑类的情况</p>
+<ul>
+<li>const成员变量：不能在类定义外部初始化，只能通过构造函数初始化列表进行初始化，并且必须有构造函数；不同类对其const数据成员的值可以不同，所以不能在类中声明时初始化 </li>
+<li>const成员函数：const对象不可以调用非const成员函数；非const对象都可以调用；不可以改变非mutable（用该关键字声明的变量可以在const成员函数中被修改）数据的值</li>
+</ul>
+</li>
+</ul>
+<p><strong>1、C 语言的 static 关键字的作用</strong></p>
+<p>静态局部变量：用于函数体内部修饰变量，这种变量的生存期长于该函数。<br>静态局部变量的特点：<br>（1）该变量在全局数据区分配内存(局部变量在栈区分配内存);<br>（2）静态局部变量在程序执行到该对象的声明处时被首次初始化，即以后的函数调用不再进行初始化(局部变量每次函数调用都会被初始化);<br>（3）静态局部变量一般在声明处初始化，如果没有显式初始化，会被程序自动初始化为0(局部变量不会被初始化);<br>（4）它始终驻留在全局数据区，直到程序运行结束。但其作用域为局部作用域，也就是不能在函数体外面使用它(局部变量在栈区，在函数结束后立即释放内存);</p>
+<p>静态全局变量：定义在函数体外，用于修饰全局变量，表示该变量只在本文件可见。<br>静态全局变量的特点：<br>静态全局变量不能被其它文件所用(全局变量可以);<br>其它文件中可以定义相同名字的变量，不会发生冲突(自然了，因为static隔离了文件，其它文件使用相同的名字的变量，也跟它没关系了);</p>
+<p>静态函数的好处跟静态全局变量的好处类似：<br>1.静态函数不能被其它文件所用;<br>2.其它文件中可以定义相同名字的函数，不会发生冲突;<br>静态函数： 准确的说，静态函数跟静态全局变量的作用类似：</p>
+<p><strong>2.C++ 语言的 static 关键字</strong></p>
+<p>对于非静态数据成员，每个类对象(实例)都有自己的拷贝。而静态数据成员被当作是类的成员，由该类型的所有对象共享访问,对该类的多个对象来说，静态数据成员只分配一次内存。<br>静态数据成员存储在全局数据区。静态数据成员定义时要分配空间，所以不能在类声明中定义。<br>静态成员函数，可以用类名::函数名进行访问。<br>那么静态成员函数有特点呢？<br>1.静态成员之间可以相互访问，包括静态成员函数访问静态数据成员和访问静态成员函数;<br>2.非静态成员函数可以任意地访问静态成员函数和静态数据成员;<br>3.静态成员函数不能访问非静态成员函数和非静态数据成员;<br>4.调用静态成员函数，可以用成员访问操作符(.)和(-&gt;)为一个类的对象或指向类对象的指针调用静态成员函数,也可以用类名::函数名调用(因为他本来就是属于类的，用类名调用很正常)</p>
+<p><strong>3.explicit</strong></p>
+<p>explicit关键字用来修饰类的构造函数，被修饰的构造函数的类，不能发生相应的隐式类型转换，只能以显示的方式进行类型转换，注意以下几点：</p>
+<ul>
+<li><p>explicit 关键字只能用于类内部的构造函数声明上</p>
+</li>
+<li><p>explicit 关键字作用于单个参数的构造函数</p>
+</li>
+<li><p>被explicit修饰的构造函数的类，不能发生相应的隐式类型转换</p>
+</li>
+</ul>
 
     
 
@@ -403,7 +382,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://www.lienguang.com/索引/" title="哈希索引、B+树索引(聚集，非聚集，联合，覆盖)" target="_blank">http://www.lienguang.com/索引/</a>
+          <a href="http://www.lienguang.com/C++关键字/" title="【C++系列】经典面试题：C++中的关键字" target="_blank">http://www.lienguang.com/C++关键字/</a>
         </li>
         
         <li>
@@ -425,11 +404,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MYSQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">索引</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
         		</li>
       		
 		</ul>
@@ -485,7 +460,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/%E7%B4%A2%E5%BC%95/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/C++%E5%85%B3%E9%94%AE%E5%AD%97/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -500,18 +475,18 @@
 
 <nav id="article-nav">
   
-    <a href="/%E6%8C%87%E9%92%88%E5%92%8C%E5%BC%95%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          【C++系列】经典面试题：main前后会执行什么？指针和引用的区别？
+          对多路复用IO，select、poll、epoll的一些探讨
         
       </div>
     </a>
   
   
-    <a href="/socekt/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">【网络】再谈Socket模型与TCP的连接管理</div>
+    <a href="/%E6%8C%87%E9%92%88%E5%92%8C%E5%BC%95%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【C++系列】经典面试题：main前后会执行什么？指针和引用的区别？</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -538,7 +513,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%B4%A2%E5%BC%95"><span class="toc-number">1.</span> <span class="toc-text">什么是索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E4%BC%98%E7%BC%BA%E7%82%B9%E4%B8%8E%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">2.</span> <span class="toc-text">索引优缺点与适用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E7%B4%A2%E5%BC%95"><span class="toc-number">3.</span> <span class="toc-text">哈希索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E9%80%82%E5%BA%94%E5%93%88%E5%B8%8C%E7%B4%A2%E5%BC%95"><span class="toc-number">4.</span> <span class="toc-text">自适应哈希索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B-%E6%A0%91%E7%B4%A2%E5%BC%95"><span class="toc-number">5.</span> <span class="toc-text">B+树索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%9A%E9%9B%86%E7%B4%A2%E5%BC%95"><span class="toc-number">6.</span> <span class="toc-text">聚集索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E8%81%9A%E9%9B%86%E7%B4%A2%E5%BC%95"><span class="toc-number">7.</span> <span class="toc-text">非聚集索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">8.</span> <span class="toc-text">使用方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95"><span class="toc-number">9.</span> <span class="toc-text">联合索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B7%A6%E5%89%8D%E7%BC%80%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99"><span class="toc-number">10.</span> <span class="toc-text">最左前缀匹配规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95"><span class="toc-number">11.</span> <span class="toc-text">覆盖索引</span></a></li></ol>
+                    目录，不存在的…
                     </div>
                 </span>
             </div>
