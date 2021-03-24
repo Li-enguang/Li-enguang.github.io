@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.lienguang.com">
-  <title>epoll的工作模式：LT与ET | Li-eng</title>
+  <title>epoll的工作模式：LT与ET触发模式 | Li-eng</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="description" content="epoll有两种工作模式，LT模式（水平触发模式）和ET模式（边缘触发模式）。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="epoll的工作模式：LT与ET">
+<meta property="og:title" content="epoll的工作模式：LT与ET触发模式">
 <meta property="og:url" content="http://www.lienguang.com/LTET/index.html">
 <meta property="og:site_name" content="Li-eng">
 <meta property="og:description" content="epoll有两种工作模式，LT模式（水平触发模式）和ET模式（边缘触发模式）。">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-03-24T11:55:51.800Z">
-<meta property="article:modified_time" content="2021-03-24T13:30:19.126Z">
+<meta property="article:published_time" content="2021-03-22T07:23:10.000Z">
+<meta property="article:modified_time" content="2021-03-24T14:25:10.345Z">
 <meta property="article:author" content="Li-eng">
 <meta property="article:tag" content="epoll">
 <meta name="twitter:card" content="summary">
@@ -250,7 +250,7 @@
   
   
     <h1 class="article-title" itemprop="name">
-      epoll的工作模式：LT与ET
+      epoll的工作模式：LT与ET触发模式
     </h1>
   
 
@@ -258,7 +258,7 @@
   
   
 <a href="/LTET/" class="archive-article-date">
-        <time datetime="2021-03-24T11:55:51.800Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-24</time>
+        <time datetime="2021-03-22T07:23:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-22</time>
 </a>
 
   
@@ -356,7 +356,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://www.lienguang.com/LTET/" title="epoll的工作模式：LT与ET" target="_blank">http://www.lienguang.com/LTET/</a>
+          <a href="http://www.lienguang.com/LTET/" title="epoll的工作模式：LT与ET触发模式" target="_blank">http://www.lienguang.com/LTET/</a>
         </li>
         
         <li>
@@ -449,9 +449,18 @@
 
 <nav id="article-nav">
   
+    <a href="/%E5%89%8D%E5%BA%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
   
-    <a href="/%E7%BC%96%E8%AF%91/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">编译的整个过程：预编译、编译、汇编、链接</div>
+  
+    <a href="/%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">对多路复用IO，select、poll、epoll的一些探讨</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -846,6 +855,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">编译</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mutex</a>
               </li>
             
             <div class="clearfix"></div>
