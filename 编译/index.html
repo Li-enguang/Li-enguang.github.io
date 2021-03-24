@@ -6,25 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.lienguang.com">
-  <title>TCP使用的四种计时器，你了解吗？ | Li-eng</title>
+  <title>编译的整个过程：预编译、编译、汇编、链接 | Li-eng</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="TCP 是提供给可靠的传输层，它使用的方法之一就是确认从另一端收到的数据，但是数据和确认都可能会丢失。TCP 通过在发送时设置一个定时器来解决这个问题。如果当定时器溢出时还没收到确认，它就会重传该数据(关键在于超时和重传策略，即怎样决定超时的时间间隔和如何确定重传的频率) , 对于每个连接，TCP 管理着四个不同的定时器。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="TCP使用的四种计时器，你了解吗？">
-<meta property="og:url" content="http://www.lienguang.com/tcp-clock/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="编译的整个过程：预编译、编译、汇编、链接">
+<meta property="og:url" content="http://www.lienguang.com/%E7%BC%96%E8%AF%91/index.html">
 <meta property="og:site_name" content="Li-eng">
-<meta property="og:description" content="TCP 是提供给可靠的传输层，它使用的方法之一就是确认从另一端收到的数据，但是数据和确认都可能会丢失。TCP 通过在发送时设置一个定时器来解决这个问题。如果当定时器溢出时还没收到确认，它就会重传该数据(关键在于超时和重传策略，即怎样决定超时的时间间隔和如何确定重传的频率) , 对于每个连接，TCP 管理着四个不同的定时器。">
 <meta property="og:locale">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210208215437926.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2021-03-14T14:59:27.504Z">
-<meta property="article:modified_time" content="2021-03-18T05:55:47.117Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210324182038602.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210324185124469.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021032419205475.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210324192113680.png">
+<meta property="article:published_time" content="2021-03-24T10:10:20.311Z">
+<meta property="article:modified_time" content="2021-03-24T11:35:57.621Z">
 <meta property="article:author" content="Li-eng">
-<meta property="article:tag" content="network">
-<meta property="article:tag" content="TCP">
+<meta property="article:tag" content="编译">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210208215437926.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210324182038602.png">
   
     <link rel="alternative" href="/atom.xml" title="Li-eng" type="application/atom+xml">
   
@@ -246,22 +246,22 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-tcp-clock" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-编译" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      TCP使用的四种计时器，你了解吗？
+      编译的整个过程：预编译、编译、汇编、链接
     </h1>
   
 
 
   
   
-<a href="/tcp-clock/" class="archive-article-date">
-        <time datetime="2021-03-14T14:59:27.504Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
+<a href="/%E7%BC%96%E8%AF%91/" class="archive-article-date">
+        <time datetime="2021-03-24T10:10:20.311Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-24</time>
 </a>
 
   
@@ -274,7 +274,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">1.8k字</span>
+      <span class="post-count">991字</span>
     </span>
   </span>
 
@@ -283,7 +283,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">6分</span>
+      <span class="post-count">3分</span>
     </span>
   </span>
 </div>
@@ -294,30 +294,30 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>TCP 是提供给可靠的传输层，它使用的方法之一就是确认从另一端收到的数据，但是数据和确认都可能会丢失。TCP 通过在发送时设置一个定时器来解决这个问题。如果当定时器溢出时还没收到确认，它就会重传该数据(关键在于超时和重传策略，即怎样决定超时的时间间隔和如何确定重传的频率) , 对于每个连接，TCP 管理着四个不同的定时器。</p>
+    <p><img src="https://img-blog.csdnimg.cn/20210324182038602.png"></p>
 <span id="more"></span>
-<h3 id="TCP使用的四种计时器"><a href="#TCP使用的四种计时器" class="headerlink" title="TCP使用的四种计时器"></a>TCP使用的四种计时器</h3><ul>
-<li>重传计时器</li>
-<li>坚持计时器</li>
-<li>保活计时器</li>
-<li>时间等待计时器  </li>
-</ul>
-<p><strong>1、重传计时器</strong></p>
-<p>目的：防止数据丢失，丢失了就重传</p>
-<p>TCP每发送一个报文段，就对此报文段设置一个超时重传计时器。可能发生两种情况：<br>若在计时器截止时间到（通常是60秒）之前收到了对此特定报文段的确认，则撤销此计时器；在收到对特定报文段的确认之前计时器超时，则重传该报文，并把计时器复位；</p>
-<p>TCP在发送一份数据后，启动重传定时器，在经过若干时间后如果没有收到ACK，则重传该数据，这个时间间隔通常如下:1s, 3s, 6s, 12s, 24, 48s, 和多个64s。这个指数关系被称为指数退避。TCP会一直尝试重传该数据，在9分钟以后放弃。</p>
-<p><strong>2.坚持计时器</strong> </p>
-<p>目的：为了防止接收方发送0窗口后，再次发送的非0窗口丢失，造成发送接收方“死等”现象。</p>
-<p>假定A是发送端，B是接收端。模拟一个场景：<br>① B向A发送一个0窗口告诉A，此时缓冲区满了不能够接收数据了，因此A将停止发送数据给B，直到A收到B发来地非0窗口才会继续向B发送数据。② B向A发送了非0窗口的数据包，但是该数据包丢失 ==&gt; 因为非0窗口的数据包丢失了，所以A将一直等待B发送非0窗口；同时B发送完了非0窗口给A，B将会一直等待A发送数据过来 ==&gt; ==&gt; 形成A、B相互等待，死锁。</p>
-<p>分析可知，产生该现象的原因是B发送给A的0窗口后，再次发送的非0窗口丢失导致的，顺理成章的解决方案就是：<br>①当A收到B发送来的非0窗口时，立即启动坚持计时器<br>②当坚持计时器到时，A就向B发送探测报文段，探测报文段的作用是提醒B，非0窗口的确认已经丢失，必须重传。<br>③假设A依然没收到B发来的非0窗口的确认，则发送端A仍需要继续向B再次发送一个探测报文段，并将坚持定时器的值加倍，直到这个值增大到门限值(通常是60s)为止。在这以后，发送端A每隔60s就发送一个探测报文段，直到窗口重新打开。</p>
-<p>需要注意的是：发送方收到一个窗口大小为零的确认时，就启动坚持器 。当坚持计时器期限到时，发送方就发送一个特殊的报文段，叫做探测报文段 。这个报文段只有一个字节的数据。它有一个序号，但它的序号永远不需要确认；甚至在计算对其他部分的数据的确认时该序号也被忽略。探测报文段提醒对端：确认已丢失，必须重传。</p>
-<p><strong>3、保活计时器</strong></p>
-<p>目的：在长连接中，检测无响应的连接并将其断开，防止占用过多的连接资源</p>
-<p>保活计时器使用在某些实现中，用来防止在两个TCP之间的连接出现长时期的空闲。假定客户打开了到服务器的连接，传送了一些数据，然后就保持静默了。也许这个客户出故障了。在这种情况下，这个连接将永远地处理打开状态。<br>要解决这种问题，在大多数的实现中都是使服务器设置保活计时器。每当服务器收到客户的信息，就将计时器复位。保活计时器通常设置为2小时。若服务器过了2小时还没有收到客户的信息，它就发送探测报文段。若发送了10个探测报文段（每一个相隔75秒）还没有响应，就假定客户出了故障，因而就终止该连接。</p>
-<p><strong>4.时间等待计时器</strong> </p>
-<p>该计时器就是TIME_WAIT计时器，即当客户端发送FIN给服务端后，服务端回复ACK后，客户端将进入TIME_WAIT状态(等待服务端发送FIN+ACK)。如果在计时器时间内没有接收到FIN，客户端将会重启TIME_WAIT计时器继续等待服务端发来的FIN。保证全双工管道的安全断开。<br><img src="https://img-blog.csdnimg.cn/20210208215437926.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>TIME_WAIT 确保有足够的时间让对端收到了ACK，如果服务端没有收到ACK，就会使得客户端端重发FIN。因为最后一次确认应答 ACK 报文段很有可能丢失，因而使被动关闭方处于在LIST_ACK 状态，此时被动关闭方会重发这个 FIN 报文段，在这等待的 2MSL 时间内主动关闭方重新收到这个被动关闭方重发的 FIN 报文段，因此，主动关闭方会重新发送确认应答信息，从而重新启动 2MSL 计时器，直到通信双方都进入 CLOSED 状态。</p>
-<p>如果主动关闭方在 TIME_WAIT 状态不等待一段时间就直接释放连接并进入 CLOSED 状态，那么主动关闭方无法收到来自被动关闭方重发的 FIN 报文段，也就不会再发送一次确认 ACK 报文段，因此被动关闭方就无法正常进入CLOSED 状态。</p>
-<p><strong>TIME_WAIT有什么用，为什么客户端关闭连接后要等待？要等待多久？</strong><br>  如果没有TIME_WAIT，客户端在发送最后一次ACK后就直接关闭的情况下，如果此时最后一次ACK包文丢失，服务端很久并没有收到包文，它会再次重发最后一次FIN包，如果此时客户端又重启了一个同端口的客户端准备再次建立连接，此时却接收到服务端发来的FIN包就会陷入混乱，因此客户端在此时需要等待。至于等待多久此时需要2个MSL的时间，一个MSL时间表示数据包在网络中的生命周期，它最久只能在网络中存活这么久，如果还没有成功则会销毁这个包，也就是丢包，等待两个MSL时间是为了让客户端自己发送的包以及以及服务端如果重发FIN包都能够要么接收到，要么都消亡在网络中不对后续连接造成影响，等待2个MSL时间已经足够保守极大减少之前连接会影响到之后连接情况。</p>
+<p>预处理， 展开头文件/宏替换/去掉注释/条件编译                      （test.i main .i）<br>编译，    检查语法，生成汇编                                                      （ test.s  main .s）<br>汇编，   汇编代码转换机器码                                                         (test.o main.o)<br>链接     链接到一起生成可执行程序                                              a.out<br><img src="https://img-blog.csdnimg.cn/20210324185124469.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><strong>1.预处理阶段</strong>    gcc  -E  main.c  -o  main.i ，然后生成.i文件</p>
+<p>预编译过程主要做4件事：<br>①展开头文件<br>在写有#include <filename>或#include “filename”的文件中，将文件filename展开，通俗来说就是将fiename文件中的代码写入到当前文件中；<br>②宏替换<br>③去掉注释，添加行号和文本标识<br>④条件编译<br>即对#ifndef #define #endif进行判断检查，也正是在这一步，#ifndef #define #endif的作用体现出来，即防止头文件被多次重复引用</filename></p>
+<p><strong>2.编译</strong></p>
+<p>1.词法分析：扫描器来进行；<br>（1）词：关键字，标识符，字面量（数字，字符串），特殊符号（加号，等号）</p>
+<p>（2）将标识符放到符号表</p>
+<p>（3）将数字，字符串放到符号表</p>
+<p>2.语法分析：语法分析器，语法树</p>
+<p>3.语义分析：语义分析器</p>
+<p>（1）分析静态语义（即编译时期可以确定的语义）：声明和类型匹配，类型转换</p>
+<p>（2）分析动态语义（即运行时才能确定的语义）</p>
+<p>（3）对符号表中的符号进行更新。<br>4.代码优化 ，生成汇编代码文件：代码生成器，目标代码优化器</p>
+<p>将代码转成汇编代码，并且在这个步骤中做了两件很重要的工作：<br>①编译器在每个文件中保存一个函数地址符表，该表中存储着当前文件内包含的各个函数的地址；<br>②因为这步要生成汇编代码，即一条一条的指令，而调用函数的代码会被编译成一条call指令，call指令后面跟的是jmp指令的汇编代码地址，而jmp指令后面跟的才是“被调用的函数编译成汇编代码后的第一条指令”的地址，但是给call指令后面补充上地址的工作是在链接的时候做的事情。</p>
+<p><strong>3.汇编</strong> </p>
+<p>汇编命令：gcc  -C  main.s  -o  main.o，然后生成.o文件，即可重定位（重入）的二进制文件</p>
+<p>将汇编代码转成机器码<br>1.将汇编指令翻译成二进制<br>2.生成符号表<br><img src="https://img-blog.csdnimg.cn/2021032419205475.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>3.生成各种段”Segme”<br><img src="https://img-blog.csdnimg.cn/20210324192113680.png" alt="在这里插入图片描述"><br>             （0）ELF header文件头：描述整个文件的文件属性：是否可执行，静态链接还是动态链接级入口地址，目标硬件，目标                                                              操作</p>
+<p>   （1）.text代码段：存放源代码编译后的机器指令。普通局部变量也当做指令<br>（2）.data数据段：存放已初始化的全局变量和局部静态变量</p>
+<p>（3）相当于没有的.bss段：，不占据空间，只是下面两种变量的预留位置</p>
+<p>记录未初始化的全局变量和局部静态变量的大小总和。（这两种变量默认为0本可以放在.data段，但是没必要，浪费空间。所以就有.bss段，他的存在节省了磁盘空间。.bss段在文件中不占据空间,只是预留位置。）</p>
+<p>（4）.comment注释信息段。</p>
+<p><strong>4.链接</strong></p>
+<p>链接命令：gcc mian.o –o mian  ,生成ELF文件（即可执行文件），有头和.data、.text段等<br>编译器将生产的多个.o文件链接到一起生成一个可执行.exe文件；<br>但是在这个过程中，编译器做的一个重要的事情是将每个文件中call指令后面的地址补充上；方式是从当前文件的函数地址符表中开始找，如果没有，继续向别的文件的函数地址符表中找，找到后填补在call指令后面，如果找不到，则链接失败。</p>
 
     
 
@@ -359,7 +359,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://www.lienguang.com/tcp-clock/" title="TCP使用的四种计时器，你了解吗？" target="_blank">http://www.lienguang.com/tcp-clock/</a>
+          <a href="http://www.lienguang.com/编译/" title="编译的整个过程：预编译、编译、汇编、链接" target="_blank">http://www.lienguang.com/编译/</a>
         </li>
         
         <li>
@@ -381,11 +381,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">network</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">TCP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">编译</a>
         		</li>
       		
 		</ul>
@@ -441,7 +437,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/tcp-clock/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://www.lienguang.com/%E7%BC%96%E8%AF%91/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -456,18 +452,18 @@
 
 <nav id="article-nav">
   
-    <a href="/select/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/%E5%89%8D%E5%BA%8F/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          【Linux系列】从底层理解select和epoll的区别
+          (no title)
         
       </div>
     </a>
   
   
-    <a href="/kuangtu/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">C++/Linux 知识学习框图总结</div>
+    <a href="/%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">对多路复用IO，select、poll、epoll的一些探讨</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -494,7 +490,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E4%BD%BF%E7%94%A8%E7%9A%84%E5%9B%9B%E7%A7%8D%E8%AE%A1%E6%97%B6%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">TCP使用的四种计时器</span></a></li></ol>
+                    目录，不存在的…
                     </div>
                 </span>
             </div>
