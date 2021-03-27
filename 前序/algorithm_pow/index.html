@@ -19,7 +19,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/2021032723583584.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2021-03-27T15:42:39.195Z">
-<meta property="article:modified_time" content="2021-03-27T15:59:01.267Z">
+<meta property="article:modified_time" content="2021-03-27T16:19:14.904Z">
 <meta property="article:author" content="Li-eng">
 <meta property="article:tag" content="algorithm">
 <meta name="twitter:card" content="summary">
@@ -273,7 +273,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">239字</span>
+      <span class="post-count">385字</span>
     </span>
   </span>
 
@@ -303,7 +303,9 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">myPow</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> tmp=<span class="number">1</span>; </span><br><span class="line">    <span class="keyword">if</span>(n&lt;<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        x=<span class="number">1</span>/x;</span><br><span class="line">        n=-n;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;            </span><br><span class="line">        tmp*=x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>直接安排下面这种，超越100%。图片仅供参考<br><img src="https://img-blog.csdnimg.cn/2021032723583584.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU4MjUyNw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">myPow</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line"><span class="keyword">double</span> tmp=<span class="number">1.0</span>; </span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=n;i!=<span class="number">0</span>;i/=<span class="number">2</span>)</span><br><span class="line">&#123;          </span><br><span class="line">    <span class="keyword">if</span>(i%<span class="number">2</span>!=<span class="number">0</span>)<span class="comment">//奇数</span></span><br><span class="line">    &#123;</span><br><span class="line">      tmp*=x;</span><br><span class="line">    &#125;  </span><br><span class="line">    x*=x; </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> n&gt;<span class="number">0</span>?tmp:<span class="number">1</span>/tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>让i初始化为n，然后看i是否是2的倍数，不是的话就让 tmp 乘以x。然后x乘以自己，i每次循环缩小一半，直到为0停止循环。最后返回时判断n的正负</p>
+<p>让i初始化为n，然后看i是否是2的倍数，不是的话就让 tmp 乘以x。然后x乘以自己，i每次循环缩小一半，直到=0停止循环。最后一次 i 必定变为 1，必定乘以tmp，最后返回时判断n的正负</p>
+<p>假设x=2，n=5；n为奇数，第一次进入循环，tmp*=x，也就是 1<em>x，之后i/=2变为i=2，开始算x * x，再一次 i变为1，也就是最后一次了，乘个x，就是之前算出来的前面所有的乘积。<br>假设x=2，n=4，n为偶数，第一次进入循环，直接算x</em>x，只有偶数个，对半乘就好了，最后i变为1，乘个tmp，结束。</p>
+<p>很巧妙的算法，从大神偷来的，学到了。<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/grandyang/p/4606334.html">https://www.cnblogs.com/grandyang/p/4606334.html</a></p>
 
     
 
